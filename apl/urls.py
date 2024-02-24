@@ -1,12 +1,12 @@
-from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from . import views
-
 urlpatterns = [
     path("home/", views.home, name="home"),
-    path("post1/", views.post1, name="post1"),
-    path("post2/", views.post2, name="post2"),
-    path("", views.index, name="index"),
-    path('aaa/', views.aaa, name='aaa'),
+    # path("create/", views.create, name="create"),
+    path("about/", views.about, name="about"),
+    path("login/", views.login, name="login"),
+    path("", views.base, name="base"),
+    path('register/',views.register, name='register'),
+    path('register_good/',views.register_good, name='register_good'),
    
 ]
