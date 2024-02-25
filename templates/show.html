@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <table id="tab" style="font-size: 25px; margin: auto; text-align: center;">
+        <thead>
+            <h3>
+                <th>команда</th>
+                <th>описание</th>
+                <th>язык//система</th>
+            </h3>
+        </thead>
+        <tbody>
+            {% for inf in teg %}
+            <tr>       
+                <td>{{ inf.title }}</td>
+                <td>{{ inf.content }}</td>
+                <td>
+                    {% for inf2 in inf.categories.all %}
+                    {{ inf2.name }}
+                    {% endfor %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <style>
+        
+    </style>
+    </body>
+    {% endblock%}

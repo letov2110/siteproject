@@ -1,10 +1,7 @@
-
-<!DOCTYPE html>
 {% load static %}
 <html>
 <head>
 <title>BukaProject</title>
-<link rel="stylesheet" type="text/css" href="style.css">
 <style>
 body {
  background: #333;
@@ -26,10 +23,16 @@ body {
     position: fixed;
     top: 0;
     z-index: 1000;
-    line-height: 55px;
-    font-family: "Django", sans-serif; /* Изменение стиля шрифта */
-    padding-left: 250px;
+    line-height: 70px;
+    font-family: "Django", sans-serif;
+   
+    display: flex; 
+
 }
+#header1 { padding-left: 250px;    display: flex; }
+#header2 {padding-left: 1200px;    display: flex; }
+#header3 {padding-left: 50px;    display: flex; }
+
 
 #container {
  background: #444;
@@ -46,7 +49,7 @@ body {
   position: fixed;
   top: 80px;
   z-index: 999;
-  display: flex;
+  display: flex; 
   justify-content: space-around;
 }
 
@@ -59,65 +62,39 @@ body {
   padding: 0;
 }
 
-#sidebar {
- background: #666;
- width: 20%;
- height: calc(100vh - 95px);
- position: fixed;
- top: 80px;
- left: 0;
-}
-
-#content {
- background: #777;
- width: 80%;
- height: calc(100vh - 95px);
- position: fixed;
- top: 80px;
- right: 0;
-}
-
-.contenta {
-    min-height: calc(100% - 50px);}
-  
-  .footer {
-    height: 35px;
-    background: #555;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    font-size: 15px;
-    padding-left: 1400px;
-    padding-top: 0px;
-
-  }
 </style>
 </head>
 <body>
-<div id="header">
+<div id="header" style="justify-content: space-between";>
+  <div id="header1">
 <a href="/home" >BukaProject</a>
+<div id="header2">
+<a  href="/login">log in</a>  
+<div id="header3" >
+<a  href="/register">registration</a>
+</div>
+</div>
+</div>
 </div>
 
+
 <div id="container">
-<div id="navigation">
-  <li class="nav-item">
-    <a class="nav-link" href="/home">home</a></li>
-<li class="nav-item">
-    <a class="nav-link" href="/about">about</a></li>
-<li class="nav-item">
-    <a class="nav-link" href="/create">add</a></li>
-<li class="nav-item">
-      <a class="nav-link" href="/login">log in</a></li>    
-<li class="nav-item">
-    <a class="nav-link" href="/register">registration</a></li>
-    
+  <div id="navigation">
+    <li class="nav-item">
+      <a class="nav-link" href="/home">home</a></li>
+    <li class="nav-item">  
+      <a class="nav-link" href="/create">add command</a></li>
+      <li class="nav-item">  
+        <a class="nav-link" href="/show">command</a></li>  
+    <li class="nav-item">  
+      <a class="nav-link" href="/about">about</a></li>    
 </div>
 
 <div id="sidebar">
  <h2>
-  
+  {% block sidebar %}
 </h2>
+{% endblock sidebar %}
 </div>
 
 <div id="content">
@@ -133,5 +110,41 @@ body {
   </footer>
   
 {% endblock %}
+<style>
+#sidebar {
+  background: #666;
+  width: 20%;
+  height: calc(100vh - 95px);
+  position: fixed;
+  top: 80px;
+  left: 0;
+ }
+ 
+ #content {
+  background: #777;
+  width: 80%;
+  height: calc(100vh - 95px);
+  position: fixed;
+  top: 80px;
+  right: 0;
+  overflow-y: scroll;
+ }
+ 
+ .contenta {
+     min-height: 50px;}
+   
+   .footer {
+     height: 50px;
+     background: #555;
+     position: fixed;
+     bottom: 0;
+     left: 0;
+     width: 100%;
+     font-size: 15px;
+     padding-left: 100px;
+     padding-top: 10px;
+ 
+   }
+ </style>
 </body>
 </html>

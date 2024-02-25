@@ -1,22 +1,20 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse, HttpResponseRedirect,HttpResponseNotFound
-from .models import Post
+from .models import Post,Category
+from .forms import UserReg, AddPost
 
-from .forms import UserReg
-
-
+##
 def base(request):
     return render(request,'base.html')
-
+##
 def home(request):
     return render(request,'home.html')
-
+##
 def about(request):
     return render(request,'about.html')
-
+##
 def login(request):
     return render(request,'login.html')
-
+###
 def register(request):
     if request.method == 'POST':
         user_form = UserReg(request.POST)
@@ -31,21 +29,25 @@ def register(request):
     else:
         user_form = UserReg()
     return render(request, 'register.html', {'user_form': user_form})
-
+###
 def register_good(request):
       return render(request,'register_good.html')
+####
+def show(request):
+    teg = Post.objects.all()
+    teg1=Category.objects.all()
+    return render(request, "show.html", {"teg": teg,'teg1':teg1})
 
-
-def index(request):
-    fullteg=Post.object.all()
-    return render(request, 'index.html',{'fullteg':fullteg})
-
+####
 def create(request):
-    if request.method == "POST":
-        teg = Post()
-        teg.title = request.POST.get("title")
-        teg.content = request.POST.get("content")
-        teg.categories=request.POST.get('categories')
-        teg.save()
-    return HttpResponseRedirect("/")
-
+    if request.method == 'POST':
+        add_form = AddPost(request.POST)
+        if add_form.is_valid():
+            add_new = add_form.save()
+            return redirect('create_good')  
+    else:
+        add_form = AddPost()
+    return render(request, 'create.html', {'add_form': add_form})
+def create_good(request):
+      return render(request,'create_good.html')
+####

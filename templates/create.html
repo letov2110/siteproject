@@ -1,12 +1,49 @@
 {% extends 'base.html' %}
-{%block title% }create forma{%endblock% }  
 {% block content %}
- <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Сохранить</button>
-    </form>
-    {% endblock%}
 <html>
-   
-    
+
+<body>
+    <h1>добавить команду</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <label for="id_title">команда:</label>
+            {{ add_form.title }}
+            <label for="id_content">описание:</label>
+            {{ add_form.content }}<a class='category'> <label for="id_categories">язык:</label>
+            {{ add_form.categories }}</a>        
+             </div>       
+        <button type="submit">сохранить</button>
+    </form>
+</body>
+<style>form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 30px;
+}
+
+form input {
+    width: 80%;
+    margin-bottom: 20px;
+    padding: 10px; 
+    font-size: 30px; 
+    height: 80px;
+}
+form select {
+    width: 80%;
+    font-size: 30px
+    height: 100px; 
+
+}
+
+form button {
+    width: 10%;
+    padding: 15px;
+    margin-top: 50px;
+}</style>
+
+</style>
+</html>
+{% endblock content %}
+</html>
