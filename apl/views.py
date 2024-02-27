@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect,get_object_or_404
+from django.shortcuts import render,redirect
 from .models import Post,Category
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from .forms import UserReg, AddPost,LoginUser

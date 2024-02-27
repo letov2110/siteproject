@@ -6,6 +6,7 @@ urlpatterns = [
     path("about/", views.about, name="about"),   
     path("create/", views.create, name="create"),
     path("create_good/", views.create_good, name="create_good"),    
+    ########
     path('register/',views.register, name='register'),
     path('register_good/',views.register_good, name='register_good'),
     ###########
@@ -16,7 +17,6 @@ urlpatterns = [
     path('show/', views.show, name='show'),
     path("show/edit/<int:id>/", views.edit),
     path("show/delete/<int:id>/", views.delete),
-    ####
     path('show/edit/<int:id>/edit_good/', views.edit_good, name='edit_good'),
 #######
     
