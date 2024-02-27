@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-sk1oc&5b)eyx46_sv7%)f19hk&(br=6!05gl%h*@zk5pt14^$+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','127.0.0.1/8000']
 
 
 # Application definition
@@ -75,11 +75,21 @@ WSGI_APPLICATION = 'chtoto.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+    
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'mydb',
+        'USER': 'yury',
+        'PASSWORD': 'yury',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
+
 
 
 # Password validation

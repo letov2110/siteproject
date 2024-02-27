@@ -11,6 +11,10 @@ class UserReg(ModelForm):
         model = User
         fields = ['username', 'password']
 
+class LoginUser(ModelForm):
+    class Meta:
+        model = User
+        fields = ["username", "password"]
     
 
 class AddPost(ModelForm):

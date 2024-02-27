@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
+
 {% block content %}
 <body>
-    <table id="tab" style="font-size: 25px; margin: auto; text-align: center;">
+    <table id="tab" style=" margin: auto; text-align: center;">
         <thead>
-            <h3>
+            <h3 style='font-size: 30px;'>
                 <th>команда</th>
                 <th>описание</th>
                 <th>язык//система</th>
             </h3>
         </thead>
-        <tbody>
+        <tbody style='font-size: 20px;'>
             {% for inf in teg %}
             <tr>       
                 <td>{{ inf.title }}</td>
@@ -17,14 +18,21 @@
                 <td>
                     {% for inf2 in inf.categories.all %}
                     {{ inf2.name }}
+                   
                     {% endfor %}
                 </td>
+                <h4>
+                    
+                    <td style='color: #eee;'>
+                        <a href="edit/{{inf.id}} {{inf2.name}}">Изменить</a> |
+                     <a href="delete/{{inf.id}} {{inf2.name}}">Удалить</a></td></h4>
             </tr>
+
+            
             {% endfor %}
         </tbody>
+
     </table>
-    <style>
-        
-    </style>
+
     </body>
     {% endblock%}

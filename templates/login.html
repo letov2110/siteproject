@@ -1,17 +1,40 @@
-
 {% extends 'base.html' %}
 {% block content %}
+<style>
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    form input, button {
+        width: 15%;
+        margin-bottom: 10px;
+        padding: 5px;
+    }
 
-<html>
+    small {
+        font-size: 30px;
+    }
+</style>
 
-<body>
-    <main>
-        <h2> </h2>
-        <h2> </h2>
-        <h2> </h2>
-        <h3>страница в разработке </h3>
-        
-    </main>
-</body>
-{% endblock content %}
+    <div class="site-heading">
+        <h2>Войти</h2>
+        {% if err %}
+            <p>{{err}}</p>
+        {% endif %}
+        <form action="/login/" method="POST">
+            {% csrf_token %} 
+            {{ login.username.label_tag }}
+            {{login.username}}
+
+            {{ login.password.label_tag }}
+            {{login.password}}
+           
+            <button type="submit">войти</button>
+        </form>
+    </div>
+</div>
+
+{% endblock  %}
 </html>

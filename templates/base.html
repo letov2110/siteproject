@@ -72,6 +72,8 @@ body {
 <a  href="/login">log in</a>  
 <div id="header3" >
 <a  href="/register">registration</a>
+<nav>
+        
 </div>
 </div>
 </div>
@@ -87,29 +89,31 @@ body {
       <li class="nav-item">  
         <a class="nav-link" href="/show">command</a></li>  
     <li class="nav-item">  
-      <a class="nav-link" href="/about">about</a></li>    
+      <a class="nav-link" href="/about">about</a></li>  
+      
 </div>
 
 <div id="sidebar">
  <h2>
-  {% block sidebar %}
+  {% block sidebar %} {% endblock sidebar %}
 </h2>
-{% endblock sidebar %}
+
 </div>
 
 <div id="content">
- <h2>  {% block content %}  </h2>
+ <h2>  {% block content %}  {% endblock %}</h2>
 </div>
 </div>
 
 <div class="contenta">
     <h1>Footer Text</h1>
   </div>
+</div>
   <footer class="footer">
     <p>BukaY © 2024 да нет прав никаких</p>
   </footer>
-  
-{% endblock %}
+</div>
+
 <style>
 #sidebar {
   background: #666;

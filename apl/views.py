@@ -1,6 +1,8 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .models import Post,Category
-from .forms import UserReg, AddPost
+from django.http import HttpResponseRedirect, HttpResponseNotFound
+from .forms import UserReg, AddPost,LoginUser
+from django.contrib.auth import authenticate, login
 
 ##
 def base(request):
@@ -11,9 +13,7 @@ def home(request):
 ##
 def about(request):
     return render(request,'about.html')
-##
-def login(request):
-    return render(request,'login.html')
+
 ###
 def register(request):
     if request.method == 'POST':
@@ -33,6 +33,27 @@ def register(request):
 def register_good(request):
       return render(request,'register_good.html')
 ####
+def login_page(request):
+    err = None
+    if request.method == "POST":
+        user = authenticate(
+            request,
+            username=request.POST.get("username"),
+            password=request.POST.get("password"),
+        )
+        if user is not None:
+            login(request, user)
+
+            return redirect("/log_in_good/")
+        else:
+            err = "User not found"
+    log = LoginUser()
+    return render(request, "login.html", {"login": log, "err": err})
+
+######
+def log_in_good(request):
+    return render(request,'log_in_good.html')
+#######
 def show(request):
     teg = Post.objects.all()
     teg1=Category.objects.all()
@@ -48,6 +69,36 @@ def create(request):
     else:
         add_form = AddPost()
     return render(request, 'create.html', {'add_form': add_form})
+#########
 def create_good(request):
       return render(request,'create_good.html')
 ####
+def edit(request, id):
+    try:
+        post = Post.objects.get(id=id)
+        categories = Category.objects.all()
+        if request.method == "POST":
+            post.title = request.POST.get("title")
+            post.content = request.POST.get("content")
+            category_id = request.POST.get('category')
+            category = Category.objects.get(id=category_id)
+            post.category = category
+            post.save()
+            return HttpResponseRedirect("edit_good")
+        else:
+            return render(request, "edit.html", {"post": post, "categories": categories})
+    except Post.DoesNotExist:
+        return HttpResponseNotFound("<h2>Post not found</h2>")
+#####
+def edit_good(request):
+    return HttpResponseRedirect(request,"/edit_good/")
+#####
+def delete(request, id):
+    try:
+        post = Post.objects.get(id=id)
+        post.delete()
+        return HttpResponseRedirect("/show/")
+    except Post.DoesNotExist:
+        return HttpResponseNotFound("<h2>Post not found</h2>")
+    
+
