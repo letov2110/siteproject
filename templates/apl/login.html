@@ -8,7 +8,7 @@
     }
     
     form input, button {
-        width: 15%;
+        width: 60%;
         margin-bottom: 10px;
         padding: 5px;
     }
@@ -17,22 +17,20 @@
         font-size: 30px;
     }
 </style>
-
-    <div class="site-heading">
-        <h2>Войти</h2>
-        {% if err %}
-            <p>{{err}}</p>
-        {% endif %}
-        <form action="/login/" method="POST">
-            {% csrf_token %} 
+<h1>вход</h1>
+    <form action="/login/" method="POST">
+        {% csrf_token %} 
+        {% comment %} {{ login.as_p }} {% endcomment %}
+        <div style="display: flex; flex-direction: column; align-items: center;">
             {{ login.username.label_tag }}
             {{login.username}}
 
             {{ login.password.label_tag }}
             {{login.password}}
-           
-            <button type="submit">войти</button>
-        </form>
+            
+            <button type="submit">войти в аккаунт</button>
+    </form>
+
     </div>
 </div>
 

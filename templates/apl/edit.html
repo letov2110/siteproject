@@ -1,0 +1,48 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+<body>
+    <h1>правка</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% comment %} {{ post_form.as_p }}  {% endcomment %}
+        <div style="display: flex; flex-direction: column; align-items: center;">
+            <label for="id_title">команда:</label>
+            {{ post_form.title }}
+            <label  style='font-size: 30px;' for="id_content">описание:</label>
+            {{ post_form.content }}<a class='category'> <label for="id_categories">язык:</label>
+            {{ post_form.categories }}</a>        
+             </div>       
+        <button type="submit">сохранить</button>
+    </form>
+</body>
+<style>form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 30px;
+}
+
+form input {
+    width: 80%;
+    margin-bottom: 20px;
+    padding: 10px; 
+    font-size: 30px; 
+    height: 40px;
+}
+form select {
+    width: 80%;
+    font-size: 30px
+    height: 100px; 
+
+}
+
+form button {
+    width: 10%;
+    padding: 15px;
+    margin-top: 50px;
+}</style>
+        
+    </form>
+</body>{% endblock  %} 

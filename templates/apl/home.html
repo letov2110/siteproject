@@ -1,0 +1,20 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+<html>
+   
+    
+   
+<body>
+    <div id="menu">
+        <a class="aa" style='color: #eee;' href="/show">команды</a> | <a class="nav-link" style='color: #eee;'  href="{% url 'shownews' %}">новости</a><br>
+      <img style="height: 400px; width: 600px;" src="{{ image.get_image_url }}" alt="image"><br>
+
+       <a class="aa" style='color: #eee;'  href="/artic">статьи</a> | <a class="nav-link" style='color: #eee;'  href="/forum">форум</a><br>
+    </div>
+   
+  </body>
+{% endblock content %}
+
+</html>

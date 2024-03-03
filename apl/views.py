@@ -1,19 +1,20 @@
 from django.shortcuts import render,redirect
-from .models import Post,Category
+from .models import Post,Category,Img
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from .forms import UserReg, AddPost,LoginUser
-from django.contrib.auth import authenticate, login
-
+from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 ##
 def base(request):
     return render(request,'base.html')
 ##
 def home(request):
-    return render(request,'home.html')
+    image = Img.objects.latest('id')
+    return render(request, 'apl/home.html', {'image': image})
 ##
 def about(request):
-    return render(request,'about.html')
-
+    return render(request,'apl/about.html')
 ###
 def register(request):
     if request.method == 'POST':
@@ -28,38 +29,46 @@ def register(request):
             return redirect('register_good')
     else:
         user_form = UserReg()
-    return render(request, 'register.html', {'user_form': user_form})
+    return render(request, 'apl/register.html', {'user_form': user_form})
 ###
 def register_good(request):
-      return render(request,'register_good.html')
+      return render(request,'apl/register_good.html')
 ####
 def login_page(request):
-    err = None
+    log=LoginUser()
     if request.method == "POST":
-        user = authenticate(
-            request,
-            username=request.POST.get("username"),
-            password=request.POST.get("password"),
-        )
-        if user is not None:
-            login(request, user)
+        log=LoginUser(request,data=request.POST)
+        if log.is_valid():
+            user = authenticate(
+                request,
+                username=request.POST.get("username"),
+                password=request.POST.get("password"),
+            )
+            if user is not None:
+                login(request, user)
+                return redirect("/log_in_good/")
 
-            return redirect("/log_in_good/")
-        else:
-            err = "User not found"
-    log = LoginUser()
-    return render(request, "login.html", {"login": log, "err": err})
-
+    print(request.user)
+    return render(request, "apl/login.html", {"login": log})
+####
+def logout_page(request):
+    logout(request)
+    return redirect("/login/")
 ######
 def log_in_good(request):
-    return render(request,'log_in_good.html')
+    return render(request,'apl/log_in_good.html')
 #######
 def show(request):
     teg = Post.objects.all()
-    teg1=Category.objects.all()
-    return render(request, "show.html", {"teg": teg,'teg1':teg1})
+    teg1 = Category.objects.all()
 
+    category_id = request.GET.get('category')
+    if category_id:
+        teg = teg.filter(categories=category_id)
+
+    return render(request, "apl/show.html", {"teg": teg, 'teg1': teg1})
 ####
+@login_required(login_url='/login/')
 def create(request):
     if request.method == 'POST':
         add_form = AddPost(request.POST)
@@ -68,30 +77,29 @@ def create(request):
             return redirect('create_good')  
     else:
         add_form = AddPost()
-    return render(request, 'create.html', {'add_form': add_form})
+    return render(request, 'apl/create.html', {'add_form': add_form})
 #########
 def create_good(request):
-      return render(request,'create_good.html')
+      return render(request,'apl/create_good.html')
 ####
+@login_required(login_url='/login_page/')
 def edit(request, id):
     try:
         post = Post.objects.get(id=id)
         categories = Category.objects.all()
         if request.method == "POST":
-            post.title = request.POST.get("title")
-            post.content = request.POST.get("content")
-            category_id = request.POST.get('category')
-            category = Category.objects.get(id=category_id)
-            post.category = category
-            post.save()
-            return HttpResponseRedirect("edit_good")
+            post_form = AddPost(request.POST, instance=post)
+            if post_form.is_valid():
+                post_form.save()
+                return HttpResponseRedirect(reverse('edit_good'))
         else:
-            return render(request, "edit.html", {"post": post, "categories": categories})
+            post_form = AddPost(instance=post)
+        return render(request, "apl/edit.html", {"post": post, "categories": categories, "post_form": post_form})
     except Post.DoesNotExist:
         return HttpResponseNotFound("<h2>Post not found</h2>")
 #####
 def edit_good(request):
-    return HttpResponseRedirect(request,"/edit_good/")
+    return render(request,"apl/edit_good.html")
 #####
 def delete(request, id):
     try:
@@ -100,5 +108,14 @@ def delete(request, id):
         return HttpResponseRedirect("/show/")
     except Post.DoesNotExist:
         return HttpResponseNotFound("<h2>Post not found</h2>")
+    ##
+
+#potom del
+def artic(request):
+    return render(request,'artic.html')
+def forum(request):
+    return render(request,'forum.html')
+
+    #potom del
     
 

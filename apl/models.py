@@ -1,8 +1,5 @@
 from django.db import models
 from django.utils.text import slugify
-from django.forms import ModelForm
-from django.contrib.auth.models import User
-
 
 class Category(models.Model):
     name = models.CharField(max_length=20)
@@ -18,5 +15,14 @@ class Post(models.Model):
 
     def __str__(self):
         return slugify(self.title)
+    
+class Img(models.Model):
+    image = models.ImageField(upload_to='static/images/apl')
+    def get_image_url(self):
+        return self.image.url
+
+
+
+
     
 

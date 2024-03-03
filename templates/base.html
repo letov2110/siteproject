@@ -84,17 +84,24 @@ body {
   <div id="navigation">
     <li class="nav-item">
       <a class="nav-link" href="/home">home</a></li>
-    <li class="nav-item">  
-      <a class="nav-link" href="/create">add command</a></li>
-      <li class="nav-item">  
-        <a class="nav-link" href="/show">command</a></li>  
+    
+       
     <li class="nav-item">  
       <a class="nav-link" href="/about">about</a></li>  
       
 </div>
+<div id="rightbar">
+  <h2>
+   {% block rightbar %} {% endblock rightbar %}
+ </h2>
+ 
+ </div>
 
 <div id="sidebar">
  <h2>
+ 
+        <a class="nav-link" href="/show">command</a></br>
+        <a class="nav-link" href="{% url 'shownews' %}">news</a></br>
   {% block sidebar %} {% endblock sidebar %}
 </h2>
 
@@ -115,22 +122,33 @@ body {
 </div>
 
 <style>
+  #sidebar a{  color: #eee;
+    font-family: arial, sans-serif;
+  font-size: 24px;
+  }
 #sidebar {
   background: #666;
-  width: 20%;
+  width: 15%;
   height: calc(100vh - 95px);
   position: fixed;
   top: 80px;
   left: 0;
  }
- 
- #content {
-  background: #777;
-  width: 80%;
+ #rightbar {
+  background: #666;
+  width: 15%;
   height: calc(100vh - 95px);
   position: fixed;
   top: 80px;
   right: 0;
+ }
+ #content {
+  background: #777;
+  width: 70%;
+  height: calc(100vh - 95px);
+  position: fixed;
+  top: 80px;
+  right: 15%;
   overflow-y: scroll;
  }
  
