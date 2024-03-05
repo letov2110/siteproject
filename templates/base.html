@@ -83,25 +83,32 @@ body {
 <div id="container">
   <div id="navigation">
     <li class="nav-item">
-      <a class="nav-link" href="/home">home</a></li>
-    
+      <a class="nav-link" href="{% url 'home' %}">home</a></li>
+     
        
     <li class="nav-item">  
       <a class="nav-link" href="/about">about</a></li>  
       
 </div>
 <div id="rightbar">
-  <h2>
-   {% block rightbar %} {% endblock rightbar %}
- </h2>
+<h6>
+ 
+  {% block rightbar %}
+
+
+  {% endblock rightbar %}
+</h6>
  
  </div>
 
 <div id="sidebar">
  <h2>
- 
-        <a class="nav-link" href="/show">command</a></br>
-        <a class="nav-link" href="{% url 'shownews' %}">news</a></br>
+  
+        <a class="nav-link" href="{% url 'show' %}">архив команд</a></br>
+        <a class="nav-link" href="{% url 'shownews' %}">новости</a></br>
+        {% comment %} <a class="nav-link" href="{% url 'news_home' %}">ст</a></br> {% endcomment %}
+        <a class="nav-link" href="/show1">rest_create_read</a></br>
+        <a class="nav-link" href="/show2">rest_upd_del</a></br>
   {% block sidebar %} {% endblock sidebar %}
 </h2>
 
@@ -109,8 +116,10 @@ body {
 
 <div id="content">
  <h2>  {% block content %}  {% endblock %}</h2>
+
+ 
 </div>
-</div>
+
 
 <div class="contenta">
     <h1>Footer Text</h1>
@@ -122,6 +131,10 @@ body {
 </div>
 
 <style>
+  #rightbar a{  color: #eee;
+    font-family: arial, sans-serif;
+  font-size: 20px;
+  }
   #sidebar a{  color: #eee;
     font-family: arial, sans-serif;
   font-size: 24px;

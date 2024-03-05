@@ -1,0 +1,19 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+     <h1 style="font-size: 30px; color: #eee; text-align: center;">{{ newss.title }}</h1>
+     <div class='alert' style="padding: 10px;">
+     <p style="font-size: 14px; color: #111; text-align: center;">{{ newss.date }} | {{ newss.category}} | Просмотры: {{ newss.views }}</p>
+     </div>
+     <img src="{{ newss.image.url }}" style="width: 100%; max-width: 800px; display: block; margin: 0 auto;" alt="image">
+     <h1> </h1>
+     <h1> </h1>
+     <h1> </h1>
+     <div style="overflow: auto; max-height: 400px; text-align: center;">
+     <h1 style="font-size: 18px; color: #333; width: 80%; margin: 0 auto;">{{ newss.text }}</h1>
+     </div>
+
+
+{% endblock content %} 

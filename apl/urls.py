@@ -23,8 +23,14 @@ urlpatterns = [
     path("show/delete/<int:id>/", views.delete),
     path('edit_good/', views.edit_good, name='edit_good'),
     #potom del
-path('artic/', views.artic, name='artic'),
+
 path('forum/', views.forum, name='forum'),
     #potom del
+
+    
+#potom del
+path('show1/', views.PostPostListCreate.as_view(),name='post-view-create'),
+path('show2/<int:pk>/', views.PostRetrieveUpdateDestroy.as_view(),name='retrieve-update-destroy')
+#potom del
 #######
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,11 +1,21 @@
 from django.shortcuts import render
 from .models import Cat_News,News
-
+from django.views.generic import DetailView
 
 def shownews(request):
-    newsc=Cat_News.objects.all()
-    news = News.objects.all()
+    newsc = Cat_News.objects.all()
+    news = News.objects.order_by('date')
     category_id = request.GET.get('category')
     if category_id:
-        teg = teg.filter(categories=category_id)
-    return render(request, 'news/shownews.html', {'news': news,'newsc':newsc})
+        news = news.filter(category__id=category_id)
+    return render(request, 'news/shownews.html', {'news': news, 'newsc': newsc})
+
+class NewsView(DetailView):
+    model=News
+    template_name= 'news/d_news.html'
+    context_object_name='newss'
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        obj.views += 1
+        obj.save()
+        return obj

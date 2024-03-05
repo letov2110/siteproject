@@ -5,6 +5,10 @@ from .forms import UserReg, AddPost,LoginUser
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+# from django.views.generic import TemplateView
+from rest_framework import generics
+from .serializers import PostSerializer
+# from rest_framework.views import APIViews
 ##
 def base(request):
     return render(request,'base.html')
@@ -111,11 +115,27 @@ def delete(request, id):
     ##
 
 #potom del
-def artic(request):
-    return render(request,'artic.html')
+
 def forum(request):
     return render(request,'forum.html')
 
-    #potom del
+#potom del
+class PostPostListCreate(generics.ListCreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class=PostSerializer
     
+class PostRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    queryset=Post.objects.all()
+    serializer_class=PostSerializer
+    lookup_field='pk'
 
+#potom del
+# class LoginView(TemplateView):
+#     def get(request):
+#         pass
+#     def post(request):
+#         pass
+#     def delete(request):
+#         pass
+    
+#potom del
