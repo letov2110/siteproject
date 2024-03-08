@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<style> h1 { text-align: center; font-size: 28px; } 
+    p4 { font-size: 20px; } 
+    p2 { margin-left: 20px; font-size: 25px; } 
+</style> 
+<h1>туториалы</h1> 
+{% for tut in all_tut %}
+ <p2>{{ tut.title }}</p2></br>
+ <p4>автор: {{ tut.author }} | дата: {{ tut.date }} | просмотры: {{ tut.views }}</p4>
+  <p4><a href="{% url 'd_tutor' tut.id %}" style="margin-left: 30px;" class="btn">читать полностью</a></p4></br>
+   {% endfor %}
+
+ </body>
+</html>
+{% endblock content %} 

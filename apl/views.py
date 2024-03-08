@@ -1,14 +1,14 @@
 from django.shortcuts import render,redirect
 from .models import Post,Category,Img
 from django.http import HttpResponseRedirect, HttpResponseNotFound
-from .forms import UserReg, AddPost,LoginUser
-from django.contrib.auth import authenticate, login,logout
+from .forms import AddPost
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-# from django.views.generic import TemplateView
 from rest_framework import generics
 from .serializers import PostSerializer
 # from rest_framework.views import APIViews
+# from django.views.generic import TemplateView
+
 ##
 def base(request):
     return render(request,'base.html')
@@ -20,47 +20,7 @@ def home(request):
 def about(request):
     return render(request,'apl/about.html')
 ###
-def register(request):
-    if request.method == 'POST':
-        user_form = UserReg(request.POST)
-        if user_form.is_valid():
-            
-            new_user = user_form.save(commit=False)
-            
-            new_user.set_password(user_form.cleaned_data['password'])
-            
-            new_user.save()
-            return redirect('register_good')
-    else:
-        user_form = UserReg()
-    return render(request, 'apl/register.html', {'user_form': user_form})
-###
-def register_good(request):
-      return render(request,'apl/register_good.html')
-####
-def login_page(request):
-    log=LoginUser()
-    if request.method == "POST":
-        log=LoginUser(request,data=request.POST)
-        if log.is_valid():
-            user = authenticate(
-                request,
-                username=request.POST.get("username"),
-                password=request.POST.get("password"),
-            )
-            if user is not None:
-                login(request, user)
-                return redirect("/log_in_good/")
 
-    print(request.user)
-    return render(request, "apl/login.html", {"login": log})
-####
-def logout_page(request):
-    logout(request)
-    return redirect("/login/")
-######
-def log_in_good(request):
-    return render(request,'apl/log_in_good.html')
 #######
 def show(request):
     teg = Post.objects.all()
@@ -72,7 +32,7 @@ def show(request):
 
     return render(request, "apl/show.html", {"teg": teg, 'teg1': teg1})
 ####
-@login_required(login_url='/login/')
+@login_required
 def create(request):
     if request.method == 'POST':
         add_form = AddPost(request.POST)
@@ -86,7 +46,7 @@ def create(request):
 def create_good(request):
       return render(request,'apl/create_good.html')
 ####
-@login_required(login_url='/login_page/')
+@login_required
 def edit(request, id):
     try:
         post = Post.objects.get(id=id)
@@ -105,6 +65,7 @@ def edit(request, id):
 def edit_good(request):
     return render(request,"apl/edit_good.html")
 #####
+@login_required
 def delete(request, id):
     try:
         post = Post.objects.get(id=id)
@@ -114,12 +75,12 @@ def delete(request, id):
         return HttpResponseNotFound("<h2>Post not found</h2>")
     ##
 
-#potom del
+#later del
 
 def forum(request):
     return render(request,'forum.html')
 
-#potom del
+#later del
 class PostPostListCreate(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class=PostSerializer
@@ -129,7 +90,7 @@ class PostRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=PostSerializer
     lookup_field='pk'
 
-#potom del
+#lter del
 # class LoginView(TemplateView):
 #     def get(request):
 #         pass
@@ -138,4 +99,4 @@ class PostRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 #     def delete(request):
 #         pass
     
-#potom del
+#later del

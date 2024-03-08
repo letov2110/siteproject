@@ -7,6 +7,11 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("apl.urls")),
     path("newart/", include("newart.urls")),
+    path("reglog/", include("reglog.urls")),
+    # path('tinymce/', include('tinymce.urls')),    
+    path('tutor/', include('tutor.urls')),
+
+
    
 
 ]

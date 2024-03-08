@@ -43,10 +43,10 @@
             {% endfor %}
         </tbody>
         <style>
-            a{  color: #eee;
+            {% comment %} a{  color: #eee;
                 font-family: arial, sans-serif;
               font-size: 20px;
-              }
+              } {% endcomment %}
         button {
             background-color: #777;
             color:white;}
@@ -63,7 +63,7 @@
             input.select();
             document.execCommand('copy');
             document.body.removeChild(input);
-            alert('Copied to clipboard: ' + text);
+            {% comment %} alert('Copied to clipboard: ' + text); {% endcomment %}
         }
         </script>
 

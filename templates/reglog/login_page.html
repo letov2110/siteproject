@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<style>
+ <style>
     form {
         display: flex;
         flex-direction: column;
@@ -18,9 +18,8 @@
     }
 </style>
 <h1>вход</h1>
-    <form action="/login/" method="POST">
+    <form method="POST">
         {% csrf_token %} 
-        {% comment %} {{ login.as_p }} {% endcomment %}
         <div style="display: flex; flex-direction: column; align-items: center;">
             {{ login.username.label_tag }}
             {{login.username}}

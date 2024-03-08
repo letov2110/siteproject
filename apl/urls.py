@@ -11,26 +11,19 @@ urlpatterns = [
     path("create/", views.create, name="create"),
     path("create_good/", views.create_good, name="create_good"),    
     ########
-    path('register/',views.register, name='register'),
-    path('register_good/',views.register_good, name='register_good'),
-    ###########
-    path("login/", views.login_page, name="login"),
-    path("log_in_good/", views.log_in_good, name="log_in_good"),
-    path("logout/", views.logout_page),
-    ###########
     path('show/', views.show, name='show'),
     path("show/edit/<int:id>/", views.edit),
     path("show/delete/<int:id>/", views.delete),
     path('edit_good/', views.edit_good, name='edit_good'),
-    #potom del
+    #later del
 
 path('forum/', views.forum, name='forum'),
-    #potom del
+    #later del
 
     
-#potom del
+#later del
 path('show1/', views.PostPostListCreate.as_view(),name='post-view-create'),
 path('show2/<int:pk>/', views.PostRetrieveUpdateDestroy.as_view(),name='retrieve-update-destroy')
-#potom del
+#later del
 #######
     ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

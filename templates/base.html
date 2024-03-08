@@ -29,9 +29,10 @@ body {
     display: flex; 
 
 }
-#header1 { padding-left: 250px;    display: flex; }
-#header2 {padding-left: 1200px;    display: flex; }
-#header3 {padding-left: 50px;    display: flex; }
+#header1 {padding-left: 220px;    display: flex; }
+#header2 {padding-left: 1000px;    display: flex; }
+#header3 {padding-left: 70px;    display: flex; }
+#header4 {padding-left: 70px;    display: flex; }
 
 
 #container {
@@ -69,11 +70,13 @@ body {
   <div id="header1">
 <a href="/home" >BukaProject</a>
 <div id="header2">
-<a  href="/login">log in</a>  
-<div id="header3" >
-<a  href="/register">registration</a>
+  <a  href="{% url 'profile'%}">профиль</a> 
+<div id="header3">
+<a  href="{% url 'login'%}">log in</a>  
+<div id="header4" >
+<a  href="{% url 'register'%}">registration</a>
 <nav>
-        
+</div>        
 </div>
 </div>
 </div>
@@ -106,11 +109,19 @@ body {
   
         <a class="nav-link" href="{% url 'show' %}">архив команд</a></br>
         <a class="nav-link" href="{% url 'shownews' %}">новости</a></br>
-        {% comment %} <a class="nav-link" href="{% url 'news_home' %}">ст</a></br> {% endcomment %}
+        <a class="nav-link" href="{% url 'showtutor' %}">руководства</a></br>
+        <h1></h1>
+        <h1></h1>
+        <h1></h1>
+        <h1></h1>
+
+        <h6>  ДЗ </h6></br>
         <a class="nav-link" href="/show1">rest_create_read</a></br>
-        <a class="nav-link" href="/show2">rest_upd_del</a></br>
+        <a class="nav-link" href="/show2">rest_upd_del</a></br> 
+        <h6>  ДЗ </h6></br>
+
   {% block sidebar %} {% endblock sidebar %}
-</h2>
+</>
 
 </div>
 
@@ -144,7 +155,7 @@ body {
   width: 15%;
   height: calc(100vh - 95px);
   position: fixed;
-  top: 80px;
+  top: 100px;
   left: 0;
  }
  #rightbar {

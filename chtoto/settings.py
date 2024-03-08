@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "apl","newart",'rest_framework'
+    "apl","newart",'rest_framework','reglog','tinymce','tutor'
 ]
 
 MIDDLEWARE = [
@@ -67,6 +67,20 @@ TEMPLATES = [
         },
     },
 ]
+# TINYMCE_CONFIGS = {
+#     'default': {
+#         'toolbar': 'Custom',
+#         'toolbar_Custom': [
+#             {'name': 'styles', 'items': ['Format', 'FontSize']},
+#             {'name': 'basicstyles', 'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript']},
+#             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+#             {'name': 'insert', 'items': ['Link', 'Unlink', 'Anchor', 'Image', 'Table', 'HorizontalRule']},
+#             {'name': 'tools', 'items': ['Maximize', 'Source']},
+#         ],
+#         'width': '100%',
+#         'height': 500,
+#     },
+# }
 
 WSGI_APPLICATION = 'chtoto.wsgi.application'
 
@@ -135,3 +149,11 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
+
+MEDIA_URL = '/media/'
