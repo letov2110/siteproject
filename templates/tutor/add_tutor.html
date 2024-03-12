@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<body >
+    <h1 style='margin-top:50px;margin-left:400px;'>добавить тутор</h1>
+    <p >
+    <form style='margin-left: 400px;',method="post">
+        {% csrf_token %}
+            {{ form.as_p }}
+        <button type="submit">опубликовать</button>
+    </form>
+    </p>
+</body>
+{% endblock%}

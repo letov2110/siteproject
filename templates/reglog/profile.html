@@ -1,13 +1,34 @@
 {% extends 'base.html' %}
 {% block content %}
-{% if user.ava %}
-    <p>Avatar: <img src="{{ user.ava.url }}" alt="avatar"></p>
-{% endif %}
-<p>Username: {{ user.username }}</p>
-<p>Nickname: {{ user.nickname }}</p>
-<p>Email: {{ user.email }}</p>
-<p>About: {{ user.about }}</p>
+{% if user.myuser.ava %}
+    <div style="display: flex;">
+        <div style="order: 1;margin-top: 100px;margin-left: 200px; margin-right: 20px;">
+            <img src="{{ user.myuser.ava.url }}" style="width: 150px;" alt="avatar">
+        </div>
 
-<a class="nav-link" href="{% url 'editprofile' %}">Edit</a>
+{% endif %}
+        <div style="order: 2;margin-top: 100px;">
+            <p>Nickname: {{ user.myuser.nickname }}</p>
+            <p>Login: {{ user.myuser.username }}</p>
+            <p>Email: {{ user.myuser.email }}</p>
+
+         </div>   
+            <div style="order: 4;color: #eee;font-size:25px;margin-top: 130px;margin-left: 500px;">
+<a class="nav-link" href="{% url 'editprofile' %}">Edit</a></br>
 <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+
+
+</div>
+        
+    </div>
+<div style="order: 3;margin-top: 150px;margin-right: 800px">
+<p>About me: {{ user.myuser.about }}</p>
+</div>
+  {% for user in users_list %}
+  <div class="post-entry">
+    <p>{{ user.user }}</p>
+  </div>
+  {% endfor %}
+
 {% endblock content %}
+

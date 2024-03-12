@@ -2,21 +2,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<html>
-<head>    {% comment %} {% endfor %} {% endcomment %}
 
-    {% comment %} <img src="{{ tut.image.url }}" alt="image"> {% endcomment %}
-        <h2>{{ tut.title }}</h2>
-        <h2>{{ tut.author }}</h2> <p>{{ tut.date }}</p> <p>{{ tut.views }}</p>
-        <p> {{ tut.text  }}</p>
-          <form method="post">
-        {% csrf_token %}
-        {{ addform.as_p }}
-        <button type="submit">Submit</button>
-    </form>   
-    {% for comment in comments.all %}
-        <p>{{ comment.author }}: {{ comment.text }}</p>
+<body> <h3 style='margin-left: 300px;margin-top: 80px;'>{{ post.title }}</h3> <h6 style='margin-left:25%;'>{{ post.text|safe }}</h6>
+ 
+
+<form style='text-align: center;' method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">прокоментировать</button>
+</form>
+
+<h2 style='text-align: center;'></h2>
+<ul>
+    {% for comment in comments %}
+        <li>пользователь: {{ comment.author.username }} дата: {{ comment.pub_date }}<br> - {{ comment.text }}</li>
     {% endfor %}
-</body>
-</html>
+</ul>
+    
+        <html>
+  </br> </br>
+  <br>  </br>
+  
 {% endblock content %}

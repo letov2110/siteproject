@@ -3,7 +3,7 @@
 <html>
 
 <body>
-    <h1>добавить команду</h1>
+    <h1 style='margin-top:50px;margin-left:400px;'>добавить команду</h1>
     <form method="post">
         {% csrf_token %}
         <div style="display: flex; flex-direction: column; align-items: center;">
@@ -12,11 +12,12 @@
             <label  style='font-size: 30px;' for="id_content">описание:</label>
             {{ add_form.content }}<a class='category'> <label for="id_categories">язык:</label>
             {{ add_form.categories }}</a>        
-             </div>       
+        </div>       
         <button type="submit">сохранить</button>
     </form>
 </body>
-<style>form {
+<style>
+form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,9 +42,7 @@ form button {
     width: 10%;
     padding: 15px;
     margin-top: 50px;
-}</style>
-
+}
 </style>
 </html>
 {% endblock content %}
-</html>

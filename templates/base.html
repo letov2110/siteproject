@@ -14,6 +14,7 @@ body {
 }
 #header a{
   color: #eee;
+  text-decoration: none;
 }
 
 #header {
@@ -25,7 +26,7 @@ body {
     z-index: 1000;
     line-height: 70px;
     font-family: "Django", sans-serif;
-   
+    text-decoration: none;
     display: flex; 
 
 }
@@ -37,7 +38,7 @@ body {
 
 #container {
  background: #444;
- text-align: center;
+ 
  height: calc(100vh - 55px);
  overflow: auto;
  padding-top: 55px;
@@ -66,43 +67,41 @@ body {
 </style>
 </head>
 <body>
-<div id="header" style="justify-content: space-between";>
+<div id="header" style="justify-content: space-between;text-decoration: none;";>
   <div id="header1">
-<a href="/home" >BukaProject</a>
-<div id="header2">
-  <a  href="{% url 'profile'%}">профиль</a> 
-<div id="header3">
-<a  href="{% url 'login'%}">log in</a>  
-<div id="header4" >
-<a  href="{% url 'register'%}">registration</a>
-<nav>
-</div>        
+    <a href="/home" >Bu_Pedia</a>
+    <div id="header2">
+      <a  href="{% url 'login'%}">log in</a>  
+      <div id="header3" >
+        <a  href="{% url 'register'%}">registration</a>
+
+      </div>        
+    </div>
+  </div>
 </div>
-</div>
-</div>
-</div>
+
 
 
 <div id="container">
   <div id="navigation">
     <li class="nav-item">
-      <a class="nav-link" href="{% url 'home' %}">home</a></li>
-     
-       
-    <li class="nav-item">  
-      <a class="nav-link" href="/about">about</a></li>  
-      
+      <a class="nav-link" href="{% url 'home' %}">home</a></li>       
+      <li class="nav-item">  
+        <a class="nav-link" href="/about">about</a></li>  
 </div>
+  </div>
 <div id="rightbar">
-<h6>
+<h2>
  
-  {% block rightbar %}
+  <div id='rrr'>
+    <a class="nav-link" href="{% url 'profile'%}">профиль</a> <br>
+    <a class="nav-link" href="{% url 'add_tutor' %}">добавить тутор</a><br>
+    <a class="nav-link" href="{% url 'create' %}">добавить команду</a><br>
 
+  {% block rightbar %} {% endblock rightbar %}
+</h2>
+</div>
 
-  {% endblock rightbar %}
-</h6>
- 
- </div>
 
 <div id="sidebar">
  <h2>
@@ -110,18 +109,14 @@ body {
         <a class="nav-link" href="{% url 'show' %}">архив команд</a></br>
         <a class="nav-link" href="{% url 'shownews' %}">новости</a></br>
         <a class="nav-link" href="{% url 'showtutor' %}">руководства</a></br>
-        <h1></h1>
-        <h1></h1>
-        <h1></h1>
-        <h1></h1>
+        <br><br><br><br>
 
         <h6>  ДЗ </h6></br>
-        <a class="nav-link" href="/show1">rest_create_read</a></br>
-        <a class="nav-link" href="/show2">rest_upd_del</a></br> 
+          <a class="nav-link" href="/show1">rest_create_read</a></br>
+          <a class="nav-link" href="/show2">rest_upd_del</a></br> 
         <h6>  ДЗ </h6></br>
 
   {% block sidebar %} {% endblock sidebar %}
-</>
 
 </div>
 
@@ -133,7 +128,7 @@ body {
 
 
 <div class="contenta">
-    <h1>Footer Text</h1>
+    
   </div>
 </div>
   <footer class="footer">
@@ -142,31 +137,37 @@ body {
 </div>
 
 <style>
-  #rightbar a{  color: #eee;
-    font-family: arial, sans-serif;
-  font-size: 20px;
-  }
-  #sidebar a{  color: #eee;
-    font-family: arial, sans-serif;
+#rightbar a{  
+  color: #eee;
+  font-family: arial, sans-serif;
   font-size: 24px;
+  margin-left: 20px;
+  text-decoration: none;
   }
+#sidebar a{  
+  color: #eee;
+  font-family: arial, sans-serif;
+  font-size: 24px;
+  margin-left: 20px; 
+  text-decoration: none; 
+}
 #sidebar {
+  background: #666;
+  width: 15%;
+  height: calc(100vh - 95px);
+  position: fixed;  
+  top: 100px;
+  left: 0;
+}
+#rightbar {
   background: #666;
   width: 15%;
   height: calc(100vh - 95px);
   position: fixed;
   top: 100px;
-  left: 0;
- }
- #rightbar {
-  background: #666;
-  width: 15%;
-  height: calc(100vh - 95px);
-  position: fixed;
-  top: 80px;
   right: 0;
- }
- #content {
+}
+#content {
   background: #777;
   width: 70%;
   height: calc(100vh - 95px);
@@ -174,23 +175,22 @@ body {
   top: 80px;
   right: 15%;
   overflow-y: scroll;
- }
- 
- .contenta {
-     min-height: 50px;}
-   
-   .footer {
-     height: 50px;
-     background: #555;
-     position: fixed;
-     bottom: 0;
-     left: 0;
-     width: 100%;
-     font-size: 15px;
-     padding-left: 100px;
-     padding-top: 10px;
- 
-   }
- </style>
+}
+.content a {
+  min-height: 100px;
+  
+}
+.footer {
+  height: 50px;
+  background: #555;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  font-size: 15px;
+  padding-left: 100px;
+  padding-top: 10px;
+}
+</style>
 </body>
 </html>

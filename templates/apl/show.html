@@ -6,66 +6,58 @@
     <select name="category">
         <option value="">Все категории</option>
         {% for category in teg1 %}
-         <option value="{{ category.id }}">{{ category.name }}</option>
+            <option value="{{ category.id }}">{{ category.name }}</option>
         {% endfor %}
     </select>
-    <button type="submit">Фильтровать</button> | <a style='font-size: 20px;' href="/create">добавить команду</a></li> 
+        <button type="submit">Фильтровать</button> | <a style='font-size: 20px;' href="/create">добавить команду</a></li> 
 </form>
-{% comment %}  {% endcomment %}
-    <table id="tab" style=" margin: auto; text-align: center;">
-        <thead>
-            <h3 style='font-size: 30px;'>
-                <th> </th>
-                <th>команда</th>
-                <th>описание</th>
-                <th>язык//система</th>
-            </h3>
-        </thead>
-        <tbody style='font-size: 20px;'>
-            {% for inf in teg %}
-            <tr>       
-                <p style='font-size: 30px;'> <td><button onclick="copy('{{ inf.title }}')">Copy</button></td></p>
-                <td>{{ inf.title }}</td>
-                <td>{{ inf.content }}</td>
-                <td>
-                    {% for inf2 in inf.categories.all %}
+<table id="tab" style=" margin: auto; text-align: center;">
+    <thead>
+        <h3 style='font-size: 30px;'>
+            <th>команда</th>
+            <th>описание</th>
+            <th>язык//система</th>
+        </h3>
+    </thead>
+    <tbody style='font-size: 20px;'>
+        {% for inf in teg %}
+        <tr>       
+            <p style='font-size: 30px;'> <td><button onclick="copy('{{ inf.title }}')">Copy</button></td></p>
+            <td>{{ inf.title }}</td>
+            <td>{{ inf.content }}</td>
+            <td>
+                {% for inf2 in inf.categories.all %}
                     {{ inf2.name }}
-                    {% endfor %}
+                {% endfor %}
+            </td>
+            <div id='text'>                
+                <td >
+                    <a href="edit/{{inf.id}}">Изменить</a> |
+                    <a href="delete/{{inf.id}} ">Удалить</a>
                 </td>
-                <div id='text'>
-                    
-                    <td >
-                        <a href="edit/{{inf.id}}">Изменить</a> |
-                     <a href="delete/{{inf.id}} ">Удалить</a></td></div>
-            </tr>
-
-            
-            {% endfor %}
-        </tbody>
-        <style>
-            {% comment %} a{  color: #eee;
-                font-family: arial, sans-serif;
-              font-size: 20px;
-              } {% endcomment %}
+            </div>
+        </tr>
+        {% endfor %}
+    </tbody>
+    <style>        
         button {
             background-color: #777;
             color:white;}
         h4 {background-color: #777;
-            color:white;}</style>
-    </table>
-    
+            color:white;}
+    </style>
+</table>  
 
-    <script>
-        function copy(text) {
-            var input = document.createElement('input');
-            input.value = text;
-            document.body.appendChild(input);
-            input.select();
-            document.execCommand('copy');
-            document.body.removeChild(input);
-            {% comment %} alert('Copied to clipboard: ' + text); {% endcomment %}
-        }
-        </script>
-
-    </body>
-    {% endblock%}
+<script>
+    function copy(text) {
+        var input = document.createElement('input');
+        input.value = text;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        {% comment %} alert('Copied to clipboard: ' + text); {% endcomment %}
+    }
+</script>
+</body>
+{% endblock%}

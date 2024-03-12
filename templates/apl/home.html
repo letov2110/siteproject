@@ -3,18 +3,20 @@
 {% block content %}
 
 <html>
-   
-    
-   
 <body>
     <div id="menu">
-        <a class="aa" style='color: #eee;' href="/show">команды</a> | <a class="nav-link" style='color: #eee;'  href="{% url 'shownews' %}">новости</a><br>
-      <img style="height: 400px; width: 600px;" src="{{ image.get_image_url }}" alt="image"><br>
-
-       <a class="aa" style='color: #eee;'  href="/artic">статьи</a> | <a class="nav-link" style='color: #eee;'  href="/forum">форум</a><br>
+        <a class="aa" style='color: #eee;margin-top: 80px;margin-left: 300px;  ' href="/show">команды</a>
+        <a class="nav-link" style='color: #eee;margin-left: 360px;margin-top: 40px; '  href="{% url 'shownews' %}">новости</a><br>
+        <img style="margin-left: 300px;margin-top: 20px;  height: 400px; width: 700px;" src="{{ image.get_image_url }}" alt="image"><br>
+        <a class="aa" style='margin-left: 300px;margin-top: 700px;  color: #eee;'  href="/tutor">туторы</a>
+        <a class="nav-link" style='color: #eee;margin-left: 430px; margin-top: 40px;'  href="/forum">форум</a><br>
     </div>
-   
-  </body>
+</body>
+<style>
+  a {
+    text-decoration: none;
+  }
+</style>
 {% endblock content %}
 
 </html>

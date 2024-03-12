@@ -2,6 +2,14 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
+schema_view = get_schema_view(
+    openapi.Info(
+        title="My API", default_version="1.0.0", description="Documentation for my API"
+    ),
+    public=True,
+)
 
 urlpatterns = [
     path("", views.base, name="base"),
@@ -18,6 +26,7 @@ urlpatterns = [
     #later del
 
 path('forum/', views.forum, name='forum'),
+path('swagger/', schema_view.with_ui("swagger", cache_timeout=0), name='swagger'),
     #later del
 
     

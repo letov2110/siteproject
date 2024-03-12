@@ -32,7 +32,7 @@ def show(request):
 
     return render(request, "apl/show.html", {"teg": teg, 'teg1': teg1})
 ####
-@login_required
+@login_required(login_url='login')
 def create(request):
     if request.method == 'POST':
         add_form = AddPost(request.POST)
@@ -46,7 +46,7 @@ def create(request):
 def create_good(request):
       return render(request,'apl/create_good.html')
 ####
-@login_required
+@login_required(login_url='login')
 def edit(request, id):
     try:
         post = Post.objects.get(id=id)
@@ -65,7 +65,7 @@ def edit(request, id):
 def edit_good(request):
     return render(request,"apl/edit_good.html")
 #####
-@login_required
+@login_required(login_url='login')
 def delete(request, id):
     try:
         post = Post.objects.get(id=id)
@@ -90,13 +90,4 @@ class PostRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     serializer_class=PostSerializer
     lookup_field='pk'
 
-#lter del
-# class LoginView(TemplateView):
-#     def get(request):
-#         pass
-#     def post(request):
-#         pass
-#     def delete(request):
-#         pass
-    
-#later del
+

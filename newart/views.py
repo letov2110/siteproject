@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from .models import Cat_News,News
 from django.views.generic import DetailView
+from django.views.decorators.cache import cache_page
 
+@cache_page(60 * 20)  
+## why not ? ) 
 def shownews(request):
     newsc = Cat_News.objects.all()
     news = News.objects.order_by('date')

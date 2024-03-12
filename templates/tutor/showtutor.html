@@ -6,11 +6,11 @@
 </style> 
 <h1>туториалы</h1> 
 {% for tut in all_tut %}
- <p2>{{ tut.title }}</p2></br>
- <p4>автор: {{ tut.author }} | дата: {{ tut.date }} | просмотры: {{ tut.views }}</p4>
-  <p4><a href="{% url 'd_tutor' tut.id %}" style="margin-left: 30px;" class="btn">читать полностью</a></p4></br>
-   {% endfor %}
+  <img src="{{ tut.author.ava_url }}" alt="{{ tut.author.ava }}" style="width: 100px; height: 100px;">
+  <p2>{{ tut.title }}</p2></br>
+    <p4>автор: {{ tut.author }} | дата: {{ tut.date }} | просмотры: {{ tut.views }}</p4>
+    <p4><a href="{% url 'd_tutor' tut.id %}" style="margin-left: 30px;" class="btn">читать полностью</a></p4></br>
+{% endfor %}
 
- </body>
-</html>
+</body>
 {% endblock content %} 

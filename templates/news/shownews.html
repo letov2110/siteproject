@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
-
 {% block content %} 
 
-
-<!DOCTYPE html>
 <html>
 <head>
     <title>News List</title>
@@ -32,8 +29,9 @@
             margin-bottom: 10px;
         }
         button {
-          background-color: #777;
-          color:white;}
+            background-color: #777;
+            color:white;
+        }
         a.btn {
             color: #eee;
             text-decoration: none;
@@ -53,7 +51,7 @@
     </form>
     {% for el in news %}
         <div class='alert'>
-            <img src="{{ el.image.url }}" alt="image">
+            <img src="{{ el.image.url }}"style="width: 300px;"  alt="image">
             <div>
                 <h5>{{ el.title }}</h5>
                 <h6>{{ el.subtitle }}</h6>
@@ -63,5 +61,7 @@
     {% endfor %}
 </body>
 </html>
+<p>  <br><br>  </p>
+<p>  <br><br>  </p>
 
 {% endblock content %}

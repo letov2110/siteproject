@@ -31,20 +31,41 @@ ALLOWED_HOSTS = ['127.0.0.1','127.0.0.1/8000']
 # Application definition
 
 INSTALLED_APPS = [
+    'drf_yasg','debug_toolbar',
+    'grappelli',
+    'filebrowser',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "apl","newart",'rest_framework','reglog','tinymce','tutor'
+    "apl",
+    "newart",
+    'rest_framework',
+    'reglog',
+    'tinymce',
+    'tutor.apps.TutorConfig',
 ]
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+    }
+}
+
+INTERNAL_IPS = [
+    # ...
+    "localhost",
+    "127.0.0.1", 
+]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -67,20 +88,6 @@ TEMPLATES = [
         },
     },
 ]
-# TINYMCE_CONFIGS = {
-#     'default': {
-#         'toolbar': 'Custom',
-#         'toolbar_Custom': [
-#             {'name': 'styles', 'items': ['Format', 'FontSize']},
-#             {'name': 'basicstyles', 'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript']},
-#             {'name': 'colors', 'items': ['TextColor', 'BGColor']},
-#             {'name': 'insert', 'items': ['Link', 'Unlink', 'Anchor', 'Image', 'Table', 'HorizontalRule']},
-#             {'name': 'tools', 'items': ['Maximize', 'Source']},
-#         ],
-#         'width': '100%',
-#         'height': 500,
-#     },
-# }
 
 WSGI_APPLICATION = 'chtoto.wsgi.application'
 
@@ -157,3 +164,41 @@ STATICFILES_DIRS = (
 STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+PROJECT_DIR = os.path.dirname(__file__)
+
+TINYMCE_SPELLCHECKER = True
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "tinymce/tinymce.min.js")
+TINYMCE_JS_ROOT = os.path.join(STATIC_ROOT, "tinymce")
+
+FILEBROWSER_DIRECTORY = ''
+DIRECTORY = ''
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+TINYMCE_DEFAULT_CONFIG = {
+    "relative_urls": False,
+    "remove_script_host": False,
+    "convert_urls": True,
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 20,
+    'theme': 'silver',
+    'plugins': '''
+            textcolor save link image media preview codesample contextmenu
+            table code lists fullscreen  insertdatetime  nonbreaking
+            contextmenu directionality searchreplace wordcount visualblocks
+            visualchars code fullscreen autolink lists  charmap print  hr
+            anchor pagebreak
+            ''',
+    'toolbar1': '''
+            bold italic underline | fontselect,
+            fontsizeselect  | forecolor backcolor | alignleft alignright |
+            aligncenter alignjustify | indent outdent | bullist numlist table |
+            | link image media | codesample |
+            ''',
+
+    'contextmenu': 'formats | link image',
+    'menubar': True,
+    'statusbar': True,
+    "language": "en_US",
+}
