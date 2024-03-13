@@ -22,5 +22,5 @@ from django import forms
 class EditUser(ModelForm):
     class Meta:
         model = MyUser
-        fields = ['nickname', 'email', 'about', 'ava']
+        fields = ['nickname', 'email','first_name','last_name','birsday' ,'about', 'ava']
 

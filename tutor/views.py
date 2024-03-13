@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from django.shortcuts import render
 from .models import Tutor, Comm_tut
 from .forms import CommForm,TutorForm
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
+from django.shortcuts import redirect,HttpResponse
 
 def showtutor(request):
     all_tut = Tutor.objects.all()
@@ -36,3 +35,25 @@ def add_tutor(request):
     else:
         form = TutorForm()
     return render(request, 'tutor/add_tutor.html', {'form': form})
+
+
+# views.py
+from .task import my_task
+def test_cel(request):
+    my_task.delay()
+    return HttpResponse("Started!")
+from django_celery_beat.models import PeriodicTask, IntervalSchedule
+
+def schedule_task(request):
+    interval, err = IntervalSchedule.objects.get_or_create(
+        every=30, period=IntervalSchedule.SECONDS
+    )
+
+    PeriodicTask.objects.create(
+        interval=interval,
+        name="bubu-schedule",
+        task="tutor.task.my_task",
+        # args=json.dump(["arg1", True]),
+        # on_off=True,
+    )
+    return HttpResponse("Scheduled!")

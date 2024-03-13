@@ -4,6 +4,9 @@ from .forms import UserReg, LoginUser,EditUser
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from tutor.models import Tutor
+# from models import MyUser
+from django.contrib.auth.models import User
+
 from django.views.decorators.cache import cache_page
 
 @cache_page(60*10) ## immutable
@@ -19,7 +22,7 @@ def register(request):
         user_form = UserReg()
     return render(request, 'reglog/register.html', {'user_form': user_form})
 
-@cache_page(60*10)## immutable
+# @cache_page(60*10)## immutable
 def user_login(request):
     log=LoginUser()
     if request.method == "POST":
@@ -43,6 +46,7 @@ def user_logout(request):
 
 @login_required(login_url='login')
 def profile(request):
+   
     user = request.user
     posts= Tutor.objects.filter(author=request.user)
     return render(request, 'reglog/profile.html', {'posts':posts,'user': user})
@@ -59,4 +63,7 @@ def editprofile(request):
         profform=EditUser(instance=user.myuser)
     return render(request, 'reglog/editprofile.html', {'profform': profform})
 
+def user_list(request):
+    users = User.objects.all()
+    return render(request, 'reglog/user_list.html', {'users': users})
 

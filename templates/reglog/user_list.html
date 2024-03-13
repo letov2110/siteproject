@@ -1,0 +1,13 @@
+html
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2 style='margin-left:400px;margin-top:50px;'>пользователи</h2>
+    <div style='margin-left:40px;height: 150px;'>
+        {% for user in users %}
+            
+            <img src="{{ user.myuser.ava.url }}" style="width: 50px;height: 50px;" alt="ava"> {{ user.username }} {{ user.myuser.nickname }}</br>
+            
+        {% endfor %}
+    </div>
+{% endblock %}

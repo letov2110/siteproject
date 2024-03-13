@@ -1,34 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
+
+<div style="width: 100%; text-align: center;">
+  <a class="nav-link" style="display: inline-block; margin-top: 30px; color: #eee; font-size: 20px; margin-left: 800px;" href="{% url 'editprofile' %}">изменить</a>
+  <a class="nav-link" style="display: inline-block; margin-top: 30px; color: #eee; font-size: 20px; margin-left: 20px;" href="{% url 'logout' %}">выход</a>
+</div>
 {% if user.myuser.ava %}
-    <div style="display: flex;">
-        <div style="order: 1;margin-top: 100px;margin-left: 200px; margin-right: 20px;">
-            <img src="{{ user.myuser.ava.url }}" style="width: 150px;" alt="avatar">
+
+      <style> 
+        .profile-section { display: flex; align-items: center; margin-top: 50px; margin-left: 50px; } 
+        .profile-section img { width: 150px; margin-right: 20px; } 
+        .profile-section a { font-size: 20px; } 
+      </style> 
+        <div class="profile-section"> 
+          <img src="{{ user.myuser.ava.url }}" alt="avatar">
+          <div> 
+            <a>имя: {{ user.myuser.first_name }}</a><br> 
+            <a>псевдоним: {{ user.myuser.nickname }}</a><br> 
+            <a>фамилия: {{ user.myuser.last_name }}</a><br> 
+            <a>возраст: {{ user.myuser.calculate_age }}</a><br>
+            <a>почта: {{ user.myuser.email }}</a><br> 
+            <a>о себе: {{ user.myuser.about }}</a> <br> 
+          </div>
         </div>
-
 {% endif %}
-        <div style="order: 2;margin-top: 100px;">
-            <p>Nickname: {{ user.myuser.nickname }}</p>
-            <p>Login: {{ user.myuser.username }}</p>
-            <p>Email: {{ user.myuser.email }}</p>
-
-         </div>   
-            <div style="order: 4;color: #eee;font-size:25px;margin-top: 130px;margin-left: 500px;">
-<a class="nav-link" href="{% url 'editprofile' %}">Edit</a></br>
-<a class="nav-link" href="{% url 'logout' %}">Logout</a>
 
 
-</div>
-        
-    </div>
-<div style="order: 3;margin-top: 150px;margin-right: 800px">
-<p>About me: {{ user.myuser.about }}</p>
-</div>
-  {% for user in users_list %}
+
+{% for user in users_list %}
   <div class="post-entry">
     <p>{{ user.user }}</p>
   </div>
-  {% endfor %}
+{% endfor %}
 
 {% endblock content %}
 

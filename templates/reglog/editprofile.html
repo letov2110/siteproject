@@ -8,9 +8,12 @@
     {% csrf_token %}
     <div style="display: flex; flex-direction: column; align-items: center;">
         
-        <p>загрузить аватар</p> {{ profform.ava }}
-        <p>введите ник</p> {{ profform.nickname }}
-        <p>почтовый адрес </p>{{ profform.email }}
+        <p>аватар{{ profform.ava }}</p> 
+        <a>псевдоним{{ profform.nickname }}</a>
+        <a>имя {{ profform.first_name }}</a>
+        <a>фамилия {{ profform.last_name }}</a>
+        <a>день рождения{{ profform.birsday }}</a>
+        <a>почта {{ profform.email }}</a>
         <p>о себе </p> {{ profform.about }}
         <button type="submit">сохранить</button>
     </div>
