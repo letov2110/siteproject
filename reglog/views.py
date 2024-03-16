@@ -45,10 +45,16 @@ def user_logout(request):
     return redirect('login')
 
 @login_required(login_url='login')
-def profile(request):   
+def myprofile(request):   
     user = request.user
     posts= Tutor.objects.filter(author=request.user)
-    return render(request, 'reglog/profile.html', {'posts':posts,'user': user})
+    return render(request, 'reglog/myprofile.html', {'posts':posts,'user': user})
+
+@login_required(login_url='login')
+def profile(request, user_id):
+    user = MyUser.objects.get(id=user_id)
+    posts = Tutor.objects.filter(author=user)
+    return render(request, 'reglog/profile.html', {'posts': posts, 'user': user})
 
 @login_required(login_url='login')
 def editprofile(request):
@@ -64,5 +70,6 @@ def editprofile(request):
 
 def user_list(request):
     users = MyUser.objects.exclude(ava__isnull=True)
-    return render(request, 'reglog/user_list.html', {'users': users})
+    user = request.user
+    return render(request, 'reglog/user_list.html', {'users': users,'user':user})
 

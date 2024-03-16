@@ -26,10 +26,10 @@ def d_tutor(request, post_id):
 @login_required(login_url='login')
 def add_tutor(request):
     if request.method == 'POST':
-        form = TutorForm(request.POST)
+        form = TutorForm(request.POST, request.FILES)
         if form.is_valid():
             tutor = form.save(commit=False)
-            tutor.author = request.user
+            tutor.author=request.user
             tutor.save()
             return redirect('showtutor')
     else:

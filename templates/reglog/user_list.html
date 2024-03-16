@@ -3,22 +3,25 @@ html
 
 {% block content %}
 <style> 
-    .profile-section { display: flex; align-items: center; margin-top: 50px; margin-left: 50px; } 
-    .profile-section img { width: 100px;height:100px; margin-right: 20px; } 
-    .profile-section a { font-size: 20px; } 
+    .profile { display: flex; align-items: center; margin-top: 50px; margin-left: 50px; } 
+    .profile img { width: 100px;height:100px; margin-right: 20px; } 
+    .profile a { font-size: 20px; } 
   </style> 
-    <h2 style='margin-left:400px;margin-top:50px;'>пользователи</h2>
-    <div style='margin-left:40px;height: 150px;'>
-{% for user in users %}
-    {% if user.myuser.ava %}
-        <div class="profile-section"> 
-            <img src="{{ user.myuser.ava.url }}" alt="avatar"> 
-            {{ user.myuser.first_name }} 
-            {{ user.myuser.nickname }} 
-            {{ user.myuser.last_name }}
-        </div>
-    {% endif %}
-{% endfor %} 
+<h2 style='margin-left:400px;margin-top:50px;'>пользователи</h2>
+<div style='margin-left:40px;height: 150px;'>
+    {% for user in users %}
+        {% if user.myuser.ava %}
+            <div class="profile"> 
+                <a href="{% url 'profile' user.myuser.id %}"> 
+                    <img src="{{ user.myuser.ava.url }}" alt="avatar"> 
+                    {{ user.myuser.first_name }} 
+                    {{ user.myuser.nickname }} 
+                    {{ user.myuser.last_name }}
+                </a>
+            </div>
+        {% endif %}
+    {% endfor %} 
+</div>
 <p>  <br><br>  </p>
 <p>  <br><br>  </p>
 {% endblock %}

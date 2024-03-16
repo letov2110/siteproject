@@ -13,7 +13,7 @@ class TinyMCEWidget(TinyMCE):
         return False
     
 class TutorForm(forms.ModelForm):
-    text = forms.CharField(widget=TinyMCEWidget(attrs={'required':False}))
+    # text = forms.CharField(widget=TinyMCEWidget(attrs={'required':False}))
     class Meta:
         model=Tutor
         fields =['image','title','text',]
