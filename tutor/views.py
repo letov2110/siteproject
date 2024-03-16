@@ -37,7 +37,7 @@ def add_tutor(request):
     return render(request, 'tutor/add_tutor.html', {'form': form})
 
 
-# views.py
+
 from .task import my_task
 def test_cel(request):
     my_task.delay()

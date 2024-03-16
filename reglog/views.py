@@ -4,8 +4,8 @@ from .forms import UserReg, LoginUser,EditUser
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from tutor.models import Tutor
-# from models import MyUser
-from django.contrib.auth.models import User
+from .models import MyUser
+# from django.contrib.auth.models import Users
 
 from django.views.decorators.cache import cache_page
 
@@ -45,8 +45,7 @@ def user_logout(request):
     return redirect('login')
 
 @login_required(login_url='login')
-def profile(request):
-   
+def profile(request):   
     user = request.user
     posts= Tutor.objects.filter(author=request.user)
     return render(request, 'reglog/profile.html', {'posts':posts,'user': user})
@@ -64,6 +63,6 @@ def editprofile(request):
     return render(request, 'reglog/editprofile.html', {'profform': profform})
 
 def user_list(request):
-    users = User.objects.all()
+    users = MyUser.objects.exclude(ava__isnull=True)
     return render(request, 'reglog/user_list.html', {'users': users})
 

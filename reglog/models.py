@@ -7,10 +7,13 @@ class MyUser(User):
     ava = models.ImageField(upload_to='static/images/reglog',blank=True)
     birsday=models.DateField(blank=True, null=True)
     def calculate_age(self):
-        today = date.today()
-        age = today.year - self.birsday.year - ((today.month, today.day) < (self.birsday.month, self.birsday.day))
-        return age
-    
+        if self.birsday:
+            today = date.today()
+            age = today.year - self.birsday.year - ((today.month, today.day) < (self.birsday.month, self.birsday.day))
+            return age
+        else:
+            return None
+        
     
     
 

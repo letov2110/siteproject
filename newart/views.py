@@ -4,7 +4,7 @@ from django.views.generic import DetailView
 from django.views.decorators.cache import cache_page
 
 @cache_page(60 * 20)  
-## why not ? ) 
+## why not ? ) but if add new new don’t need to cache it
 def shownews(request):
     newsc = Cat_News.objects.all()
     news = News.objects.order_by('date')
