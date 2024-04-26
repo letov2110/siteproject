@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
+
 class MyUser(User):
     nickname = models.CharField(max_length=50,blank=True)    
     about = models.TextField(blank=True)
@@ -13,7 +14,3 @@ class MyUser(User):
             return age
         else:
             return None
-        
-    
-    
-

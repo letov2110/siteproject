@@ -1,42 +1,57 @@
+<!DOCTYPE html>
+
 {% extends 'base.html' %}
+{% block title %} regiter {% endblock %}
+
 {% block content %}
 
-<html>
+    <div class="p is-size-4 mt-6 ml-6 mb-6">регистрация</div>
+        <p><br></p>
+<div class="columns " style="background-color: #2e2d2a">
+    <div class="column .is-offset-x is-one-third">
+        <form method="post">
+            {% csrf_token %}
+            <div class="field mr-4">
+                <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="login" placeholder="login"{{user_form.username}}
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                            </span>
+                            <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                    </span>
+                </p>
+            </div>
+            <div class="field mr-4">
+                <p class="control has-icons-left">
+                    <input class="input" type="password" placeholder="Password"{{user_form.password}}
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                </p>
+            </div>
+            <div class="field mr-4">
+                <p class="control has-icons-left">
+                    <input class="input " type="password" placeholder="Password"{{user_form.password}}
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                </p>
+            </div>
 
-<head>
-    <style>
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        form input, button {
-            width: 60%;
-            margin-bottom: 10px;
-            padding: 5px;
-        }
-    
-        small {
-            font-size: 10px;
-        }
-    </style>
-</head>
-<body>
-    <h1 style='margin-top:50px;margin-left:400px'>Регистрация</h1>
-    <form method="post">
-        {% csrf_token %}
-        <div style="display: flex; flex-direction: column; align-items: center;">
-            {{ user_form.username.label_tag }}
-            {{user_form.username}}
+            <div class="field">
+                <p class="control">
+                    <button class="button ">
+                        регистрация
+                    </button>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
 
-            {{ user_form.password.label_tag }}
-            {{user_form.password}}
-            
-            <button type="submit">Регистрация</button>
-        </div>
-    </form>
-</body>
+{% if error %}  
+    <p class="error">{{ error }}</p>
+{% endif %}
 
 {% endblock content %}
-</html>

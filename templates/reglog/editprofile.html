@@ -1,45 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
 {% extends 'base.html' %}
+{% block title %} editprofile {% endblock %}
+
 {% block content %}
 
-<h4>изменить профиль</h4>
+<div class="columns " style="background-color: #2e2d2a">
+    <div class="column .is-offset-x is-one-third">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="file has-name is-boxed">
+                <label class="file-label">
+                    {{ profform.ava }}
+                    <span class="file-cta">
+                        <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                        </span>
+                        <span class="file-label"> Choose a file… </span>
+                </label>
+            </div>
+            
+            <div class="field mr-4">
+                <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="login" placeholder="nickname"{{ profform.nickname }}
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                            </span>
+                            <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                    </span>
+                </p>
+            </div>
+            <div class="field mr-4">
+                <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="login" placeholder="имя"{{ profform.first_name }}
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                            </span>
+                            <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                    </span>
+                </p>
+            </div>
+            <div class="field mr-4">
+                <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="login" placeholder="фамилия"{{ profform.last_name }}
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                            </span>
+                            <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                    </span>
+                </p>
+            </div>
+            <div class="field mr-4">
+                <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="date" placeholder="гггг-мм-дд"{{ profform.birsday}}
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                            </span>
+                            <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                    </span>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control has-icons-left has-icons-right">
+                    <input class="input" type="email" placeholder="Email"{{ profform.email }}
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                    </span>
+                </p>
+            </div>
+            <div class="control">
+                <textarea
+                    class="textarea is-hovered"
+                    placeholder="о себе"{{ profform.about }}
+                ></textarea>
+            </div>
+    <button class="button" type="submit" style="color:#2e2d2a;background-color: #d16624">
+        сохранить
+    </button>   
 
-<form method="post" >
-    
-    {% csrf_token %}
-    <div style="display: flex; flex-direction: column; align-items: center;">
-        
-        <p>аватар{{ profform.ava }}</p> 
-        <a>псевдоним{{ profform.nickname }}</a>
-        <a>имя {{ profform.first_name }}</a>
-        <a>фамилия {{ profform.last_name }}</a>
-        <a>день рождения{{ profform.birsday }}</a>
-        <a>почта {{ profform.email }}</a>
-        <p>о себе </p> {{ profform.about }}
-        <button type="submit">сохранить</button>
+        </form>
     </div>
-</form>
+</div>
+
 {% endblock content %}
-<style>
-    form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-size: 30px;
-    }
-    
-    form input {
-        width: 80%;
-        margin-bottom: 20px;
-        padding: 10px; 
-        font-size: 30px; 
-        height: 40px;
-    }
-    
-    
-    form button {
-        width: 10%;
-        padding: 15px;
-        margin-top: 50px;
-    }
-    </style>
-</style>

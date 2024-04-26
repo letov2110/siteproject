@@ -1,26 +1,15 @@
-
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-import debug_toolbar
-from filebrowser.sites import site
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('admin/', admin.site.urls),
     path("", include("apl.urls")),
-    path("newart/", include("newart.urls")),
+    path("ckeditor5/", include('django_ckeditor_5.urls'), name="ck_editor_5_upload_file"),
     path("reglog/", include("reglog.urls")),
-    path('tinymce/', include('tinymce.urls')),    
-    path("__debug__/", include(debug_toolbar.urls)),
-    path('tutor/', include('tutor.urls')),
-
-    path('admin/filebrowser/', site.urls),
-    path('grappelli/', include('grappelli.urls')),
-
-
-   
-
+    path("newart/", include("newart.urls")),
+    path("tutor/", include("tutor.urls")),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

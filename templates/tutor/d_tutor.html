@@ -1,29 +1,67 @@
-
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ru">
 {% extends 'base.html' %}
+{% block title %} tutor {% endblock %}
 
 {% block content %}
 
-<body> <h3 style='margin-left: 300px;margin-top: 80px;'>{{ post.title }}</h3> <h6 style='margin-left:25%;'>{{ post.text|safe }}</h6>
- 
+<div class="is-size-4 mt-4 mr-6">
+  {{ post.title }}
+</div>
 
-<form style='text-align: center;' method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">прокоментировать</button>
+{% if post.text == "" %}
+  <li class="p is-4" style="color: #d16624;">тутор на редакции </li>
+{% else %}
+  <div class="is-size-6 mt-3 mr-6">
+    {{ post.text|safe }} 
+  </div>
+{% endif %}
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+    <article class="media mt-4 mr-6">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img src="{{ user.myuser.ava.url }}" />
+        </p>
+      </figure>
+            <div>
+                <div class="field mr-3">
+                  <textarea class="textarea is-hovered" name="text" id="id_text" required {{ form.text }}
+                </div>
+            </div>
+    </article>
+    <div>
+        <button class="button mr-3 mb-4" type="submit" name="add" value="добавить"
+        style="color:#2e2d2a;background-color: #d16624">
+            добавить
+        </button>
+    </div>
 </form>
 
-<h2 style='text-align: center;'></h2>
-<ul>
-    {% for comment in comments %}
-    <li> 
-        <img src="{{ comment.author.myuser.ava.url }}" alt="ava" style="width: 50px; height: 50px;">
-    {{ comment.author.username }} дата: {{ comment.pub_date }}<br>
-        - {{ comment.text }}</li>
-    {% endfor %}
-</ul>
-    
-        <html>
-  </br> </br>
-  <br>  </br>
-  
+{% for comment in comments %}
+
+<div class="card mr-3">
+  <div class="card-content">
+    <div class="media">
+      <div class="media-left">
+        <figure class="image is-48x48">
+          <img 
+            src="{{ comment.author.myuser.ava.url }}"
+            alt="Placeholder image"/>
+        </figure>
+      </div>
+        <div class="media-content">
+          <p class="title is-4">{{ comment.author.username }}</p>
+        </div>
+    </div>
+      <div class="content">
+        {{ comment.text }}<br>
+        <time datetime="date">{{ comment.pub_date }}</time>
+      </div>
+  </div>
+</div>
+{% endfor %}
+
 {% endblock content %}

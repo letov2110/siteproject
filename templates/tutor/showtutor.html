@@ -1,16 +1,48 @@
+<!DOCTYPE html>
 {% extends 'base.html' %}
-{% block content %}
-<style> h1 { margin-left: 20px;text-align: center; font-size: 28px; } 
-    p4 { margin-left: 20px;font-size: 20px; } 
-    p2 { margin-left: 20px; font-size: 25px; } 
-</style> 
-<h1>туториалы</h1> 
-{% for tut in all_tut %}
-  <img src="{{ tut.author.myuser.ava.url }}" alt="{{ tut.author.user.ava }}" style="margin-left: 20px;width: 100px; height: 100px;">
-  <p2>{{ tut.title }}</p2></br>
-    <p4>автор: {{ tut.author }} | дата: {{ tut.date }} | просмотры: {{ tut.views }}</p4>
-    <p4><a href="{% url 'd_tutor' tut.id %}" style="margin-left: 30px;" class="btn">читать полностью</a></p4></br>
-{% endfor %}
+{% block title %}all tutors{% endblock %}
 
-</body>
-{% endblock content %} 
+{% block content %}
+
+{% for tut in all_tut %}
+    <div class="box mt-4 mr-4">
+        <article class="media">
+            <div class="media-left">
+                <figure class="image is-64x64">
+                    <img src="{{ tut.author.myuser.ava.url }}" alt="Image" />
+                </figure>
+            </div>
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <strong>{{ tut.title }}</strong>
+                        <br />
+                        {{ tut.author }}  ||  добавлен:{{ tut.date }} просмотры:{{ tut.views }}<br>
+
+                        <a href="{% url 'd_tutor' tut.id %}" class="btn"style="color:#d16624;">открыть тутор</a>
+                    </p>
+                </div>
+                <nav class="level is-mobile">
+                    <div class="level-left">
+                        <a class="level-item" aria-label="reply">
+                            <span class="icon is-small">
+                                <i class="fas fa-reply" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                        <a class="level-item" aria-label="retweet">
+                            <span class="icon is-small">
+                                <i class="fas fa-retweet" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                        <a class="level-item" aria-label="like">
+                        <span class="icon is-small">
+                            <i class="fas fa-heart" aria-hidden="true"></i>
+                        </span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </article>
+    </div>
+{% endfor %}
+{% endblock content %}

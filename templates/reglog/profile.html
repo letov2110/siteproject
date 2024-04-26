@@ -1,30 +1,53 @@
+<!DOCTYPE html>
 {% extends 'base.html' %}
+{% block title %}profile{% endblock %}
+
 {% block content %}
 
-{% comment %} <div style="width: 100%; text-align: center;">
-  <a class="nav-link" style="display: inline-block; margin-top: 30px; color: #eee; font-size: 20px; margin-left: 800px;" href="{% url 'editprofile' %}">изменить</a>
-  <a class="nav-link" style="display: inline-block; margin-top: 30px; color: #eee; font-size: 20px; margin-left: 20px;" href="{% url 'logout' %}">выход</a>
-</div> {% endcomment %}
-{% if user.myuser.ava %}
 
-      <style> 
-        .profile { display: flex; align-items: center; margin-top: 50px; margin-left: 50px; } 
-        .profile img { width: 150px; margin-right: 20px; } 
-        .profile a { font-size: 20px; } 
-      </style> 
-        <div class="profile"> 
-          <img src="{{ user.myuser.ava.url }}" alt="avatar">
-          <div> 
-            <a>имя: {{ user.myuser.first_name }}</a><br> 
-            <a>псевдоним: {{ user.myuser.nickname }}</a><br> 
-            <a>фамилия: {{ user.myuser.last_name }}</a><br> 
-            <a>возраст: {{ user.myuser.calculate_age }}</a><br>
-            <a>почта: {{ user.myuser.email }}</a><br> 
-            <a>о себе: {{ user.myuser.about }}</a> <br> 
-          </div>
+    {% csrf_token %}
+<div class="grid">
+    <div class="cell is-col-min-12">
+        <figure class="image is-2by3 mt-6 " 
+            style="max-width:180px;max-height:200px;min-width:5vw;min-height:5vh">
+                {% if user.myuser.ava %}
+                    <div class="prof_ava"> 
+                        <img src="{{ user.myuser.ava.url }}" alt="avatar" frameborder="0">
+                    </div> 
+                {% endif %}   
+        </figure>
+
+        <div class="title is-size-4 mt-6" style="color: #d16624;">
+            опубликованные туторы
         </div>
-{% endif %}
+            {% for tutor in user_tutors %}
+                <li><a href="{% url 'd_tutor' post_id=tutor.id %}"  style="color: #d16624;">{{ tutor.title }}</a></li>
+                <div class="p is-size-7">
+                    дата: {{tutor.date}} | просмотры: {{ tutor.views }} 
+                </div>
+            {% empty %}
+                <li>не публиковал </li>
+            {% endfor %}
+    </div>
+    <div class="cell mt-6 is-col-min-12">
+        <div class="p is-size-5 ">
+            {{ user.myuser.first_name }} {{ user.myuser.last_name }} {{ user.myuser.nickname }} 
+        </div>
+            <div class="inform">
+                <label class="p is-size-7" for="age">возраст: </label><br>
+                    <div class="prof_inf">
+                        {{ user.myuser.calculate_age }}<br>
+                    </div> 
+                <label class="p is-size-7" for="email">почта:</label><br> 
+                    <div class="prof_inf">
+                        {{ user.myuser.email }}<br>
+                    </div>
+                <label class="p is-size-7" for="about">о себе:</label><br> 
+                    <div class="prof_inf mb-1">
+                        {{ user.myuser.about }}<br>
+                    </div>
+            </div>
+    </div>    
+</div>
 
-
-{% endblock content %}
-
+{% endblock %}

@@ -1,197 +1,80 @@
-{% load static %}
-<html>
+<!DOCTYPE html>
+<html lang="ru">
+
 <head>
-<title>BukaProject</title>
-<style>
-body {
- background: #333;
- color: #eee;
- font-family: Arial, sans-serif;
- font-size: 24px;
- margin: 0;
- padding: 0;
- overflow: hidden;
-}
-#header a{
-  color: #eee;
-  text-decoration: none;
-}
-
-#header {
-    background: #222;
-    width: 100vw;
-    height: 80px;
-    position: fixed;
-    top: 0;
-    z-index: 1000;
-    line-height: 70px;
-    font-family: "Django", sans-serif;
-    text-decoration: none;
-    display: flex; 
-
-}
-#header1 {padding-left: 220px;    display: flex; }
-#header2 {padding-left: 1000px;    display: flex; }
-#header3 {padding-left: 70px;    display: flex; }
-#header4 {padding-left: 70px;    display: flex; }
-
-
-#container {
- background: #444;
- 
- height: calc(100vh - 55px);
- overflow: auto;
- padding-top: 55px;
-}
-
-#navigation {
-  background: #555;
-  width: 100%;
-  height: 30px;
-  position: fixed;
-  top: 80px;
-  z-index: 999;
-  display: flex; 
-  justify-content: space-around;
-}
-
-#navigation a {
-  color: #eee;
-  text-decoration: none;
-  font-family: arial, sans-serif;
-  font-size: 20px;
-  margin: 0;
-  padding: 0;
-}
-
-</style>
+    <title>{% block title %} {% endblock %}</title>
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
-<div id="header" style="justify-content: space-between;text-decoration: none;";>
-  <div id="header1">
-    <a href="/home" >Bu_Pedia</a>
-    <div id="header2">
-      <a  href="{% url 'login'%}">log in</a>  
-      <div id="header3" >
-        <a  href="{% url 'register'%}">registration</a>
 
-      </div>        
-    </div>
-  </div>
-</div>
-
-
-
-<div id="container">
-  <div id="navigation">
-    <li class="nav-item">
-      <a class="nav-link" href="{% url 'home' %}">home</a></li>       
-      <li class="nav-item">  
-        <a class="nav-link" href="/about">about</a></li>  
-</div>
-  </div>
-<div id="rightbar">
-<h2>
- 
-  <div id='rrr'>
-    <a class="nav-link" href="{% url 'user_list'%}">все профили</a> <br>
-    <a class="nav-link" href="{% url 'myprofile'%}">мой профиль</a> <br>
-    <a class="nav-link" href="{% url 'add_tutor' %}">добавить тутор</a><br>
-    <a class="nav-link" href="{% url 'create' %}">добавить команду</a><br>
-
-  {% block rightbar %} {% endblock rightbar %}
-</h2>
-</div>
-
-
-<div id="sidebar">
- <h2>
-  
-        <a class="nav-link" href="{% url 'show' %}">архив команд</a></br>
-        <a class="nav-link" href="{% url 'shownews' %}">новости</a></br>
-        <a class="nav-link" href="{% url 'showtutor' %}">руководства</a></br>
-        <br><br><br><br>
-
-        <h6>  ДЗ </h6></br>
-          <a class="nav-link" href="/show1">rest_create_read</a></br>
-          <a class="nav-link" href="/show2">rest_upd_del</a></br> 
-        <h6>  ДЗ </h6></br>
-
-  {% block sidebar %} {% endblock sidebar %}
-
-</div>
-
-<div id="content">
- <h2>  {% block content %}  {% endblock %}</h2>
-
- 
-</div>
-
-
-<div class="contenta">
+<body >
+    <section class="hero " style="background-color: #d16624">
+        <div class="hero-body">
+            <a class="title" style="color:#2e2d2a;" href="{% url 'home' %}">BU_site</a>
+        </div>
+    </section>
     
-  </div>
-</div>
-  <footer class="footer">
-    <p>BukaY © 2024 да нет прав никаких</p>
-  </footer>
-</div>
+    <nav class="navbar  " style="background-color: #d16624" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <div class="navbar-start">
+                <div class="navbar-item">
+                    <a class="navbar-item ml-6" style="color:#2e2d2a;" href={% url "home" %}>
+                        <strong>home</strong>
+                    </a>
 
-<style>
-#rightbar a{  
-  color: #eee;
-  font-family: arial, sans-serif;
-  font-size: 24px;
-  margin-left: 20px;
-  text-decoration: none;
-  }
-#sidebar a{  
-  color: #eee;
-  font-family: arial, sans-serif;
-  font-size: 24px;
-  margin-left: 20px; 
-  text-decoration: none; 
-}
-#sidebar {
-  background: #666;
-  width: 15%;
-  height: calc(100vh - 95px);
-  position: fixed;  
-  top: 100px;
-  left: 0;
-}
-#rightbar {
-  background: #666;
-  width: 15%;
-  height: calc(100vh - 95px);
-  position: fixed;
-  top: 100px;
-  right: 0;
-}
-#content {
-  background: #777;
-  width: 70%;
-  height: calc(100vh - 95px);
-  position: fixed;
-  top: 80px;
-  right: 15%;
-  overflow-y: scroll;
-}
-.content a {
-  min-height: 100px;
-  
-}
-.footer {
-  height: 50px;
-  background: #555;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  font-size: 15px;
-  padding-left: 100px;
-  padding-top: 10px;
-}
-</style>
+                    {% if user.is_authenticated %} 
+                        <a class="navbar-item ml-6" style="color:#2e2d2a;" href="{% url 'myprofile' %}">
+                            <strong>{{ user.username }}</strong> 
+                        </a> 
+                    {% else %} 
+                        <a id="id" class="navbar-item ml-6"style="color:#2e2d2a;" href="{% url 'login' %}">
+                            <strong>log in</strong>
+                        </a>
+                    {% endif %}
+
+                    <div class="dropdown has-dropdown is-hoverable ml-6 "style="background-color: #d16624">
+                            <div class="dropdown-trigger">
+                                <button class="button" style="color:#2e2d2a;background-color: #d16624" aria-haspopup="true" aria-controls="dropdown-menu">
+                                    <span>
+                                        <span aria-hidden="true">-</span>
+                                        <span aria-hidden="true">-</span>
+                                        <span aria-hidden="true">-</span>
+                                    </span>
+                                        <span class="icon is-small">
+                                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                        </span>
+                                </button>
+                            </div>
+                                <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                                    <div class="dropdown-content">
+                                        <hr class="dropdown-divider" />
+                                        <a href={% url "show" %} class="dropdown-item">command</a>
+                                        <hr class="dropdown-divider" />
+                                        <a href="{% url "shownews" %}" class="dropdown-item"> news</a>
+                                        <hr class="dropdown-divider" />
+                                        <a href="{% url "showtutor" %}" class="dropdown-item">tutor </a>
+                                        <hr class="dropdown-divider" />
+                                        <a href="{% url "about" %}" class="dropdown-item">about</a>
+                                    </div>
+                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="columns is-mobile " style="background-color: #2e2d2a;min-height:100vh">
+        <div class="column is-one-fifth " >
+            
+            {% block leftbar %} {% endblock %}
+        </div>
+        <div class="column  is-two-thirds">
+            {% block content %} {% endblock %}
+        </div>
+        
+    </div>
+
 </body>
 </html>

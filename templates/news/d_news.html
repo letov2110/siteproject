@@ -1,22 +1,33 @@
-
+<!DOCTYPE html>
+<html lang="ru">
 {% extends 'base.html' %}
+{% block title %} news {% endblock %}
+
 {% block content %}
 
-<h1 style="font-size: 30px; color: #eee; text-align: center;">
-     {{ newss.title }}
-</h1>
-<div class='alert' style="padding: 10px;">
-     <p style="font-size: 14px; color: #111; text-align: center;">
-          {{ newss.date }} | {{ newss.category}} | Просмотры: {{ newss.views }}
-     </p>
-</div>
-     <img src="{{ newss.image.url }}" style="width: 100%; max-width: 500px; display: block; margin: 0 auto;" alt="image">
-     <br>  </br>
-<div style="overflow: auto; max-height: 400px; text-align: center;">
-     <h1 style="font-size: 14px; color: #333; width: 80%; margin: 0 auto;">
-          {{ newss.text }}
-     </h1>
-     
-</div>
-     </br> </br>
-{% endblock content %} 
+     <div class="content is-medium">
+          <h1 class="title is-3 mt-5" style="color:#d16624;">{{ newss.title }}</h1>
+          <div class="p is-size-7 mt-4">
+               Опубликован: {{ newss.date }} | Просмотры: {{ newss.views }} <br>
+
+               категирии: 
+               {% for cat in newss.category.all %}
+                    {{ cat.name }}. 
+               {% endfor %}
+
+          </div> 
+
+          <figure class="image mt-4 " >
+               <iframe
+                    class="has-ratio"
+                    src="{{ newss.image.url }}"
+                    frameborder="0"
+                    style="width:50vw;height:40vh">
+               </iframe>
+          </figure>    
+          <div class="is-size-5 mt-4 mr-6">
+               {{ newss.text|safe }}
+          </div>
+     </div>   
+               
+{% endblock content %}

@@ -2,16 +2,17 @@ from django.shortcuts import render
 from .models import Cat_News,News
 from django.views.generic import DetailView
 from django.views.decorators.cache import cache_page
+from rest_framework import generics
+from .serializers import NewsSerializer
 
-@cache_page(60 * 20)  
-## why not ? ) but if add new new don’t need to cache it
 def shownews(request):
     newsc = Cat_News.objects.all()
-    news = News.objects.order_by('date')
+    news = News.objects.order_by('-date')
     category_id = request.GET.get('category')
     if category_id:
-        news = news.filter(category__id=category_id)
+        news = news.filter(category=category_id)
     return render(request, 'news/shownews.html', {'news': news, 'newsc': newsc})
+
 
 class NewsView(DetailView):
     model=News
@@ -22,3 +23,9 @@ class NewsView(DetailView):
         obj.views += 1
         obj.save()
         return obj
+
+
+
+class NewsListAPIView(generics.ListAPIView):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer

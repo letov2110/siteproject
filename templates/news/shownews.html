@@ -1,67 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru">
 {% extends 'base.html' %}
-{% block content %} 
+{% block title %}all news{% endblock %}
 
-<html>
-<head>
-    <title>News List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .alert {
-            display: flex;
-            margin-bottom: 20px;
-            padding: 10px;
-            border-radius: 5px;
-        }
-        .alert img {
-            width: 50%;
-            margin-right: 20px;
-        }
-        h5 {
-            font-size: 24px;
-            color: #222;
-            margin-bottom: 10px;
-        }
-        h6 {
-            font-size: 18px;
-            color: #555;
-            margin-bottom: 10px;
-        }
-        button {
-            background-color: #777;
-            color:white;
-        }
-        a.btn {
-            color: #eee;
-            text-decoration: none;
-            font-size: 25px;
-        }
-    </style>
-</head>
-<body>
-    <form method="GET" action="{% url 'shownews' %}">
-        <select name="category">
-            <option value="">Все категории</option>
-            {% for category in newsc %}
-                <option value="{{ category.id }}">{{ category.name }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Фильтр</button>
-    </form>
-    {% for el in news %}
-        <div class='alert'>
-            <img src="{{ el.image.url }}"style="width: 300px;"  alt="image">
-            <div>
-                <h5>{{ el.title }}</h5>
-                <h6>{{ el.subtitle }}</h6>
-                <a href="{% url 'd_news' el.id %}" class="btn">читать полностью</a>
+{% block content %}
+
+<form method="GET" action="">
+    <button class="button mx-2 mt-6 mb-4" style="color:#2e2d2a;background-color: #d16624" type="submit" href="/show" >сброс</button>
+    {% for category in newsc %}
+        <button class="button mx-2 mt-6 mb-4" style="color:#2e2d2a;background-color: #d16624" type="submit" name="category" value="{{ category.id }}">
+            {{ category.name }}
+        </button>
+    {% endfor %} 
+</form>
+
+{% for el in news %}
+    <div class="box mt-4 mr-4">
+        <article class="media">
+            <div class="media-left">
+                <figure class="image is-64x64">
+                    <img src="{{ el.image.url }}" alt="Image" />
+                </figure>
             </div>
-        </div>
-    {% endfor %}
-</body>
-</html>
-<p>  <br><br>  </p>
-<p>  <br><br>  </p>
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <strong>{{ el.title }} </strong> <br/>
+                        {{ el.subtitle }} <br>
+                        <div class="content is-small">{{ el.date}}</div>
+                        
+                        <a href="{% url 'd_news' el.id %}" class="btn" style="color:#d16624;">читать полностью..</a>
+                    </p>
+                </div>
+                <nav class="level is-mobile">
+                    <div class="level-left">
+                        <a class="level-item" aria-label="reply">
+                            <span class="icon is-small">
+                                <i class="fas fa-reply" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                        <a class="level-item" aria-label="retweet">
+                            <span class="icon is-small">
+                                <i class="fas fa-retweet" aria-hidden="true"></i>
+                            </span>
+                        </a>
+                        <a class="level-item" aria-label="like">
+                        <span class="icon is-small">
+                            <i class="fas fa-heart" aria-hidden="true"></i>
+                        </span>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+        </article>
+    </div>
+{% endfor %}
 
 {% endblock content %}

@@ -1,30 +1,81 @@
+<!DOCTYPE html>
+
 {% extends 'base.html' %}
+{% block title %} myprofile {% endblock %}
+
 {% block content %}
 
-<div style="width: 100%; text-align: center;">
-  <a class="nav-link" style="display: inline-block; margin-top: 30px; color: #eee; font-size: 20px; margin-left: 800px;" href="{% url 'editprofile' %}">изменить</a>
-  <a class="nav-link" style="display: inline-block; margin-top: 30px; color: #eee; font-size: 20px; margin-left: 20px;" href="{% url 'logout' %}">выход</a>
-</div>
-{% if user.myuser.ava %}
+    <div class="grid">
+        <div class="cell mt-6">
+            {% csrf_token %}
+            <figure class="image is-2by3 " 
+                style="max-width:180px;max-height:200px;min-width:5vw;min-height:5vh">
+                    <img src="{{ user.myuser.ava.url }}" alt="avatar" 
+                    frameborder="0">
+            </figure>
 
-      <style> 
-        .profile { display: flex; align-items: center; margin-top: 50px; margin-left: 50px; } 
-        .profile img { width: 150px; margin-right: 20px; } 
-        .profile a { font-size: 20px; } 
-      </style> 
-        <div class="profile"> 
-          <img src="{{ user.myuser.ava.url }}" alt="avatar">
-          <div> 
-            <a>имя: {{ user.myuser.first_name }}</a><br> 
-            <a>псевдоним: {{ user.myuser.nickname }}</a><br> 
-            <a>фамилия: {{ user.myuser.last_name }}</a><br> 
-            <a>возраст: {{ user.myuser.calculate_age }}</a><br>
-            <a>почта: {{ user.myuser.email }}</a><br> 
-            <a>о себе: {{ user.myuser.about }}</a> <br> 
-          </div>
+            <div class="dropdown has-dropdown is-hoverable ml-3 mt-3 "style="background-color: #d16624">
+                <div class="dropdown-trigger">
+                    <button class="button" style="color:#d16624;background-color: #2e2d2a" aria-haspopup="true" aria-controls="dropdown-menu">
+                        <span>
+                            <span aria-hidden="true">-</span>
+                            <span aria-hidden="true">-</span>
+                            <span aria-hidden="true">-</span>
+                        </span>
+                            <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                    </button>
+                </div>
+                    <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                        <div class="dropdown-content">
+                            <hr class="dropdown-divider" />
+                            <a href={% url 'editprofile' %} class="dropdown-item">изменить</a>
+                            <hr class="dropdown-divider" />
+                            <a href="{% url 'user_list' %}" class="dropdown-item">юзеры</a>
+                            <hr class="dropdown-divider" />
+                            <a href="{% url 'add_tutor' %}" class="dropdown-item">tutor+</a>
+                            <hr class="dropdown-divider" />
+                            <a href="{% url 'create' %}" class="dropdown-item">command+</a>
+                            <hr class="dropdown-divider" />
+                            <a href="{% url 'logout' %}" class="dropdown-item">logout</a>
+                        </div>
+                    </div>
+            </div>
         </div>
-{% endif %}
+            <div class="cell mt-6 is-col-min-12">
+                <div class="p is-size-5 ">
+                    {{ user.myuser.first_name }} {{ user.myuser.last_name }} {{ user.myuser.nickname }} 
+                </div>
+                    <div class="inform">
+                        <label class="p is-size-7" for="age">возраст: </label><br>
+                            <div class="prof_inf">
+                                {{ user.myuser.calculate_age }}<br>
+                            </div> 
+                        <label class="p is-size-7" for="email">почта:</label><br> 
+                            <div class="prof_inf">
+                                {{ user.myuser.email }}<br>
+                            </div>
+                        <label class="p is-size-7" for="about">о себе:</label><br> 
+                            <div class="prof_inf mb-1">
+                                {{ user.myuser.about }}<br>
+                            </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
 
-
+<div class="title is-size-4" style="color: #d16624;">
+    опубликованные туторы
+</div>
+    {% for tutor in user_tutors %}
+        <li><a href="{% url 'd_tutor' post_id=tutor.id %}"  style="color: #d16624;">{{ tutor.title }}</a></li>
+        <div class="p is-size-7">
+            дата: {{tutor.date}} | просмотры: {{ tutor.views }} 
+        </div>
+    {% empty %}
+        <li>не публиковал </li>
+    {% endfor %}
+    
 {% endblock content %}
-

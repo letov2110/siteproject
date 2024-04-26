@@ -1,6 +1,0 @@
-user   bender
-pass.  1
-user   Fray
-pass.  1
-user   professor
-pass.  1

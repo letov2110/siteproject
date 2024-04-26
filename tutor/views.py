@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Tutor, Comm_tut
 from .forms import CommForm,TutorForm
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect,HttpResponse
+from django.shortcuts import redirect
 
 def showtutor(request):
     all_tut = Tutor.objects.all()
@@ -10,7 +10,9 @@ def showtutor(request):
     
 def d_tutor(request, post_id):
     post = Tutor.objects.get(id=post_id)
-    comments = Comm_tut.objects.filter(post=post_id)
+    post.views += 1
+    post.save()
+    comments = Comm_tut.objects.filter(post=post_id).order_by('-pub_date')
     if request.method == 'POST':
         form = CommForm(request.POST)
         if form.is_valid():
@@ -35,25 +37,3 @@ def add_tutor(request):
     else:
         form = TutorForm()
     return render(request, 'tutor/add_tutor.html', {'form': form})
-
-
-
-from .task import my_task
-def test_cel(request):
-    my_task.delay()
-    return HttpResponse("Started!")
-from django_celery_beat.models import PeriodicTask, IntervalSchedule
-
-def schedule_task(request):
-    interval, err = IntervalSchedule.objects.get_or_create(
-        every=30, period=IntervalSchedule.SECONDS
-    )
-
-    PeriodicTask.objects.create(
-        interval=interval,
-        name="bubu-schedule",
-        task="tutor.task.my_task",
-        # args=json.dump(["arg1", True]),
-        # on_off=True,
-    )
-    return HttpResponse("Scheduled!")

@@ -1,48 +1,33 @@
+<!DOCTYPE html>
 {% extends 'base.html' %}
+{% block title %} add command {% endblock %}
+
 {% block content %}
-<html>
 
-<body>
-    <h1 style='margin-top:50px;margin-left:400px;'>добавить команду</h1>
-    <form method="post">
-        {% csrf_token %}
-        <div style="display: flex; flex-direction: column; align-items: center;">
-            <label for="id_title">команда:</label>
-            {{ add_form.title }}
-            <label  style='font-size: 30px;' for="id_content">описание:</label>
-            {{ add_form.content }}<a class='category'> <label for="id_categories">язык:</label>
-            {{ add_form.categories }}</a>        
-        </div>       
-        <button type="submit">сохранить</button>
-    </form>
+<form method="post">
+  {% csrf_token %}
+
+  <p class="title is-3 mt-4 " style="color:#d16624;">add command</p>
+
+    <div>
+      <input class="input is-rounded mt-4 mr-6 mb-4" type="text" placeholder="введите команду" {{ add_form.title }}
+    </div>
+
+    <div>
+      <textarea class="textarea mr-6 mb-4" placeholder="описание команды" {{ add_form.content }}
+    </div>
+
+      <button class="button mr-3  " type="submit" name="add" value="добавить"
+      style="color:#2e2d2a;background-color: #d16624" >
+        добавить
+      </button>
+
+      <div class=" select is-multiple">
+        {{ add_form.categories }}
+      </div> 
+      
+</form>
+
 </body>
-<style>
-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 30px;
-}
-
-form input {
-    width: 80%;
-    margin-bottom: 20px;
-    padding: 10px; 
-    font-size: 30px; 
-    height: 40px;
-}
-form select {
-    width: 80%;
-    font-size: 30px
-    height: 100px; 
-
-}
-
-form button {
-    width: 10%;
-    padding: 15px;
-    margin-top: 50px;
-}
-</style>
-</html>
 {% endblock content %}
+</html>

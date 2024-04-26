@@ -1,37 +1,49 @@
+<!DOCTYPE html>
 {% extends 'base.html' %}
+{% block title %} log in {% endblock %}
+
 {% block content %}
- <style>
-    form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    form input, button {
-        width: 60%;
-        margin-bottom: 10px;
-        padding: 5px;
-    }
 
-    small {
-        font-size: 30px;
-    }
-</style>
-<h1 style='margin-top:50px;margin-left:400px'>вход</h1>
-    <form method="POST">
-        {% csrf_token %} 
-        <div style="display: flex; flex-direction: column; align-items: center;">
-            {{ login.username.label_tag }}
-            {{login.username}}
+<div class="p is-size-4 mt-6 ml-6 mb-6">вход</div>
+    <p><br></p>
+<div class="columns " style="background-color: #2e2d2a">
+    <div class="column .is-offset-x is-one-third">
+        <form method="post">
+            {% csrf_token %}
 
-            {{ login.password.label_tag }}
-            {{login.password}}
-            
-            <button type="submit">войти в аккаунт</button>
-    </form>
+        <div class="field mr-4">
+            <p class="control has-icons-left has-icons-right">
+                <input class="input" type="login" placeholder="login"{{login.username}}
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                        </span>
+                        <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                </span>
+            </p>
+        </div>
+            <div class="field mr-4">
+                <p class="control has-icons-left">
+                    <input class="input" type="password" placeholder="Password"{{login.password}}
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                </p>
+            </div>
+                <div class="field">
+                    <p class="control">
+                        <button class="button ">
+                            Login
+                        </button>
+                    </p>
+                </div>
 
+        </form>
+        <div class="p is-size-6 ml-6 mt-3 mb-3">нет аккаунта?</div>
+            <div>
+                <a href="{% url 'register' %}" class="button">регистрация</a>    
     </div>
+        <div class="column  " ></div>
 </div>
 
 {% endblock  %}
-</html>

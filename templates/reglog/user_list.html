@@ -1,27 +1,34 @@
-html
+<!DOCTYPE html>
+
 {% extends 'base.html' %}
+{% block title %}all user{% endblock %}
 
 {% block content %}
-<style> 
-    .profile { display: flex; align-items: center; margin-top: 50px; margin-left: 50px; } 
-    .profile img { width: 100px;height:100px; margin-right: 20px; } 
-    .profile a { font-size: 20px; } 
-  </style> 
-<h2 style='margin-left:400px;margin-top:50px;'>пользователи</h2>
-<div style='margin-left:40px;height: 150px;'>
-    {% for user in users %}
-        {% if user.myuser.ava %}
-            <div class="profile"> 
-                <a href="{% url 'profile' user.myuser.id %}"> 
-                    <img src="{{ user.myuser.ava.url }}" alt="avatar"> 
-                    {{ user.myuser.first_name }} 
-                    {{ user.myuser.nickname }} 
-                    {{ user.myuser.last_name }}
+
+{% for user in users %}
+    {% if user.myuser.ava %}
+    <div class="grid">
+        <div class="cell mt-6">
+            <figure class="image is-2by3" style="max-width:150px;max-height:200px;min-width:150px;min-height:200px">
+                    
+                    <img src="{{ user.ava.url }}" alt="avatar" frameborder="0">
+            </figure>
+        </div>
+        <div class="cell mt-6">
+            <div class="p is-size-5 ">
+                <a style="color:#d16624;" href="{% url 'profile' user.myuser.id %}">
+                    {{ user.myuser.first_name }} {{ user.myuser.last_name }} {{ user.myuser.nickname }} 
                 </a>
             </div>
-        {% endif %}
-    {% endfor %} 
-</div>
-<p>  <br><br>  </p>
-<p>  <br><br>  </p>
+                <div class="inform">
+                    <label class="p is-size-7" for="email">почта:</label><br> 
+                        <div class="prof_inf">
+                            {{ user.myuser.email }}<br>
+                        </div>
+                </div>
+        </div>
+    </div>
+    {% endif %}
+{% endfor %}
+
 {% endblock %}
