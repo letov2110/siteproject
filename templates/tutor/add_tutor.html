@@ -5,36 +5,43 @@
 
 {% block content %}
 
-<form method="post">
-    {% csrf_token %}
-        <div class="field mr-3 mt-6">
-            <p class="control has-icons-left has-icons-right">
-                <input class="input" type="login" placeholder="заголовок тутора"{{ form.title }}
-                <span class="icon is-small is-left">
-                    <i class="fas fa-envelope"></i>
-                </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
-                    </span>
-            </p>
-        </div>
-        <div class="field mr-3">
-            <p class="control has-icons-left has-icons-right">
-                <textarea class="textarea" placeholder="текст тутора"{{ form.public_text }}
-                <span class="icon is-small is-left">
-                    <i class="fas fa-envelope"></i>
-                </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
-                    </span>
-            </p>
-        </div>
-    <div>
-        <button class="button mt-3 mr-3" style="color:#2e2d2a;background-color: #d16624"  type="submit">
-            добавить
-        </button>
+<p class="title is-3 mt-6 " style="color:#d16624;">добавить тутор</p>
+
+<div class="columns " style="background-color: #2e2d2a">
+    <div class="column is-three-fifths">
+
+        <form method="post">
+            {% csrf_token %}
+                <div class="field mr-3 mt-4 mb-4">
+                    <p class="control has-icons-left has-icons-right">
+                        <input class="input" type="title" placeholder="заголовок тутора"{{ form.title }}
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                            <span class="icon is-small is-right">
+                                <i class="fas fa-check"></i>
+                            </span>
+                    </p>
+                </div>
+                <div class="field mr-3 mb-4">
+                    <p class="control has-icons-left has-icons-right">
+                        <textarea class="textarea  has-fixed-size" rows="5" placeholder="текст тутора"{{ form.public_text }}
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                            <span class="icon is-small is-right">
+                                <i class="fas fa-check"></i>
+                            </span>
+                    </p>
+                </div>
+            <div>
+                <button class="button mr-3" style="color:#2e2d2a;background-color: #d16624"  type="submit">
+                    добавить
+                </button>
+            </div>
+        </form>
     </div>
-</form>
+</div>
 
 <p class="text is-6 mt-6" style="color:#d16624;">
     тутор будет добавлен после проверки

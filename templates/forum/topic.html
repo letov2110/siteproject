@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
-{% block title %} tutor {% endblock %}
-
+{% block title %} topic {% endblock %}
 {% block content %}
 
-<div class="is-size-4 mt-4 mr-6">
-  {{ post.title }}
-</div>
+<div class="content is-medium">
+  <h1 class="title is-3 mt-5" style="color:#d16624;">{{top_question.title  }}</h1>
+  <div class="p is-size-7 mt-3">
+    <p>
+      опубликован: {{ top_question.date }} | 
+      категории:  {% for category in cat_topics %}
+                    {{ category.name }} <br>
+                  {% endfor %}
+      просмотры: {{ top_question.views }} |
+      ответы: {{ num_answers }}
+    </p>
+    
+  </div> 
+</div> 
 
-{% if post.text == "" %}
-  <li class="p is-4" style="color: #d16624;">тутор на редакции </li>
-{% else %}
-  <div class="is-size-6 mt-3 mr-6">
-    {{ post.text|safe }} 
-  </div>
-{% endif %}
+<div class="is-size-6 mt-4 mr-6">
+  {{ top_question.text }}
+</div>
 
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
@@ -27,7 +33,7 @@
             <div>
                 <div class="control">
                   <textarea class="textarea has-fixed-size " placeholder="оставьте коментарий"
-                  rows="5" name="text" id="id_text" required {{ form.text }}
+                  rows="5" name="text" id="id_text" required {{ ans_form.text }}
                 </div>
             </div>
     </article>
@@ -41,32 +47,32 @@
 
 <div class="columns " style="background-color: #2e2d2a">
   <div class="column is-three-fifths">
+  {% for answer in answers %}
 
-  {% for comment in comments %}
-
-  <div class="card mr-3">
+  <div class="card mr-3 ">
     <div class="card-content">
       <div class="media">
         <div class="media-left">
           <figure class="image is-48x48">
             <img 
-              src="{{ comment.author.myuser.ava.url }}"
+              src="{{ answer.author.myuser.ava.url }}"
               alt="Placeholder image"/>
           </figure>
         </div>
           <div class="media-content">
-            <p class="title is-5">{{ comment.author.username }}</p>
+            <p class="title is-5">{{ answer.author.username }}</p>
             <div class="content is-small">
-              {{ comment.pub_date }}
+              {{ answer.pub_date }}
             </div>
           </div>
       </div>
-        <div class="content">
-          {{ comment.text }}<br>
+        <div class="content ">
+          {{ answer.text }}<br>
         </div>
     </div>
   </div>
+
   {% endfor %}
   </div>
 </div>
-{% endblock content %}
+{% endblock %}

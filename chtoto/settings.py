@@ -5,11 +5,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 SECRET_KEY = 'django-insecure-qt!@_dp)fegad_!jcs#d*_fh5=%&rt)_wv!00r&1qqb&_bef5v'
-
-DEBUG = True
-
 ALLOWED_HOSTS = ['127.0.0.1','178.128.243.102','buksite.space']
 
+DEBUG = True
 
 
 INSTALLED_APPS = [
@@ -21,10 +19,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apl',
     'rest_framework',
-    'tinymce',
     'reglog',
     'tutor',
-    'newart','django_ckeditor_5',
+    'newart','django_ckeditor_5','forum',
 ]
 
 CKEDITOR_UPLOAD_PATH="uploads/"
@@ -174,21 +171,7 @@ CKEDITOR_UPLOAD_PATH = "static"
 
 # CKEDITOR_5_FILE_STORAGE = "static" # optionals
 CKEDITOR_5_CONFIGS = {
-    # 'default': {
-    #   'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
-    #     'code','subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
-    #                 'bulletedList', 'numberedList', 'todoList', '|',  'blockQuote', 'imageUpload', '|',
-    #                 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
-    #                 'insertTable',],
-    #   'language': 'en', },
-    #       'form': {
-    #     'extends': 'default',
-    #     'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
-    #     'code','subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
-    #                 'bulletedList', 'numberedList', 'todoList', '|',  'blockQuote', 'imageUpload', '|',
-    #                 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
-    #                 'insertTable',],
-    # },
+    
     'default': {
         'blockToolbar': [
             'paragraph', 'heading1', 'heading2', 'heading3',

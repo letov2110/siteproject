@@ -1,8 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Tutor, Comm_tut
 from .forms import CommForm,TutorForm
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
 
 def showtutor(request):
     all_tut = Tutor.objects.all()

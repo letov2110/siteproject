@@ -10,6 +10,7 @@ urlpatterns = [
     path("reglog/", include("reglog.urls")),
     path("newart/", include("newart.urls")),
     path("tutor/", include("tutor.urls")),
+    path("forum/", include("forum.urls")),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

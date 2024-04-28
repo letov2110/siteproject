@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block title %} add topic {% endblock %}
+
+{% block content %}
+
+<div class="columns " style="background-color: #2e2d2a">
+    <div class="column is-three-fifths">
+
+        <form method="post">
+        {% csrf_token %}
+
+        <p class="title is-3 mt-6 " style="color:#d16624;">добавить топик</p>
+
+            <div>
+            <input class="input  mt-4 mr-3 mb-4" type="text" placeholder="введите тему топика" {{ top_form.title }}
+            </div>
+
+            <div>
+            <textarea class="textarea mr-3 mb-4 has-fixed-size" rows="5" placeholder="описание топика" {{ top_form.text }}
+            </div>
+            
+            {% comment %} <div>
+                <input class="input mr-3 mb-4" type="text" placeholder="Введите название новой категории или выберите ниже" name="new_category">
+            </div> {% endcomment %}
+
+            <button class="button mr-3  " type="submit" name="add" value="добавить"
+            style="color:#2e2d2a;background-color: #d16624" >
+                создать топик
+            </button>
+
+            <div class=" select is-multiple ">
+                {{ top_form.cat_topic }}
+            </div> 
+            
+            
+        </form>
+    </div>
+</div>
+{% endblock %}

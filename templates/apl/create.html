@@ -4,30 +4,32 @@
 
 {% block content %}
 
-<form method="post">
-  {% csrf_token %}
+<div class="columns " style="background-color: #2e2d2a">
+  <div class="column is-three-fifths">
 
-  <p class="title is-3 mt-4 " style="color:#d16624;">add command</p>
+    <form method="post">
+      {% csrf_token %}
 
-    <div>
-      <input class="input is-rounded mt-4 mr-6 mb-4" type="text" placeholder="введите команду" {{ add_form.title }}
-    </div>
+      <p class="title is-3 mt-6 " style="color:#d16624;">добавить команду</p>
 
-    <div>
-      <textarea class="textarea mr-6 mb-4" placeholder="описание команды" {{ add_form.content }}
-    </div>
+        <div>
+          <input class="input  mt-4 mr-3 mb-4" type="text" placeholder="введите команду" {{ add_form.title }}
+        </div>
 
-      <button class="button mr-3  " type="submit" name="add" value="добавить"
-      style="color:#2e2d2a;background-color: #d16624" >
-        добавить
-      </button>
+        <div>
+          <textarea class="textarea mr-3 mb-4 has-fixed-size" rows="5" placeholder="описание команды" {{ add_form.content }}
+        </div>
 
-      <div class=" select is-multiple">
-        {{ add_form.categories }}
-      </div> 
-      
-</form>
+          <button class="button mr-3  " type="submit" name="add" value="добавить"
+          style="color:#2e2d2a;background-color: #d16624" >
+            добавить
+          </button>
 
-</body>
+          <div class=" select is-multiple">
+            {{ add_form.categories }}
+          </div> 
+          
+    </form>
+  </div>
+</div>
 {% endblock content %}
-</html>

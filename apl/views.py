@@ -25,7 +25,7 @@ def show(request):
         teg = teg.filter(categories=category_id)
     return render(request, "apl/show.html", {"teg": teg, 'teg1': teg1})
 ####
-# @login_required(login_url='login')
+@login_required(login_url='login')
 def create(request):
     if request.method == 'POST':
         add_form = AddPost(request.POST)
