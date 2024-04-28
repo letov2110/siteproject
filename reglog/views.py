@@ -1,9 +1,9 @@
-from django.shortcuts import render
 from django.shortcuts import render,redirect
 from .forms import UserReg, LoginUser,EditUser
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from tutor.models import Tutor
+from forum.models import Forum_Question
 from .models import MyUser
 from django.contrib.auth.models import User
 from django.views.decorators.cache import cache_page
@@ -59,13 +59,16 @@ def user_logout(request):
 def myprofile(request):   
     user = request.user
     user_tutors= Tutor.objects.filter(author=user)
-    return render(request, 'reglog/myprofile.html', {'user_tutors':user_tutors,'user': user})
+    user_topics = Forum_Question.objects.filter(author = user)
+    return render(request, 'reglog/myprofile.html', {'user_tutors':user_tutors,'user': user,'user_topics':user_topics})
 
 @login_required(login_url='login')
 def profile(request, user_id):
     user = MyUser.objects.get(id=user_id)
     user_tutors = Tutor.objects.filter(author=user)
-    return render(request, 'reglog/profile.html', {'user_tutors': user_tutors, 'user': user})
+    user_topics = Forum_Question.objects.filter(author = user)
+
+    return render(request, 'reglog/profile.html', {'user_tutors': user_tutors, 'user': user,'user_topics':user_topics})
 
 @login_required(login_url='login')
 def editprofile(request):

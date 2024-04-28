@@ -45,13 +45,25 @@
                     </div>
             </div>
 
-            <div class="title is-size-4 mt-6" style="color: #d16624;">
+            <div class="title is-size-4 mt-4" style="color: #d16624;">
                 опубликованные туторы
             </div>
                 {% for tutor in user_tutors %}
-                    <li><a href="{% url 'd_tutor' post_id=tutor.id %}"  style="color: #d16624;">{{ tutor.title }}</a></li>
+                    <a href="{% url 'd_tutor' post_id=tutor.id %}"  style="color: #d16624;">{{ tutor.title }}</a>
                     <div class="p is-size-7">
                         дата: {{tutor.date}} | просмотры: {{ tutor.views }} 
+                    </div>
+                {% empty %}
+                    <li>не публиковал </li>
+                {% endfor %}
+
+                <div class="title is-size-4 mt-4" style="color: #d16624;">
+                    созданные топики
+                </div>
+                {% for topic in user_topics %}
+                    <a href="{% url 'topic' post_id=topic.id %}"  style="color: #d16624;">{{ topic.title }}</a>
+                    <div class="p is-size-7">
+                        дата: {{topic.date}} | просмотры: {{ topic.views }} 
                     </div>
                 {% empty %}
                     <li>не публиковал </li>
