@@ -8,19 +8,14 @@
     {% csrf_token %}
 <div class="grid">
     <div class="cell is-col-min-12">
-        {% if user.myuser.ava %}
-            <figure class="image is-2by3 mt-6 " 
-                style="max-width:180px;max-height:200px;min-width:5vw;min-height:5vh">
-                <div class="prof_ava"> 
-                    <img src="{{ user.myuser.ava.url }}" alt="avatar" frameborder="0">
-                </div> 
-            </figure>
-            {% else %}
-                <figure class="image is-2by3"
-                    style="max-width:180px;max-height:200px;min-width:5vw;min-height:5vh">
-                    <img src="https://bulma.io/assets/images/placeholders/256x256.png" />
-                </figure>
-        {% endif %}
+        <figure class="image is-2by3 mt-6 " 
+            style="max-width:180px;max-height:200px;min-width:5vw;min-height:5vh">
+                {% if user.myuser.ava %}
+                    <div class="prof_ava"> 
+                        <img src="{{ user.myuser.ava.url }}" alt="avatar" frameborder="0">
+                    </div> 
+                {% endif %}   
+        </figure>
 
         <div class="title is-size-4 mt-4" style="color: #d16624;">
             опубликованные туторы
@@ -51,10 +46,6 @@
             {{ user.myuser.first_name }} {{ user.myuser.last_name }} {{ user.myuser.nickname }} 
         </div>
             <div class="inform">
-                <label class="p is-size-7" for="rating">рейтинг сообщества:</label><br> 
-                    <div class="prof_inf mb-1">
-                        {{ user.myuser.total_rating }}<br>
-                    </div>
                 <label class="p is-size-7" for="age">возраст: </label><br>
                     <div class="prof_inf">
                         {{ user.myuser.calculate_age }}<br>

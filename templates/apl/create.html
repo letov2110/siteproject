@@ -8,26 +8,26 @@
   <div class="column is-three-fifths">
 
     <form method="post">
-    {% csrf_token %}
+      {% csrf_token %}
 
-    <p class="title is-3 mt-6 " style="color:#d16624;">добавить команду</p>
+      <p class="title is-3 mt-6 " style="color:#d16624;">добавить команду</p>
 
-      <div>
-      <input class="input  mt-4 mr-3 mb-4" type="text" placeholder="введите команду" {{ add_form.title }}
-      </div>
+        <div>
+          <input class="input  mt-4 mr-3 mb-4" type="text" placeholder="введите команду" {{ add_form.title }}
+        </div>
 
-      <div>
-      <textarea class="textarea mr-3 mb-4 has-fixed-size" rows="3" placeholder="описание команды" {{ add_form.content }}
-      </div>
+        <div>
+          <textarea class="textarea mr-3 mb-4 has-fixed-size" rows="5" placeholder="описание команды" {{ add_form.content }}
+        </div>
 
-        <button class="button mr-3  " type="submit" name="add" value="добавить"
-        style="color:#2e2d2a;background-color: #d16624" >
-          добавить
-        </button>
+          <button class="button mr-3  " type="submit" name="add" value="добавить"
+          style="color:#2e2d2a;background-color: #d16624" >
+            добавить
+          </button>
 
-        <div class=" select is-multiple">
-          {{ add_form.categories }}
-        </div> 
+          <div class=" select is-multiple">
+            {{ add_form.categories }}
+          </div> 
           
     </form>
   </div>
