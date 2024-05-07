@@ -1,0 +1,10 @@
+/config/
+/logs/
+/media/
+apl/__pycache__
+chtoto/__pycache__
+config/__pycache__
+forum/__pycache__
+newart/__pycache__
+reglog/__pycache__
+tutor/__pycache__
