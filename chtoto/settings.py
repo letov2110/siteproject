@@ -1,10 +1,14 @@
-
+from .settings_pass import *
+import os
+from urllib.parse import urljoin
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 from pathlib import Path,os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = key
 
-SECRET_KEY = 'django-insecure-qt!@_dp)fegad_!jcs#d*_fh5=%&rt)_wv!00r&1qqb&_bef5v'
 ALLOWED_HOSTS = ['127.0.0.1','178.128.243.102','buksite.space']
 
 DEBUG = True
@@ -99,6 +103,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+
+EMAIL_HOST_USER = mail_host_user
+EMAIL_HOST_PASSWORD = mail_host_password
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
 
 
 LANGUAGE_CODE = 'en-us'
@@ -152,12 +167,6 @@ customColorPalette = [
         },
     ]
 
-import os
-from urllib.parse import urljoin
-
-from django.conf import settings
-from django.core.files.storage import FileSystemStorage
-
 
 class CustomStorage(FileSystemStorage):
     """Custom storage for django_ckeditor_5 images."""
@@ -176,7 +185,7 @@ CKEDITOR_5_CONFIGS = {
         'blockToolbar': [
             'paragraph', 'heading1', 'heading2', 'heading3',
             '|',
-            'bulletedList', 'numberedList',
+            'bulletedList','numberedList',
             '|',
             'blockQuote',
         ],

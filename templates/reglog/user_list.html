@@ -9,11 +9,19 @@
     {% if user.myuser.ava %}
     <div class="grid">
         <div class="cell mt-6">
-            <figure class="image is-2by3" style="max-width:150px;max-height:200px;min-width:150px;min-height:200px">
-                    
+            {% if user.ava and user.myuser.ava%}
+                <figure class="image is-2by3" 
+                    style="max-width:150px;max-height:200px;min-width:150px;min-height:200px">
                     <img src="{{ user.ava.url }}" alt="avatar" frameborder="0">
-            </figure>
+                </figure>
+                {% else %}
+                    <figure class="image is-2by3"
+                        style="max-width:180px;max-height:200px;min-width:5vw;min-height:5vh">
+                        <img src="https://bulma.io/assets/images/placeholders/256x256.png" />
+                    </figure>
+            {% endif %}
         </div>
+
         <div class="cell mt-6">
             <div class="p is-size-5 ">
                 <a style="color:#d16624;" href="{% url 'profile' user.myuser.id %}">

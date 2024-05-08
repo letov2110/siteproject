@@ -8,11 +8,18 @@
     <div class="grid">
         <div class="cell mt-6">
             {% csrf_token %}
-            <figure class="image is-2by3 " 
-                style="max-width:180px;max-height:200px;min-width:5vw;min-height:5vh">
-                    <img src="{{ user.myuser.ava.url }}" alt="avatar" 
-                    frameborder="0">
-            </figure>
+                {% if user.myuser and user.myuser.ava %}
+                <figure class="image is-2by3 "
+                    style="max-width:180px;max-height:200px;min-width:5vw;min-heigh:5vh;">
+                        <img src="{{ user.myuser.ava.url }}" alt="avatar"
+                        frameborder="0">
+                </figure>
+                    {% else %}
+                    <figure class="image is-2by3"
+                        style="max-width:180px;max-height:200px;min-width:5vw;min-height:5vh">
+                        <img src="https://bulma.io/assets/images/placeholders/256x256.png" />
+                    </figure>
+                {% endif %}
 
             <div class="dropdown has-dropdown is-hoverable ml-3 mt-3 "style="background-color: #d16624">
                 <div class="dropdown-trigger">
@@ -75,6 +82,10 @@
                     {{ user.myuser.first_name }} {{ user.myuser.last_name }} {{ user.myuser.nickname }} 
                 </div>
                     <div class="inform">
+                        <label class="p is-size-7" for="rating">рейтинг сообщества:</label><br> 
+                            <div class="prof_inf mb-1">
+                                {{ user.myuser.total_rating }}<br>
+                            </div>
                         <label class="p is-size-7" for="age">возраст: </label><br>
                             <div class="prof_inf">
                                 {{ user.myuser.calculate_age }}<br>
