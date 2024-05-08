@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Forum_Question, Forum_Answer,Cat_topics
+from .models import Forum_Question, Forum_Answer,Cat_topics,VotedComment
 from .forms import QuestionForm, AnswerForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
@@ -31,24 +31,55 @@ def add_topic(request):
         top_form = QuestionForm()
     return render(request, 'forum/add_topic.html', {'top_form': top_form})
 
+@login_required(login_url='login')
 def topic(request, post_id):
     top_question = Forum_Question.objects.get(id=post_id)
     top_question.views += 1
     top_question.save()
     answers = Forum_Answer.objects.filter(post_id=post_id).order_by('-pub_date')
-    num_answers = answers.count() 
+    num_answers = answers.count()
     cat_topics = Cat_topics.objects.filter(forum_question=top_question)
+    ans_form = AnswerForm()
     if request.method == "POST":
-        ans_form = AnswerForm(request.POST)
-        if ans_form.is_valid():
-            answer = ans_form.save(commit=False)
-            answer.post = top_question
-            answer.author = request.user
-            answer.save()
-            return redirect('topic', post_id=post_id)
-    else:
-        ans_form = AnswerForm()
-        
-    return render(request, 'forum/topic.html', {'answers': answers, 'top_question': top_question,
-                                                'ans_form': ans_form, 'cat_topics': cat_topics,
-                                                'num_answers':num_answers})
+        if 'upvote' in request.POST and 'answer_id' in request.POST:
+            answer_id = request.POST['answer_id']
+            try:
+                answer = Forum_Answer.objects.get(pk=answer_id)
+                user_voted = VotedComment.objects.filter(user=request.user, answer=answer).exists()
+                if not user_voted:
+                    answer.rating += 1
+                    answer.save()
+                    VotedComment.objects.create(user=request.user, answer=answer)
+                return redirect('topic', post_id=post_id)
+            except (Forum_Answer.DoesNotExist, VotedComment.DoesNotExist):
+                pass
+        elif 'downvote' in request.POST and 'answer_id' in request.POST:
+            answer_id = request.POST['answer_id']
+            try:
+                answer = Forum_Answer.objects.get(pk=answer_id)
+                user_voted = VotedComment.objects.filter(user=request.user, answer=answer).exists()
+                if not user_voted:
+                    answer.rating -= 1
+                    answer.save()
+                    VotedComment.objects.create(user=request.user, answer=answer)
+                return redirect('topic', post_id=post_id)  
+            except (Forum_Answer.DoesNotExist, VotedComment.DoesNotExist):
+                pass
+
+        elif 'add' in request.POST:  
+            ans_form = AnswerForm(request.POST)
+            if ans_form.is_valid():
+                answer = ans_form.save(commit=False)
+                answer.post_id = post_id
+                answer.author = request.user
+                answer.save()
+                return redirect('topic', post_id=post_id)
+        else:
+            ans_form = AnswerForm()
+    return render(request, 'forum/topic.html', {
+        'answers': answers,
+        'top_question': top_question,
+        'ans_form': ans_form,
+        'cat_topics': cat_topics,
+        'num_answers': num_answers,
+    })

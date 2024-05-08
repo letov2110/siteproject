@@ -8,7 +8,7 @@ class UserReg(ModelForm):
     password = CharField(widget=forms.PasswordInput())
     class Meta:
         model = MyUser
-        fields = ['username', 'password']
+        fields = ['username', 'password',"email"]
 
 class LoginUser(AuthenticationForm):
     username = CharField(widget=TextInput())

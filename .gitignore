@@ -1,9 +1,12 @@
-/config/
-/logs/
-/media/
+config/
+logs/
+media/
+
 apl/__pycache__
 chtoto/__pycache__
-config/__pycache__
+chtoto/gunicorn.conf.py
+chtoto/settings_pass.py
+chtoto/prod_settings.py
 forum/__pycache__
 newart/__pycache__
 reglog/__pycache__

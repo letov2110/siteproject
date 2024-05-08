@@ -7,33 +7,42 @@ from forum.models import Forum_Question
 from .models import MyUser
 from django.contrib.auth.models import User
 from django.views.decorators.cache import cache_page
+from django.core.mail import send_mail
+from django.conf import settings
 
 # @cache_page(60*10)
 def register(request):
-    error_msg = ""
+    error = ""
     if request.method == 'POST':
         user_form = UserReg(request.POST)
         if user_form.is_valid():
             if len(user_form.cleaned_data['password']) < 8 or sum(c.isalpha() for c in user_form.cleaned_data['password']) < 2:
-                error_msg = "Пароль должен быть не менее 8 символов, из которых 2 буквы"
-                return render(request, 'reglog/register.html', {'user_form': user_form, 'error': error_msg})
+                error = "Пароль должен быть не менее 8 символов, из которых 2 буквы"
+                return render(request, 'reglog/register.html', {'user_form': user_form, 'error': error})
             
             username = user_form.cleaned_data['username']
             if User.objects.filter(username=username).exists():
-                error_msg = "Пользователь с таким именем уже существует"
-                return render(request, 'reglog/register.html', {'user_form': user_form, 'error': error_msg})
-            
+                error = "Пользователь с таким именем уже существует"
+                return render(request, 'reglog/register.html', {'user_form': user_form, 'error': error})
             new_user = user_form.save(commit=False)
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
-            return redirect('login')
+
+            # Отправка письма на почту
+            subject = 'регистрация прошла успешно'
+            message = f'Привет, {user_form.cleaned_data["username"]}!\nСпасибо за регистрацию!\nданные для входа:\n\nлогин: {user_form.cleaned_data["username"]}\nпароль: {user_form.cleaned_data["password"]}'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [user_form.cleaned_data['email']]
+            send_mail(subject, message, email_from, recipient_list)
+            
+            new_user = authenticate(username=user_form.cleaned_data['username'], password=user_form.cleaned_data['password'])
+            login(request, new_user)
+            return redirect('myprofile')
         else:
-            error_msg = user_form.errors
+            error = user_form.errors
     else:
         user_form = UserReg()
-    return render(request, 'reglog/register.html', {'user_form': user_form, 'error': error_msg})
-
-
+    return render(request, 'reglog/register.html', {'user_form': user_form, 'error': error})
 
 def user_login(request):
     log=LoginUser()

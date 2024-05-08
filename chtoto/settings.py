@@ -3,11 +3,19 @@ from pathlib import Path,os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+from pathlib import Path
 
-SECRET_KEY = 'django-insecure-qt!@_dp)fegad_!jcs#d*_fh5=%&rt)_wv!00r&1qqb&_bef5v'
-ALLOWED_HOSTS = ['127.0.0.1','178.128.243.102','buksite.space']
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-DEBUG = True
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
+try:
+    from .prod_settings import *
+except ImportError:
+    pass
 
 
 INSTALLED_APPS = [
@@ -35,6 +43,20 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+
+from .settings_pass import mail_host_password,mail_host_user
+EMAIL_HOST_USER = mail_host_user
+EMAIL_HOST_PASSWORD = mail_host_password
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
 
 
 INTERNAL_IPS = [
@@ -70,13 +92,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'chtoto.wsgi.application'
 
 
-
+from .settings_pass import databases_password,databases_name,databases_user
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mydb',
-        'USER': 'yury',
-        'PASSWORD': 'yury',
+        'NAME': databases_name,
+        'USER': databases_user,
+        'PASSWORD': databases_password,
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -116,7 +138,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    BASE_DIR / "staticfiles",
+    BASE_DIR / "statics",
 ]
 
 
