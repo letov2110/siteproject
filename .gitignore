@@ -1,15 +1,25 @@
-.tutor/__pycache__/
+
 config/
 logs/
 media/
 
 apl/__pycache__
+apl/migrations
+
 chtoto/__pycache__
 chtoto/gunicorn.conf.py
 chtoto/settings_pass.py
-chtoto/prod_settings.py
+
 forum/__pycache__
+forum/migrations
+
 newart/__pycache__
+newart/migrations
+
 reglog/__pycache__
+reglog/migrations
+
 tutor/__pycache__
+tutor/migrations
+
 static/static
