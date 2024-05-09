@@ -24,6 +24,7 @@ class Forum_Answer(models.Model):
     text = models.TextField()
     pub_date = models.DateTimeField(auto_now_add=True, blank=True)
     rating = models.IntegerField(default=0)
+    rating = models.IntegerField(default=0)
     def __str__(self): 
         return self.text
     

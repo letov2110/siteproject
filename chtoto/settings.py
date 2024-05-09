@@ -84,6 +84,7 @@ WSGI_APPLICATION = 'chtoto.wsgi.application'
 
 
 from .settings_pass import databases_password,databases_name,databases_user
+from .settings_pass import databases_password,databases_name,databases_user
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -129,6 +130,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
+    BASE_DIR / "statics",
     BASE_DIR / "statics",
 ]
 

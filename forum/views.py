@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Forum_Question, Forum_Answer,Cat_topics,VotedComment
+from .models import Forum_Question, Forum_Answer,Cat_topics,VotedComment
 from .forms import QuestionForm, AnswerForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
@@ -31,11 +32,13 @@ def add_topic(request):
     return render(request, 'forum/add_topic.html', {'top_form': top_form})
 
 @login_required(login_url='login')
+@login_required(login_url='login')
 def topic(request, post_id):
     top_question = Forum_Question.objects.get(id=post_id)
     top_question.views += 1
     top_question.save()
     answers = Forum_Answer.objects.filter(post_id=post_id).order_by('-pub_date')
+    num_answers = answers.count()
     num_answers = answers.count()
     cat_topics = Cat_topics.objects.filter(forum_question=top_question)
     ans_form = AnswerForm()
