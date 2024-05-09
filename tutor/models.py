@@ -10,6 +10,7 @@ class Tutor(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True,blank=True)
     views = models.IntegerField(default=0)
+    cost_rating = models.IntegerField(default=5)
     def __str__(self):
         return self.title
 

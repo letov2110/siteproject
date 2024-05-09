@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from datetime import date
 from forum.models import Forum_Answer
 from django.db.models import Sum
+from tutor.models import Tutor
 
 class MyUser(User):
     nickname = models.CharField(max_length=50,blank=True)    
@@ -18,7 +19,9 @@ class MyUser(User):
         else:
             return None
     def total_rating(self):
-        total_rating = Forum_Answer.objects.filter(author=self).aggregate(Sum('rating'))['rating__sum']
-        if total_rating is None:
-            return 0
+        forum_rating = Forum_Answer.objects.filter(author=self).aggregate(Sum('rating'))['rating__sum']
+        tutor_rating = Tutor.objects.filter(author=self).count() * 5
+        
+        total_rating = (forum_rating if forum_rating else 0) + tutor_rating
+        
         return total_rating

@@ -72,6 +72,7 @@
         <div class="media-content">
           <div class="title is-6 ">
             {{ answer.author.username }}
+            {{ user.myuser.total_rating }}
           </div>
               <div class="content is-6 ">
                 {{ answer.text }}
@@ -85,7 +86,7 @@
           {% csrf_token %}
           <input type="hidden" name="answer_id" value="{{ answer.id }}">
           <button type="submit" name="upvote" value="true">
-            полезный=>
+            +
           </button>
         </form>
 
@@ -95,7 +96,7 @@
           {% csrf_token %}
           <input type="hidden" name="answer_id" value="{{ answer.id }}">
           <button type="submit" name="downvote" value="true">
-            <=бесполезный
+            -
           </button>
         </form>
     </div>

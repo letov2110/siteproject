@@ -12,6 +12,8 @@ urlpatterns = [
     path('user_list/', views.user_list, name='user_list'),
     path('profile/<int:user_id>/', views.profile, name='profile'),
     path('editprofile/', views.editprofile, name='editprofile'),
+    path('forgot_pass/', views.forgot_pass, name='forgot_pass'),
+
     ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

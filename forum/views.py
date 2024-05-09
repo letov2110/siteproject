@@ -39,6 +39,7 @@ def topic(request, post_id):
     num_answers = answers.count()
     cat_topics = Cat_topics.objects.filter(forum_question=top_question)
     ans_form = AnswerForm()
+    
     if request.method == "POST":
         if 'upvote' in request.POST and 'answer_id' in request.POST:
             answer_id = request.POST['answer_id']

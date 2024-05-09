@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.views.decorators.cache import cache_page
 from django.core.mail import send_mail
 from django.conf import settings
+import random, string
 
 # @cache_page(60*10)
 def register(request):
@@ -43,6 +44,31 @@ def register(request):
     else:
         user_form = UserReg()
     return render(request, 'reglog/register.html', {'user_form': user_form, 'error': error})
+
+def forgot_pass(request):
+    error = ""
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        if User.objects.filter(email=email).exists():
+            user = User.objects.get(email=email)
+            new_pass = generate_random_password()
+            user.set_password(new_pass)
+            user.save()
+        
+            subject = 'Сброс пароля'
+            message = f'Здравствуйте! {user.username}\n\nВаш новый пароль:\n{new_pass}'
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [email]
+            send_mail(subject, message, email_from, recipient_list)
+            
+            return render(request, 'reglog/login_page.html', {'success_message': 'Новый пароль отправлен на почту'})
+        else:
+            error = "Пользователь с такой почтой не найден"
+    return render(request, 'reglog/forgot_pass.html', {'error': error})
+
+def generate_random_password():
+    letters = string.ascii_letters + string.digits
+    return ''.join(random.choice(letters) for i in range(8)) 
 
 def user_login(request):
     log=LoginUser()
