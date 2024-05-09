@@ -1,18 +1,13 @@
-from .settings_pass import *
-import os
-from urllib.parse import urljoin
-from django.conf import settings
-from django.core.files.storage import FileSystemStorage
-from pathlib import Path,os
 
+from pathlib import Path,os
 BASE_DIR = Path(__file__).resolve().parent.parent
+from .settings_pass import *
 
 SECRET_KEY = key
 
-ALLOWED_HOSTS = ['127.0.0.1','178.128.243.102','buksite.space']
+ALLOWED_HOSTS = ['127.0.0.1','localost','buksite.space']
 
 DEBUG = True
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -39,6 +34,20 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+
+
+EMAIL_HOST_USER = mail_host_user
+EMAIL_HOST_PASSWORD = mail_host_password
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
 
 
 INTERNAL_IPS = [
@@ -74,13 +83,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'chtoto.wsgi.application'
 
 
-
+from .settings_pass import databases_password,databases_name,databases_user
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mydb',
-        'USER': 'yury',
-        'PASSWORD': 'yury',
+        'NAME': databases_name,
+        'USER': databases_user,
+        'PASSWORD': databases_password,
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -103,17 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.yandex.ru'
-EMAIL_PORT = 465
-EMAIL_USE_SSL = True
-
-EMAIL_HOST_USER = mail_host_user
-EMAIL_HOST_PASSWORD = mail_host_password
-
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-SERVER_EMAIL = EMAIL_HOST_USER
-EMAIL_ADMIN = EMAIL_HOST_USER
 
 
 LANGUAGE_CODE = 'en-us'
@@ -131,7 +129,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    BASE_DIR / "staticfiles",
+    BASE_DIR / "statics",
 ]
 
 
@@ -167,6 +165,12 @@ customColorPalette = [
         },
     ]
 
+import os
+from urllib.parse import urljoin
+
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
 
 class CustomStorage(FileSystemStorage):
     """Custom storage for django_ckeditor_5 images."""
@@ -185,7 +189,7 @@ CKEDITOR_5_CONFIGS = {
         'blockToolbar': [
             'paragraph', 'heading1', 'heading2', 'heading3',
             '|',
-            'bulletedList','numberedList',
+            'bulletedList', 'numberedList',
             '|',
             'blockQuote',
         ],
