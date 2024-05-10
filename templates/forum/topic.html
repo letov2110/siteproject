@@ -1,155 +1,104 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 {% block title %} topic {% endblock %}
 {% block content %}
 
-<div class="content is-medium">
-  <h1 class="title is-3 mt-5" style="color:#d16624;">{{top_question.title  }}
-  </h1>
-    <div class="p is-size-7 mt-3">
-      <p>
-        опубликован: {{ top_question.date }} | 
-        категории:  {% for category in cat_topics %}
-                      {{ category.name }} <br>
-                    {% endfor %}
-        просмотры: {{ top_question.views }} |
-        ответы: {{ num_answers }}
-      </p>
-    </div> 
-  <h1 class="title is-3 mt-5" style="color:#d16624;">{{top_question.title  }}
-  </h1>
-    <div class="p is-size-7 mt-3">
-      <p>
-        опубликован: {{ top_question.date }} | 
-        категории:  {% for category in cat_topics %}
-                      {{ category.name }} <br>
-                    {% endfor %}
-        просмотры: {{ top_question.views }} |
-        ответы: {{ num_answers }}
-      </p>
-    </div> 
-</div> 
-
-<div class="is-size-6 mt-4 mr-6">
-  {{ top_question.text }}
-</div>
-
-<form method="post" name="answer_form" enctype="multipart/form-data">
-<form method="post" name="answer_form" enctype="multipart/form-data">
-  {% csrf_token %}
-    <article class="media mt-4 ">
-      <div>
-        <div class="control">
-          <textarea class="textarea has-fixed-size " placeholder="оставьте коментарий"
-          rows="3" name="text" id="id_text" required {{ ans_form.text }}
+<div class="columns is-centered">
+  <div class="column is-two-fifths">
+    <div class="content is-medium">
+      
+      <div class="block">
+        <div class="mt-6">  
+          <p class="title is-4 has-text-success mx-2">{{ top_question.title }}</p>
         </div>
       </div>
-      <div>
-        <div class="control">
-          <textarea class="textarea has-fixed-size " placeholder="оставьте коментарий"
-          rows="3" name="text" id="id_text" required {{ ans_form.text }}
+      
+      <div class="block">
+        <div class="is-size-7 mt-3 mx-2">
+          <p>
+            опубликован: {{ top_question.date }}<br>
+            категории:  {% for category in cat_topics %}
+                          {{ category.name }}
+                        {% endfor %}<br>
+            просмотры: {{ top_question.views }}
+            ответы: {{ num_answers }}
+          </p>
+        </div> 
+      </div> 
+      
+      <div class="block">
+        <div class="is-size-6 mx-2">
+          {{ top_question.text }}
         </div>
-      </div>
-    </article>
+      </div>      </div> 
 
 
-    <div>
-        <button class="button mr-3 mb-6" type="submit" name="add" value="добавить"
-        <button class="button mr-3 mb-6" type="submit" name="add" value="добавить"
-        style="color:#2e2d2a;background-color: #d16624">
-            добавить
-        </button>
-    </div>
-</form>
-
-
-
-
-
-
-
-
-
-
-
-<div class="columns " style="background-color: #2e2d2a">
-  <div class="column is-three-fifths">
-  {% for answer in answers %}
-    <div class="card mr-3 ">
-      <div class="card-content">
-        <div class="media">
-          <div class="media-left">
-            <div class="card-image">
-            {% if answer.author.myuser.ava %}
-            <figure class="image is-128x128"
-                  style="max-width:80px;max-height:80px;min-width:80px;min-height:80px;">
-                  <img class="is-rounded" src="{{ answer.author.myuser.ava.url }}"
-                  alt="Placeholder image"/>
-              </figure>
-            {% else %}
-              <figure class="image is-2by3"
-                  style="max-width:80px;max-height:100px;min-width:80px;min-height:100px;">
-                  <img src="https://bulma.io/assets/images/placeholders/256x256.png" />
-              </figure>
-            {% endif %}
-          </div>
-    <div class="card mr-3 ">
-      <div class="card-content">
-        <div class="media">
-          <div class="media-left">
-            <div class="card-image">
-            {% if answer.author.myuser.ava %}
-            <figure class="image is-128x128"
-                  style="max-width:80px;max-height:80px;min-width:80px;min-height:80px;">
-                  <img class="is-rounded" src="{{ answer.author.myuser.ava.url }}"
-                  alt="Placeholder image"/>
-              </figure>
-            {% else %}
-              <figure class="image is-2by3"
-                  style="max-width:80px;max-height:100px;min-width:80px;min-height:100px;">
-                  <img src="https://bulma.io/assets/images/placeholders/256x256.png" />
-              </figure>
-            {% endif %}
-          </div>
-        </div>
-        
-        <div class="media-content">
-          <div class="title is-6 ">
-            {{ answer.author.username }}
-            {{ user.myuser.total_rating }}
-          </div>
-              <div class="content is-6 ">
-                {{ answer.text }}
-              </div>
-                <div class="content is-small">
-                  {{ answer.pub_date }}
+      <div class="block">
+        <form method="post" name="answer_form" enctype="multipart/form-data">
+          {% csrf_token %}
+            <article class="media mt-4 ">
+              <div>
+                <div class="control">
+                  <textarea class="textarea has-fixed-size mx-2" placeholder="оставьте коментарий"
+                  rows="3" name="text" id="id_text" required {{ ans_form.text }}
                 </div>
+              </div>
+            </article>
+            <div>
+                <button class="button has-background-success mx-2" type="submit" name="add" value="добавить">
+                    <h class="has-text-dark">Добавить коммент</h>
+                </button>
+            </div>
+        </form>
+      </div>
+
+      <div class="block">
+        {% for answer in answers %}
+        <div class="card">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                {% if answer.author.myuser.ava %}
+                  <figure class="image is-48x48">
+                    <img class="is-rounded" src="{{ answer.author.myuser.ava.url }}" alt="avatar"/>
+                  </figure>
+                {% else %}
+                  <figure class="image is-48x48"
+                      <img src="https://bulma.io/assets/images/placeholders/256x256.png" />
+                  </figure>
+                {% endif %}
+              </div>
+              
+              <div class="media-content">
+                <p class="title is-4">{{ answer.author.username }}</p>
+                {{ user.myuser.total_rating}}
+              </div>
+              <form method="post"  action="{% url 'topic' post_id=top_question.pk %}">
+                {% csrf_token %}
+                <input type="hidden" name="answer_id" value="{{ answer.id }}">
+                <button type="submit" name="upvote" value="true">
+                  <h class="has-text-success">+</h>
+                </button>
+              </form>
+      
+                <span class="rating mx-4">{{ answer.rating }}</span>
+      
+              <form method="post" action="{% url 'topic' post_id=top_question.pk %}">
+                {% csrf_token %}
+                <input type="hidden" name="answer_id" value="{{ answer.id }}">
+                <button type="submit" name="downvote" value="true">
+                  <h class="has-text-success">-</h>
+                </button>
+              </form>
+            </div>
+            <div class="content">
+              {{ answer.text }}<br/>
+              <div class="content is-small">
+              <time datetime="">{{ answer.pub_date }}</time>
+            </div>
+          </div>
         </div>
-
-        <form method="post"  action="{% url 'topic' post_id=top_question.pk %}">
-          {% csrf_token %}
-          <input type="hidden" name="answer_id" value="{{ answer.id }}">
-          <button type="submit" name="upvote" value="true">
-            +
-          </button>
-        </form>
-
-          <span class="rating mx-4">{{ answer.rating }}</span>
-
-        <form method="post" action="{% url 'topic' post_id=top_question.pk %}">
-          {% csrf_token %}
-          <input type="hidden" name="answer_id" value="{{ answer.id }}">
-          <button type="submit" name="downvote" value="true">
-            -
-          </button>
-        </form>
-    </div>
-  </div>
-</div>
-{% endfor %}
-
-{% endblock %} 
+      </div>
 
 {% endfor %}
 
-{% endblock %} 
+{% endblock %}

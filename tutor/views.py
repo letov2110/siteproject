@@ -5,6 +5,9 @@ from django.contrib.auth.decorators import login_required
 
 def showtutor(request):
     all_tut = Tutor.objects.all()
+    search_query = request.GET.get('search')
+    if search_query:
+        all_tut = all_tut.filter(title__icontains=search_query)
     return render(request, 'tutor/showtutor.html', {'all_tut': all_tut})
     
 def d_tutor(request, post_id):

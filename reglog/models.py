@@ -11,7 +11,6 @@ class MyUser(User):
     ava = models.ImageField(upload_to='static/images/reglog',blank=True)
     birsday=models.DateField(blank=True, null=True)
     rating = models.IntegerField(default=0)
-    rating = models.IntegerField(default=0)
     def calculate_age(self):
         if self.birsday:
             today = date.today()
@@ -26,3 +25,4 @@ class MyUser(User):
         total_rating = (forum_rating if forum_rating else 0) + tutor_rating
         
         return total_rating
+    

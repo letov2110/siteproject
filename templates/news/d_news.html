@@ -1,32 +1,41 @@
-<!DOCTYPE html>
 <html lang="ru">
 {% extends 'base.html' %}
 {% block title %} news {% endblock %}
-
 {% block content %}
 
-     <div class="content is-medium">
-          <h1 class="title is-3 mt-5" style="color:#d16624;">{{ newss.title }}</h1>
-          <div class="p is-size-7 mt-4">
-               Опубликован: {{ newss.date }} | Просмотры: {{ newss.views }} <br>
-
-               категoрии: 
-               {% for cat in newss.category.all %}
-                    {{ cat.name }}. 
-               {% endfor %}
-          </div> 
-
-          <figure class="image mt-4 " >
-               <iframe
-                    class="has-ratio"
-                    src="{{ newss.image.url }}"
-                    frameborder="0"
-                    style="width:50vw;height:40vh">
-               </iframe>
-          </figure>    
-          <div class="is-size-5 mt-4 mr-6">
-               {{ newss.text|safe }}
+<div class="columns is-centered">
+     <div class="column is-two-fifths">
+          <div class="content is-medium">
+               <div class="block">
+                    <div class="mt-6">  
+                         <p class="title is-4 has-text-success mx-2">{{ newss.title }}</p>
+                    </div>
+               </div>
+               <div class="block">
+                    <div class="is-size-7 mt-3 mx-2">
+                         <p>
+                         опубликован: {{ newss.date }}<br>
+                         категории:  {% for cat in newss.category.all %}
+                                        {{ cat.name }}. 
+                                        {% endfor %}<br>
+                         просмотры: {{ newss.views }} 
+                         </p>
+                    </div> 
+               </div>
+               <div class="block">
+                    <div class="card-image">
+                         <figure class="image is-4by3 mx-2">
+                              <img src="{{ newss.image.url }}" alt="Placeholder image"/>
+                         </figure>
+                    </div>
+               </div>
+               <div class="block">     
+                    <div class="is-size-5 mx-2">
+                         {{ newss.text|safe }}
+                    </div>
+               </div>
           </div>
-     </div>   
+     </div>  
+</div>  
                
 {% endblock content %}

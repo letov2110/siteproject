@@ -1,48 +1,72 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 {% block title %}all tutors{% endblock %}
-
 {% block content %}
 
-{% for tut in all_tut %}
-    <div class="box mt-4 mr-4">
-        <article class="media">
-            <div class="media-left">
-                <figure class="image is-64x64">
-                    <img src="{{ tut.author.myuser.ava.url }}" alt="Image" />
-                </figure>
-            </div>
-            <div class="media-content">
-                <div class="content">
-                    <p>
-                        <strong>{{ tut.title }}</strong>
-                        <br />
-                        {{ tut.author }}  ||  добавлен:{{ tut.date }} просмотры:{{ tut.views }}<br>
-
-                        <a href="{% url 'd_tutor' tut.id %}" class="btn"style="color:#d16624;">открыть тутор</a>
-                    </p>
-                </div>
-                <nav class="level is-mobile">
-                    <div class="level-left">
-                        <a class="level-item" aria-label="reply">
-                            <span class="icon is-small">
-                                <i class="fas fa-reply" aria-hidden="true"></i>
-                            </span>
-                        </a>
-                        <a class="level-item" aria-label="retweet">
-                            <span class="icon is-small">
-                                <i class="fas fa-retweet" aria-hidden="true"></i>
-                            </span>
-                        </a>
-                        <a class="level-item" aria-label="like">
-                        <span class="icon is-small">
-                            <i class="fas fa-heart" aria-hidden="true"></i>
-                        </span>
-                        </a>
+<div class="columns is-centered">
+    <div class="column is-two-fifths">
+        <div class="block">
+            <div class="filter is-flexbox is-mobile mt-6">
+                <form method="GET" action="">
+                <div class="field has-addons is-vertical ">
+                    <div class="control">
+                    <input class="input" type="text" name="search" placeholder="Поиск по заголовкам">
                     </div>
-                </nav>
+                    <div class="control">
+                    <button class="button has-background-success " type="submit">
+                        <h class="has-text-dark">Поиск</h>
+                    </button>
+                    <button class="button has-background-success mx-6" type="submit">
+                        <a class=" has-text-dark" href={% url 'showtutor' %}>Сбросить</a>
+                    </button>
+                    </div>
+                </div> 
+                </form>  
             </div>
-        </article>
-    </div>
-{% endfor %}
+        </div>
+
+        <div class="block">
+            <div class="filter is-flexbox">
+                {% for tut in all_tut %}
+                    <div class="box mt-4 mr-4">
+                        <article class="media">
+                            <div class="media-left">
+                                <figure class="image is-64x64">
+                                    <img src="{{ tut.author.myuser.ava.url }}" alt="Image" />
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <strong>{{ tut.title }}</strong><br/>
+                                        {{ tut.author }}<br>
+                                        добавлен:{{ tut.date }}<br>
+                                        просмотры:{{ tut.views }}<br>
+                                        <a href="{% url 'd_tutor' tut.id %}" class="btn">
+                                            <h class="has-text-success">открыть тутор</h>
+                                        </a>
+                                    </p>
+                                </div>
+                                <nav class="level is-mobile">
+                                    <div class="level-left">
+                                        <a class="level-item" aria-label="reply">
+                                            <span class="icon is-small">
+                                                <i class="fas fa-reply" aria-hidden="true"></i>
+                                            </span>
+                                        </a>
+                                        <a class="level-item" aria-label="retweet">
+                                            <span class="icon is-small">
+                                                <i class="fas fa-retweet" aria-hidden="true"></i>
+                                            </span>
+                                        </a>
+                                        <a class="level-item" aria-label="like">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-heart" aria-hidden="true"></i>
+                                        </span>
+                                        </a>
+                                    </div>
+                                </nav>
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %}
 {% endblock content %}

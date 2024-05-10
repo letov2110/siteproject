@@ -1,74 +1,96 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 {% block title %}profile{% endblock %}
-
 {% block content %}
 
+<div class="columns is-centered">
+    <div class="column is-two-fifths">
 
-    {% csrf_token %}
-<div class="grid">
-    <div class="cell is-col-min-12">
-        {% if user.myuser.ava %}
-            <figure class="image is-2by3 mt-6 " 
-                style="max-width:180px;max-height:200px;min-width:5vw;min-height:5vh">
-                <div class="prof_ava"> 
-                    <img src="{{ user.myuser.ava.url }}" alt="avatar" frameborder="0">
-                </div> 
-            </figure>
-            {% else %}
-                <figure class="image is-2by3"
-                    style="max-width:180px;max-height:200px;min-width:5vw;min-height:5vh">
-                    <img src="https://bulma.io/assets/images/placeholders/256x256.png" />
-                </figure>
-        {% endif %}
-
-        <div class="title is-size-4 mt-4" style="color: #d16624;">
-            опубликованные туторы
-        </div>
-            {% for tutor in user_tutors %}
-                <a href="{% url 'd_tutor' post_id=tutor.id %}"  style="color: #d16624;">{{ tutor.title }}</a>
-                <div class="p is-size-7">
-                    дата: {{tutor.date}} | просмотры: {{ tutor.views }} 
-                </div>
-            {% empty %}
-                <li>не публиковал </li>
-            {% endfor %}
-
-            <div class="title is-size-4 mt-4" style="color: #d16624;">
-                созданные топики
+    <div class="grid">
+        <div class="cell mt-6">
+            <div class="block">
+                {% csrf_token %}
+                    {% if  user.myuser.ava %}
+                        <figure class="image is-2by3 "
+                            style="max-width:180px;max-height:200px;min-width:5vw;min-heigh:5vh;">
+                                <img src="{{ user.myuser.ava.url }}" alt="avatar"
+                                frameborder="0">
+                        </figure>
+                        {% else %}
+                        <figure class="image is-2by3"
+                            style="max-width:180px;max-height:200px;min-width:5vw;min-height:5vh">
+                            <img src="https://bulma.io/assets/images/placeholders/256x256.png" />
+                        </figure>
+                    {% endif %}
             </div>
-            {% for topic in user_topics %}
-                <a href="{% url 'topic' post_id=topic.id %}"  style="color: #d16624;">{{ topic.title }}</a>
-                <div class="p is-size-7">
-                    дата: {{topic.date}} | просмотры: {{ topic.views }} 
+
+            <div class="block">
+                <div class="title has-text-success is-size-4" >
+                    опубликованные туторы
                 </div>
-            {% empty %}
-                <li>не публиковал </li>
-            {% endfor %}
+                {% for tutor in user_tutors %}
+                    <a href="{% url 'd_tutor' post_id=tutor.id %}" >{{ tutor.title }}</a>
+                    <div class="is-size-7">
+                        дата: {{tutor.date}} | просмотры: {{ tutor.views }} 
+                    </div>
+                {% empty %}
+                    <h>не публиковал </h>
+                {% endfor %}
+            </div>
+
+            <div class="block">
+                <div class="title has-text-success is-size-4">
+                    созданные топики
+                </div>
+                {% for topic in user_topics %}
+                    <a href="{% url 'topic' post_id=topic.id %}">{{ topic.title }}</a>
+                    <div class="p is-size-7">
+                        дата: {{topic.date}} | просмотры: {{ topic.views }} 
+                    </div>
+                {% empty %}
+                    <h>не публиковал </h>
+                {% endfor %}
+            </div>
+
+        </div>
+        <div class="cell mt-6 ">
+            <div class="block is-size-5 ">
+                {% if user.myuser.first_name or user.myuser.last_name or user.myuser.nickname %}
+                {{ user.myuser.first_name }} {{ user.myuser.last_name }} {{ user.myuser.nickname }}
+                {% else %}
+                {% endif %}
+            </div>
+
+            <div class="block is-size-7">
+                {% if user.myuser.total_rating  %}
+                <p class="mx-2">рейтинг сообщества: </p><br> {{ user.myuser.total_rating }}
+                {% else %}
+                {% endif %} 
+            </div>
+
+            <div class="block is-size-7">
+                {% if uuser.myuser.calculate_age  %}
+                <p class="mx-2">возраст: </p><br>{{ user.myuser.calculate_age }}
+                {% else %}
+                {% endif %} 
+            </div>
+            
+            <div class="block is-size-7">
+                {% if user.myuser.email  %}
+                <p class="mx-2">почта: </p><br> {{ user.myuser.email }}
+                {% else %}
+                {% endif %} 
+            </div>
+
+            <div class="block is-size-6">
+                {% if user.myuser.about   %}
+                <p class="mx-2">о себе: </p><br> {{ user.myuser.about  }}
+                {% else %}
+                {% endif %} 
+            </div>
+        </div>
     </div>
-    <div class="cell mt-6 is-col-min-12">
-        <div class="p is-size-5 ">
-            {{ user.myuser.first_name }} {{ user.myuser.last_name }} {{ user.myuser.nickname }} 
-        </div>
-            <div class="inform">
-                <label class="p is-size-7" for="rating">рейтинг сообщества:</label><br> 
-                    <div class="prof_inf mb-1">
-                        {{ user.myuser.total_rating }}<br>
-                    </div>
-                <label class="p is-size-7" for="age">возраст: </label><br>
-                    <div class="prof_inf">
-                        {{ user.myuser.calculate_age }}<br>
-                    </div> 
-                <label class="p is-size-7" for="email">почта:</label><br> 
-                    <div class="prof_inf">
-                        {{ user.myuser.email }}<br>
-                    </div>
-                <label class="p is-size-7" for="about">о себе:</label><br> 
-                    <div class="prof_inf mb-1">
-                        {{ user.myuser.about }}<br>
-                    </div>
-            </div>
-    </div>    
 </div>
+</div>
+
 
 {% endblock %}

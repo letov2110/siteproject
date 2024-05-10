@@ -1,36 +1,33 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
-{% block title %} add topic {% endblock %}
-
+{% block title %} add  {% endblock %}
 {% block content %}
 
-<div class="columns " style="background-color: #2e2d2a">
-    <div class="column is-three-fifths">
-
-        <form method="post">
-        {% csrf_token %}
-
-        <p class="title is-3 mt-6 " style="color:#d16624;">добавить топик</p>
-
-            <div>
-            <input class="input  mt-4 mr-3 mb-4" type="text" placeholder="введите тему топика" {{ top_form.title }}
-            </div>
-
-            <div>
-            <textarea class="textarea mr-3 mb-4 has-fixed-size" rows="5" placeholder="описание топика" {{ top_form.text }}
-            </div>
-            
-            <button class="button mr-3  " type="submit" name="add" value="добавить"
-            style="color:#2e2d2a;background-color: #d16624" >
-                создать топик
+<div class="columns is-centered">
+    <div class="column is-two-fifths ml-2 mr-2">
+      <form method="post">
+      {% csrf_token %}
+  
+        <div class="mt-6">
+          <h class="title is-4 has-text-success">Добавить топик</h>
+        </div>
+  
+        <div class="block mt-6 ">
+          <input class="input " type="text" placeholder="Напишите вопрос" {{ top_form.title }}
+        </div>
+  
+        <div class="block">
+          <textarea class="textarea has-fixed-size" type="text" rows="3" placeholder="Подробно опишите проблему " {{ top_form.text }}
+        </div>
+  
+        <div class="block">
+          <div class=" select is-multiple mr-6 mb-4">
+            {{ top_form.cat_topic}}
+          </div>
+            <button class="button has-background-success mr-6" type="submit" name="add" value="добавить">
+              <h class="has-text-dark">Добавить топик</h>
             </button>
-
-            <div class=" select is-multiple ">
-                {{ top_form.cat_topic }}
-            </div> 
-            
-            
-        </form>
+        </div>
+      </form>
     </div>
-</div>
-{% endblock %}
+  </div>
+{% endblock content %}

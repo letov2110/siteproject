@@ -32,7 +32,6 @@ def add_topic(request):
     return render(request, 'forum/add_topic.html', {'top_form': top_form})
 
 @login_required(login_url='login')
-@login_required(login_url='login')
 def topic(request, post_id):
     top_question = Forum_Question.objects.get(id=post_id)
     top_question.views += 1
@@ -85,4 +84,5 @@ def topic(request, post_id):
         'ans_form': ans_form,
         'cat_topics': cat_topics,
         'num_answers': num_answers,
+        
     })

@@ -1,67 +1,73 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 {% block title %} tutor {% endblock %}
-
 {% block content %}
 
-<div class="is-size-4 mt-4 mr-6">
-  {{ post.title }}
-</div>
-
-{% if post.text == "" %}
-  <li class="p is-4" style="color: #d16624;">тутор на редакции </li>
-{% else %}
-  <div class="is-size-6 mt-3 mr-6">
-    {{ post.text|safe }} 
-  </div>
-{% endif %}
-
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-    <article class="media mt-4 ">
-      <div>
-          <div class="control">
-            <textarea class="textarea has-fixed-size " placeholder="оставьте коментарий"
-            rows="3" name="text" id="id_text" required {{ form.text }}
-          </div>
-      </div>
-    </article>
-    <div>
-        <button class="button mr-3 mb-4" type="submit" name="add" value="добавить"
-        style="color:#2e2d2a;background-color: #d16624">
-            добавить
-        </button>
-    </div>
-</form>
-
-<div class="columns " style="background-color: #2e2d2a">
-  <div class="column is-three-fifths">
-
-  {% for comment in comments %}
-
-  <div class="card mr-3">
-    <div class="card-content">
-      <div class="media">
-        <div class="media-left">
-          <figure class="image is-48x48">
-            <img 
-              src="{{ comment.author.myuser.ava.url }}"
-              alt="Placeholder image"/>
-          </figure>
+<div class="columns is-centered">
+  <div class="column is-two-fifths">
+    <div class="content is-medium">
+      <div class="block">
+        <div class="mt-6">  
+            <p class="title is-4 has-text-success mx-2">{{ post.title }}</p>
         </div>
-          <div class="media-content">
-            <p class="title is-5">{{ comment.author.username }}</p>
-            <div class="content is-small">
-              {{ comment.pub_date }}
+      </div>
+
+      <div class="block">
+        {% if post.text == "" %}
+          <li class="p is-4 mx-2 ">
+            <h class="has-text-success">тутор на редакции</h>
+          </li>
+        {% else %}
+          <div class="is-size-6 mx-2">
+            {{ post.text|safe }} 
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="block">      
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+            <article class="media mt-4 ">
+              <div>
+                  <div class="control">
+                    <textarea class="textarea has-fixed-size mx-2" placeholder="оставьте коментарий"
+                    rows="3" name="text" id="id_text" required {{ form.text }}
+                  </div>
+              </div>
+            </article>
+            <div>
+                <button class="button has-background-success mx-2" type="submit" name="add" value="добавить">
+                  <h class="has-text-dark">добавить</h>
+                  
+                </button>
+            </div>
+        </form>
+      </div>
+
+      {% for comment in comments %}
+      <div class="block">      
+        <div class="card mr-3">
+          <div class="card-content">
+            <div class="media">
+              <div class="media-left">
+                <figure class="image is-48x48">
+                  <img 
+                    src="{{ comment.author.myuser.ava.url }}" alt="avatar"/>
+                </figure>
+              </div>
+              <div class="media-content">
+                <p class="title is-5">{{ comment.author.username }}</p>
+                <div class="content is-small">
+                  {{ comment.pub_date }}
+                </div>
+              </div>
+            </div>
+            <div class="content">
+              {{ comment.text }}<br>
             </div>
           </div>
-      </div>
-        <div class="content">
-          {{ comment.text }}<br>
         </div>
-    </div>
-  </div>
-  {% endfor %}
+      </div>
+      {% endfor %}
   </div>
 </div>
 {% endblock content %}

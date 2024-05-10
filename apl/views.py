@@ -18,11 +18,14 @@ def about(request):
     return render(request,'apl/about.html')
 #######
 def show(request):
-    teg = Post.objects.all()
+    teg = Post.objects.all() 
+    search_query = request.GET.get('search')
     teg1 = Category.objects.all()
     category_id = request.GET.get('category')
     if category_id:
         teg = teg.filter(categories=category_id)
+    if search_query:
+        teg= teg.filter(content__icontains=search_query)
     return render(request, "apl/show.html", {"teg": teg, 'teg1': teg1})
 ####
 @login_required(login_url='login')

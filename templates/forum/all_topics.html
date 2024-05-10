@@ -1,59 +1,84 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 {% block title %} forum {% endblock %}
-
 {% block content %}
 
-<div class="filter is-flexbox mt-6">
-  <form method="GET" action="">
-
-    <button class="button mb-4" style="background-color: #d16624"  type="submit">
-        <a href="add_topic" style="color:#2e2d2a;">спросить на форуме</a>
-    </button>
-      <div class="field has-addons">
-        <div class="control">
-          <input class="input" type="text" name="search" placeholder="поиск по темам">
-        </div>
-        <div class="control">
-          <button class="button " type="submit" style="background-color: #d16624;color:#2e2d2a;">
-            поиск
-          </button>
-        </div>
-      </div> 
-  </form>  
-</div>
-
-  <div>
-    <form method="GET" action="">
-      <button class="button  mb-4 mb-4 mt-4" style="background-color: #d16624" >
-        <a href={% url 'all_topics' %} style="color:#2e2d2a;">сбросить</a>
-      </button>
-  
-      {% for category in all_top_category %}
-        <button class="button is-hovered mx-3 mt-4" type="submit" name="category"
-        style="color:#2e2d2a;background-color: #d16624" value="{{ category.id }}">
-          {{ category.name }}
-        </button>
-      {% endfor %}
-    </form>
-
-{% for topic in all_topic %}
-<div class="card">
-    <a class="card-header-title" style="color:#d16624;" href="{% url 'topic' topic.id %}">{{ topic.title }}</a>
-    
-    <div class="card-content">
-      <div class="content">
-        {{ topic.text|truncatechars:100 }}<br/>
-      </div>
+<div class="columns is-centered">
+  <div class="column is-two-fifths">
+    <div class="filter is-flexbox is-mobile mt-6">
+      <form method="GET" action="">
+        <div class="field has-addons is-vertical ">
+          <div class="control">
+            <input class="input" type="text" name="search" placeholder="Поиск по вопросам">
+          </div>
+          <div class="control">
+            <button class="button has-background-success " type="submit">
+              <h class="has-text-dark">Поиск</h>
+            </button>
+          </div>
+        </div> 
+      </form>  
     </div>
-
-  <footer class="card-footer">
-    <p class="card-footer-item is-2">автор: {{ topic.author }}</p>
-    <p class="card-footer-item">дата: {{ topic.date }}</p>
-    <p class="card-footer-item">просмотры: {{ topic.views }}</p>
-    <p class="card-footer-item">ответы: {{ topic.num_answers }}</p>
-  </footer>
+  </div>
 </div>
-{% endfor %}
+
+<div class="columns is-centered">
+  <div class="column is-two-fifths">
+    <form method="GET" action="">
+      <div class="block">
+        <button class="button has-background-success mx-2 " type="submit">
+          <a href="add_topic">
+            <h class="has-text-dark">Добавить топик</h>
+          </a>
+        </button>
+
+        <button class="button has-background-success mx-2">
+          <a href={% url 'all_topics' %} >
+            <h class="has-text-dark">Сбросить фильтр</h>
+              </a>
+        </button>
+      </div>
+      <div class="block">
+        {% for category in all_top_category %}
+          <button class="button has-background-success mx-2" type="submit" name="category" value="{{ category.id }}">
+            <h class="has-text-dark">{{ category.name }}</h>
+          </button>
+        {% endfor %}
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="columns is-centered">
+  <div class="column is-two-fifths">    
+    {% for topic in all_topic %}
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">
+            <a href="{% url 'topic' topic.id %}">
+              <h class="has-text-success">{{ topic.title }}</h>
+              
+            </a>
+          </p>
+            <button class="card-header-icon" aria-label="more options">
+              <span class="icon">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+              </span>
+            </button>
+        </header>
+        <div class="card-content">
+          <div class="content">
+            {{ topic.text|truncatechars:100 }}<br>
+            <time datetime="2016-1-1">{{ topic.date }}</time>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <p class="card-footer-item">автор: {{ topic.author }}</p>
+          <p class="card-footer-item">просмотры: {{ topic.views }}</p>
+          <p class="card-footer-item">ответы: {{ topic.num_answers }}</p>
+        </footer>
+      </div>
+    {% endfor %}
+  </div>
+</div>
 
 {% endblock %}

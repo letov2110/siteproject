@@ -1,42 +1,47 @@
-<!DOCTYPE html>
-
 {% extends 'base.html' %}
 {% block title %}all user{% endblock %}
-
 {% block content %}
 
-{% for user in users %}
-    {% if user.myuser.ava %}
-    <div class="grid">
-        <div class="cell mt-6">
-            {% if user.ava and user.myuser.ava%}
-                <figure class="image is-2by3" 
-                    style="max-width:150px;max-height:200px;min-width:150px;min-height:200px">
-                    <img src="{{ user.ava.url }}" alt="avatar" frameborder="0">
-                </figure>
-                {% else %}
-                    <figure class="image is-2by3"
-                        style="max-width:180px;max-height:200px;min-width:5vw;min-height:5vh">
-                        <img src="https://bulma.io/assets/images/placeholders/256x256.png" />
-                    </figure>
-            {% endif %}
+<div class="columns is-centered">
+    <div class="column is-two-fifths">
+        <div class="block">
+            <div class="mt-6">  
+                <p class="title is-4 has-text-success mx-2">Профили</p>
+            </div>
         </div>
 
-        <div class="cell mt-6">
-            <div class="p is-size-5 ">
-                <a style="color:#d16624;" href="{% url 'profile' user.myuser.id %}">
-                    {{ user.myuser.first_name }} {{ user.myuser.last_name }} {{ user.myuser.nickname }} 
-                </a>
-            </div>
-                <div class="inform">
-                    <label class="p is-size-7" for="email">почта:</label><br> 
-                        <div class="prof_inf">
-                            {{ user.myuser.email }}<br>
+        {% for user in users %}
+            {% if user.myuser.ava %}
+            <div class="block">
+            <div class="card">
+                <div class="card-content">
+                    <div class="media">
+                        <div class="media-left">
+                            {% if user.ava and user.myuser.ava%}
+                            <figure class="image  is-48x48" >
+                                <img src="{{ user.ava.url }}" alt="avatar" >
+                            </figure>
+                            {% else %}
+                                <figure class="image is-48x48 ">
+                                    <img src="https://bulma.io/assets/images/placeholders/256x256.png" />
+                                </figure>
+                            {% endif %}
                         </div>
+                    <div class="media-content">
+                        <p class="title is-4">
+                            <a href="{% url 'profile' user.myuser.id %}">
+                                {{ user.myuser.first_name }} {{ user.myuser.last_name }} {{ user.myuser.nickname }} 
+                            </a>
+                        </p>
+                        <p class="subtitle is-6">почта:{{ user.myuser.email }}</p>
+                        <p class="subtitle is-6">рейтинг:{{ user.myuser.total_rating }}</p>
                 </div>
+            </div>
+        
+        {% endif %}
         </div>
-    </div>
-    {% endif %}
+</div>
+
 {% endfor %}
 
 {% endblock %}

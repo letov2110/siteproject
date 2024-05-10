@@ -1,59 +1,69 @@
-<!DOCTYPE html>
 <html lang="ru">
 {% extends 'base.html' %}
 {% block title %}all news{% endblock %}
-
 {% block content %}
 
-<form method="GET" action="">
-    <button class="button mx-2 mt-6 mb-4" style="color:#2e2d2a;background-color: #d16624" type="submit" href="/show" >сброс</button>
-    {% for category in newsc %}
-        <button class="button mx-2 mt-6 mb-4" style="color:#2e2d2a;background-color: #d16624" type="submit" name="category" value="{{ category.id }}">
-            {{ category.name }}
-        </button>
-    {% endfor %} 
-</form>
+<div class="columns is-centered">
+    <div class="column is-two-fifths">
+        <div class="block">
+            <div class="filter is-flexbox mt-6">
+                <form method="GET" action="">
+                    <button class="button button is-hovered has-background-success mx-2 mt-2" type="submit" href="/shownews" >
+                        <p class="has-text-dark">сброс</p>
+                    </button>
+                    {% for category in newsc %}
+                        <button class="button is-hovered has-background-success mx-2 mt-2" type="submit" name="category" value="{{ category.id }}">
+                            <p class="has-text-dark">{{ category.name }}</p>
+                        </button>
+                    {% endfor %} 
+                </form>
+            </div>
+        </div>
 
-{% for el in news %}
-    <div class="box mt-4 mr-4">
-        <article class="media">
-            <div class="media-left">
-                <figure class="image is-64x64">
-                    <img src="{{ el.image.url }}" alt="Image" />
-                </figure>
-            </div>
-            <div class="media-content">
-                <div class="content">
-                    <p>
-                        <strong>{{ el.title }} </strong> <br/>
-                        {{ el.subtitle }} <br>
-                        <div class="content is-small">{{ el.date}}</div>
-                        
-                        <a href="{% url 'd_news' el.id %}" class="btn" style="color:#d16624;">читать полностью..</a>
-                    </p>
-                </div>
-                <nav class="level is-mobile">
-                    <div class="level-left">
-                        <a class="level-item" aria-label="reply">
-                            <span class="icon is-small">
-                                <i class="fas fa-reply" aria-hidden="true"></i>
-                            </span>
-                        </a>
-                        <a class="level-item" aria-label="retweet">
-                            <span class="icon is-small">
-                                <i class="fas fa-retweet" aria-hidden="true"></i>
-                            </span>
-                        </a>
-                        <a class="level-item" aria-label="like">
-                        <span class="icon is-small">
-                            <i class="fas fa-heart" aria-hidden="true"></i>
-                        </span>
-                        </a>
+        {% for el in news %}
+            <div class="box mt-4 mr-4">
+                <article class="media">
+                    <div class="media-left">
+                        <figure class="image is-64x64">
+                            <img src="{{ el.image.url }}" alt="Image" />
+                        </figure>
                     </div>
-                </nav>
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>{{ el.title }} </strong> <br/>
+                                {{ el.subtitle }} <br>
+                                <div class="content is-small">{{ el.date}}</div>
+                                
+                                <a href="{% url 'd_news' el.id %}" class="btn">
+                                    <p class="has-text-success">читать полностью..</p>
+                                </a>
+                            </p>
+                        </div>
+                        <nav class="level is-mobile">
+                            <div class="level-left">
+                                <a class="level-item" aria-label="reply">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-reply" aria-hidden="true"></i>
+                                    </span>
+                                </a>
+                                <a class="level-item" aria-label="retweet">
+                                    <span class="icon is-small">
+                                        <i class="fas fa-retweet" aria-hidden="true"></i>
+                                    </span>
+                                </a>
+                                <a class="level-item" aria-label="like">
+                                <span class="icon is-small">
+                                    <i class="fas fa-heart" aria-hidden="true"></i>
+                                </span>
+                                </a>
+                            </div>
+                        </nav>
+                    </div>
+                </article>
             </div>
-        </article>
+        {% endfor %}
     </div>
-{% endfor %}
+</div>
 
 {% endblock content %}

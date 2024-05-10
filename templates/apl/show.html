@@ -1,45 +1,61 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 {% block title %} show command {% endblock %}
+{% block content %}{% load static %}
 
-{% block content %}
-
-    <div class="filter is-flexbox mt-6">
+<div class="columns is-centered">
+    <div class="column is-two-fifths ml-2 mr-2">
         
-        <form method="GET" action="">
-            <button class="button is-hovered mx-2 mt-2"style="color:#2e2d2a;background-color: #d16624" >
-                <a href={% url "show" %} style="color:#2e2d2a;" >сброс</a>
-            </button>
-            {% for category in teg1 %}
-                <button class="button is-hovered mx-2 mt-2" type="submit" name="category" style="color:#2e2d2a;background-color: #d16624" 
-                    value="{{ category.id }}">
-                        {{ category.name }}
-                </button>
-            {% endfor %}
-        </form>
-
-        <div class="command is-flexbox mt-6">    
-            {% for inf in teg %}        
-                <button  class="button is-hovered mx-2" style="color:#2e2d2a;background-color: #d16624"
-                    onclick="copy('{{ inf.title }}')">{{ inf.title }}
-                </button>
-                    <div class="disc is-flexbox mb-2 ml-5 mr-1">
-                        {{ inf.content }}
+        <div class="block">
+            <div class="filter is-flexbox is-mobile mt-6">
+                <form method="GET" action="">
+                <div class="field has-addons is-vertical ">
+                    <div class="control">
+                    <input class="input" type="text" name="search" placeholder="Поиск по заголовкам">
                     </div>
-            {% endfor %}
+                    <div class="control">
+                    <button class="button has-background-success " type="submit">
+                        <h class="has-text-dark">Поиск</h>
+                    </button>
+                    
+                    <button class="button has-background-success mx-6" type="submit">
+                        <a class=" has-text-dark" href={% url 'show' %}>Сбросить</a>
+                    </button>
+                    </div>
+                </div> 
+                </form>  
+            </div>
         </div>
 
+        <div class="filter is-flexbox mt-6">
+            <form method="GET" action="">
+                
+                {% for category in teg1 %}
+                    <button class="button is-hovered has-background-success mx-2 mt-2" type="submit" name="category"
+                        value="{{ category.id }}">
+                            <p class="has-text-dark">{{ category.name }}</p>
+                    </button>
+                {% endfor %}
+            </form>
+        </div>
     </div>
+</div>
+<div class="columns is-centered">
+    <div class="column is-two-fifths ml-2 mr-2">
+        <div class="command is-flexbox mt-3">    
+            <div class="block">
+                {% for inf in teg %}        
+                    <button  class="button is-hovered has-background-success mt-4"
+                            onclick="copy('{{ inf.title }}')">
+                            <p class="has-text-dark">{{ inf.title }}</p>
+                    </button>
+                        <div class="disc is-flexbox ">
+                            {{ inf.content }}
+                        </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
 
-<script>
-    function copy(text) {
-        var input = document.createElement('input');
-        input.value = text;
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        document.body.removeChild(input);
-        {% comment %} alert('Copied to clipboard: ' + text); {% endcomment %}
-    }
-</script>
+<script src="{% static 'copy.js' %}"></script>
 {% endblock%}

@@ -1,61 +1,71 @@
-<!DOCTYPE html>
-
 {% extends 'base.html' %}
 {% block title %} regiter {% endblock %}
-
 {% block content %}
 
-    <div class="p is-size-4 mt-6 ml-6 mb-6">регистрация</div>
-        <p><br></p>
-<div class="columns " style="background-color: #2e2d2a">
-    <div class="column .is-offset-x is-one-third">
+<div class="columns is-centered">
+    <div class="column is-one-quarter">
+        <div class="block">
+            <div class="mt-6">  
+                <p class="title is-4 has-text-success mx-2">регистрация</p>
+            </div>
+        </div>
+
         <form method="post">
             {% csrf_token %}
-            <div class="field mr-4">
-                <p class="control has-icons-left has-icons-right">
-                    <input class="input" type="login" placeholder="Login"{{user_form.username}}
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                            </span>
-                            <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
-                    </span>
-                </p>
-            </div>
-            <div class="field mr-4">
-                <p class="control has-icons-left has-icons-right">
-                    <input class="input" name ="email" type="email" placeholder="Email"{{user_form.email}}
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                            </span>
-                            <span class="icon is-small is-right">
-                        <i class="fas fa-check"></i>
-                    </span>
-                </p>
-            </div>
-            <div class="field mr-4">
-                <p class="control has-icons-left">
-                    <input class="input" type="password" placeholder="Password"{{user_form.password}}
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-lock"></i>
+            <div class="block mx-2">
+                <div class="field mr-4">
+                    <p class="control has-icons-left has-icons-right">
+                        <input class="input" type="login" placeholder="Login"{{user_form.username}}
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-envelope"></i>
+                                </span>
+                                <span class="icon is-small is-right">
+                            <i class="fas fa-check"></i>
                         </span>
-                </p>
-            </div>
-            <div class="field mr-4">
-                <p class="control has-icons-left">
-                    <input class="input " type="password" placeholder="Password"{{user_form.password}}
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-lock"></i>
-                        </span>
-                </p>
+                    </p>
+                </div>
             </div>
 
-            <div class="field">
-                <p class="control">
-                    <button class="button ">
-                        регистрация
-                    </button>
-                </p>
+            <div class="block mx-2">
+                <div class="field mr-4">
+                    <p class="control has-icons-left has-icons-right">
+                        <input class="input" name ="email" type="email" placeholder="Email"{{user_form.email}}
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-envelope"></i>
+                                </span>
+                                <span class="icon is-small is-right">
+                            <i class="fas fa-check"></i>
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="block mx-2">
+                <div class="field mr-4">
+                    <p class="control has-icons-left">
+                        <input class="input" type="password" placeholder="Password"{{user_form.password}}
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="block mx-2">
+                <div class="field mr-4">
+                    <p class="control has-icons-left">
+                        <input class="input " type="password" placeholder="Password"{{user_form.password}}
+                            <span class="icon is-small is-left">
+                                <i class="fas fa-lock"></i>
+                            </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="block mx-2">
+                <button class="button has-background-success mx-2" type="submit" name="add" value="добавить">
+                    <h class="has-text-dark">Регистрация</h>
+                </button>
             </div>
         </form>
     </div>

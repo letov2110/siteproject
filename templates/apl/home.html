@@ -1,18 +1,17 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 {% block title %} home {% endblock %}
 {% block content %}
 
-<div class="grid ">
-    <div class="cell" >
-        <p class="title is-3 mt-6 ml-6" style="color:#d16624;">all is easy breezy
-            <h class="title is-7 ml-3" style="color:#d16624;">sometimes..</h>
-        </p>
-        <figure class="image is-2by1 ml-6 mt-6" style="width:50vw;height:auto">
-            <image src="{{ image.get_image_url }}"><a>
-        </figure>
-    </div>
-    <div class="cell" >
+<div class="columns is-centered">
+    <div class="column is-half ml-2 mr-2">
+        <div class="mt-6 mb-4">
+            <h class="title is-3 has-text-success">all is easy breezy...</h>
+            <h class="subtitle is-5 has-text-success">sometimes...</h>
+        </div>
+            <figure class="image is-16by9" >
+                <image src="{{ image.get_image_url }}"><a>
+            </figure>
     </div>
 </div>
+
 {% endblock %}

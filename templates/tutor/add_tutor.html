@@ -1,50 +1,32 @@
-<!DOCTYPE html>
-
 {% extends 'base.html' %}
 {% block title %} add tutor {% endblock %}
-
 {% block content %}
 
-<p class="title is-3 mt-6 " style="color:#d16624;">добавить тутор</p>
-
-<div class="columns " style="background-color: #2e2d2a">
-    <div class="column is-three-fifths">
-
+<div class="columns is-centered">
+    <div class="column is-two-fifths ml-2 mr-2">
         <form method="post">
-            {% csrf_token %}
-                <div class="field mr-3 mt-4 mb-4">
-                    <p class="control has-icons-left has-icons-right">
-                        <input class="input" type="title" placeholder="заголовок тутора"{{ form.title }}
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                            <span class="icon is-small is-right">
-                                <i class="fas fa-check"></i>
-                            </span>
-                    </p>
-                </div>
-                <div class="field mr-3 mb-4">
-                    <p class="control has-icons-left has-icons-right">
-                        <textarea class="textarea  has-fixed-size" rows="5" placeholder="текст тутора"{{ form.public_text }}
-                        <span class="icon is-small is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                            <span class="icon is-small is-right">
-                                <i class="fas fa-check"></i>
-                            </span>
-                    </p>
-                </div>
-            <div>
-                <button class="button mr-3" style="color:#2e2d2a;background-color: #d16624"  type="submit">
-                    добавить
-                </button>
+        {% csrf_token %}
+
+            <div class="mt-6">
+                <h class="title is-4 has-text-success">Добавить тутор</h>
             </div>
+    
+            <div class="block mt-6 ">
+                <input class="input " type="text" placeholder="Напишите вопрос" {{ form.title }}
+            </div>
+    
+            <div class="block">
+                <textarea class="textarea has-fixed-size" type="text" rows="3" placeholder="Подробно опишите проблему " {{ form.public_text}}
+            </div>
+        
+            <button class="button has-background-success mr-6" type="submit" name="add" value="добавить">
+                <h class="has-text-dark">Добавить топик</h>
+            </button>
         </form>
+
+        <p class="text is-6 mt-6" >
+            тутор будет добавлен после проверки
+        </p>
     </div>
 </div>
-
-<p class="text is-6 mt-6" style="color:#d16624;">
-    тутор будет добавлен после проверки
-</p>
-
 {% endblock%}

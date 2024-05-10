@@ -1,34 +1,32 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 {% block title %} add command {% endblock %}
-
 {% block content %}
-
-<div class="columns " style="background-color: #2e2d2a">
-  <div class="column is-three-fifths">
-
+  
+<div class="columns is-centered">
+  <div class="column is-two-fifths ml-2 mr-2">
     <form method="post">
     {% csrf_token %}
 
-    <p class="title is-3 mt-6 " style="color:#d16624;">добавить команду</p>
-
-      <div>
-      <input class="input  mt-4 mr-3 mb-4" type="text" placeholder="введите команду" {{ add_form.title }}
+      <div class="mt-6">
+        <h class="title is-4 has-text-success">Добавить команду</h>
       </div>
 
-      <div>
-      <textarea class="textarea mr-3 mb-4 has-fixed-size" rows="3" placeholder="описание команды" {{ add_form.content }}
+      <div class="block mt-6 ">
+        <input class="input " type="text" placeholder="Введите команду" {{ add_form.title }}
       </div>
 
-        <button class="button mr-3  " type="submit" name="add" value="добавить"
-        style="color:#2e2d2a;background-color: #d16624" >
-          добавить
-        </button>
+      <div class="block">
+        <textarea class="textarea has-fixed-size" type="text" rows="3" placeholder="Описание команды" {{ add_form.content }}
+      </div>
 
-        <div class=" select is-multiple">
+      <div class="block">
+        <div class=" select is-multiple mr-6 mb-4">
           {{ add_form.categories }}
-        </div> 
-          
+        </div>
+          <button class="button has-background-success mr-6" type="submit" name="add" value="добавить">
+            <h class="has-text-dark">Добавить</h>
+          </button>
+      </div>
     </form>
   </div>
 </div>
