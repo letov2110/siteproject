@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Tutor, Comm_tut
 from .forms import CommForm,TutorForm
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 
 def showtutor(request):
     all_tut = Tutor.objects.all()
@@ -39,3 +40,24 @@ def add_tutor(request):
     else:
         form = TutorForm()
     return render(request, 'tutor/add_tutor.html', {'form': form})
+
+def edit_comment(request, post_id, comment_id):
+    post = Tutor.objects.get(id=post_id)
+    comment = Comm_tut.objects.get(id=comment_id)
+    if request.method == 'POST':
+        form = CommForm(request.POST, instance=comment)
+        if form.is_valid():
+            form.save()
+            return redirect('d_tutor', post_id=post_id)
+    else:
+        form = CommForm(instance=comment)
+    return render(request, 'tutor/d_tutor.html', {'post': post, 'comment': comment, 'form': form})
+
+def delete_comment(request, post_id, comment_id):
+    post = Tutor.objects.get(id=post_id)
+    comment = Comm_tut.objects.get(id=comment_id)
+    if request.user == comment.author:
+        comment.delete()
+        return redirect('d_tutor', post_id=post_id)
+    else:
+        return HttpResponseForbidden()

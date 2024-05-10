@@ -55,7 +55,17 @@
                 </figure>
               </div>
               <div class="media-content">
-                <p class="title is-5">{{ comment.author.username }}</p>
+                <h class="title is-5">{{ comment.author.username }}</h>
+
+                  {% if comment.author == request.user %}
+                    <a href="{% url 'edit_comment' post_id=post.id comment_id=comment.id %}">
+                      <i class="fa-solid has-text-success fa-italic ml-6 mx-2"></i>
+                    <a href="{% url 'delete_comment' post_id=post.id comment_id=comment.id %}" 
+                      onclick="if (confirm('Удалить?')) {return true;} return false;">
+                      <i class="fa-solid has-text-success fa-xmark"></i>
+                    </a>
+                  {% endif %}
+
                 <div class="content is-small">
                   {{ comment.pub_date }}
                 </div>
