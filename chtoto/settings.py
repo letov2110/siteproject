@@ -3,9 +3,6 @@ from pathlib import Path,os
 BASE_DIR = Path(__file__).resolve().parent.parent
 from .settings_pass import *
 import os
-from urllib.parse import urljoin
-from django.conf import settings
-from django.core.files.storage import FileSystemStorage
 
 SECRET_KEY = key
 
@@ -200,4 +197,5 @@ TINYMCE_DEFAULT_CONFIG = {
     'contextmenu': 'formats | link image',
     'menubar': True,
     'statusbar': True,
-    "language": "en_US",}
+    "language": "en_US",
+}

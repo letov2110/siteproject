@@ -4,80 +4,125 @@
 
 <div class="columns is-centered">
   <div class="column is-two-fifths">
-    <div class="filter is-flexbox is-mobile mt-6">
-      <form method="GET" action="">
-        <div class="field has-addons is-vertical ">
-          <div class="control">
-            <input class="input" type="text" name="search" placeholder="Поиск по вопросам">
-          </div>
-          <div class="control">
-            <button class="button has-background-success " type="submit">
-              <h class="has-text-dark">Поиск</h>
-            </button>
-          </div>
-        </div> 
-      </form>  
+
+    <div class="block">
+      <div class="filter is-flexbox is-mobile mt-6">
+        <form method="GET" action="">
+          <div class="field has-addons is-vertical ">
+            <div class="control">
+              <input class="input" type="text" name="search" placeholder="Поиск по вопросам">
+            </div>
+            <div class="control">
+              <button class="button has-background-success " type="submit">
+                <h class="has-text-dark">Поиск</h>
+              </button>
+            </div>
+          </div> 
+        </form>  
+      </div>
     </div>
-  </div>
-</div>
 
-<div class="columns is-centered">
-  <div class="column is-two-fifths">
-    <form method="GET" action="">
-      <div class="block">
-        <button class="button has-background-success mx-2 " type="submit">
-          <a href="add_topic">
-            <h class="has-text-dark">Добавить топик</h>
-          </a>
-        </button>
-
-        <button class="button has-background-success mx-2">
-          <a href={% url 'all_topics' %} >
-            <h class="has-text-dark">Сбросить фильтр</h>
-              </a>
-        </button>
-      </div>
-      <div class="block">
-        {% for category in all_top_category %}
-          <button class="button has-background-success mx-2" type="submit" name="category" value="{{ category.id }}">
-            <h class="has-text-dark">{{ category.name }}</h>
-          </button>
-        {% endfor %}
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="columns is-centered">
-  <div class="column is-two-fifths">    
-    {% for topic in all_topic %}
-      <div class="card">
-        <header class="card-header">
-          <p class="card-header-title">
-            <a href="{% url 'topic' topic.id %}">
-              <h class="has-text-success">{{ topic.title }}</h>
-              
+    <div class="block">
+      <form method="GET" action="">
+        <div class="block">
+          <button class="button has-background-success mx-2 " type="submit">
+            <a href="add_topic">
+              <h class="has-text-dark">Добавить топик</h>
             </a>
-          </p>
-            <button class="card-header-icon" aria-label="more options">
-              <span class="icon">
-                <i class="fas fa-angle-down" aria-hidden="true"></i>
-              </span>
-            </button>
-        </header>
-        <div class="card-content">
-          <div class="content">
-            {{ topic.text|truncatechars:100 }}<br>
-            <time datetime="2016-1-1">{{ topic.date }}</time>
-          </div>
+          </button>
+
+          <button class="button has-background-success mx-2">
+            <a href={% url 'all_topics' %} >
+              <h class="has-text-dark">Сбросить фильтр</h>
+                </a>
+          </button>
         </div>
-        <footer class="card-footer">
-          <p class="card-footer-item">автор: {{ topic.author }}</p>
-          <p class="card-footer-item">просмотры: {{ topic.views }}</p>
-          <p class="card-footer-item">ответы: {{ topic.num_answers }}</p>
-        </footer>
-      </div>
-    {% endfor %}
+        <div class="block">
+          {% for category in all_top_category %}
+            <button class="button has-background-success mx-2" type="submit" name="category" value="{{ category.id }}">
+              <h class="has-text-dark">{{ category.name }}</h>
+            </button>
+          {% endfor %}
+        </div>
+      </form>
+    </div>
+
+    <div class="block">
+      <nav class="pagination is-small" role="navigation" aria-label="pagination">
+          <ul class="pagination-list">
+              {% if page_obj.has_previous %}
+                  <li class="pagination-previous">
+                      <a href="{% url 'all_topics' %}?page={{ page_obj.previous_page_number }}" rel="prev">
+                          <span class="has-text-success">назад</span>
+                      </a>
+                  </li>
+              {% else %}
+                  <li class="pagination-previous is-disabled">
+                      <a href="#" rel="nofollow">
+                          <span class="has-text-success">назад</span>
+                      </a>
+                  </li>
+              {% endif %}
+              {% for page in page_obj.paginator.page_range %}
+                  {% if page == page_obj.number %}
+                      <li class="pagination-link is-current">
+                          <span>{{ page }}</span>
+                      </li>
+                  {% else %}
+                      <li class="pagination-link">
+                          <a href="{% url 'all_topics' %}?page={{ page }}" rel="nofollow">
+                              <span class="has-text-success">{{ page }}</span>
+                          </a>
+                      </li>
+                  {% endif %}
+              {% endfor %}
+              {% if page_obj.has_next %}
+                  <li class="pagination-next">
+                      <a href="{% url 'all_topics' %}?page={{ page_obj.next_page_number }}" rel="next">
+                          <span class="has-text-success">вперед</span>
+                      </a>
+                  </li>
+              {% else %}
+                  <li class="pagination-next is-disabled">
+                      <a href="#" rel="nofollow">
+                          <span class="has-text-success">вперед</span>
+                      </a>
+                  </li>
+              {% endif %}
+          </ul>
+      </nav>
+  </div>
+
+    <div class="block">
+      {% for topic in all_topic %}
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">
+              <a href="{% url 'topic' topic.id %}">
+                <h class="has-text-success">{{ topic.title }}</h>
+                
+              </a>
+            </p>
+              <button class="card-header-icon" aria-label="more options">
+                <span class="icon">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              {{ topic.text|truncatechars:100 }}<br>
+              <time datetime="2016-1-1">{{ topic.date }}</time>
+            </div>
+          </div>
+          <footer class="card-footer">
+            <p class="card-footer-item">автор: {{ topic.author }}</p>
+            <p class="card-footer-item">просмотры: {{ topic.views }}</p>
+            <p class="card-footer-item">ответы: {{ topic.num_answers }}</p>
+          </footer>
+        </div>
+      {% endfor %}
+    </div>
   </div>
 </div>
 

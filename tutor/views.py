@@ -3,19 +3,37 @@ from .models import Tutor, Comm_tut
 from .forms import CommForm,TutorForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
+from django.core.paginator import Paginator
 
 def showtutor(request):
     all_tut = Tutor.objects.all()
     search_query = request.GET.get('search')
+    paginator = Paginator(all_tut, 5)
+    page_number = request.GET.get('page')
+    if page_number and page_number.isdigit():
+        page_number = int(page_number)
+        page_obj = paginator.page(page_number)
+    else:
+        page_obj = paginator.page(1)
     if search_query:
-        all_tut = all_tut.filter(title__icontains=search_query)
-    return render(request, 'tutor/showtutor.html', {'all_tut': all_tut})
-    
+        all_tut = Tutor.objects.filter(title__icontains=search_query)
+    else:
+        all_tut = page_obj.object_list
+    return render(request, 'tutor/showtutor.html', {'all_tut': all_tut, 'page_obj': page_obj})    
+
 def d_tutor(request, post_id):
     post = Tutor.objects.get(id=post_id)
     post.views += 1
     post.save()
-    comments = Comm_tut.objects.filter(post=post_id).order_by('-pub_date')
+    comment_list = Comm_tut.objects.filter(post=post).order_by('-pub_date')
+    list = Comm_tut.objects.all()
+    paginator = Paginator(list, 5)
+    page_number = request.GET.get('page')
+    if page_number and page_number.isdigit():
+        page_number = int(page_number)
+        page_obj = paginator.page(page_number)
+    else:
+        page_obj = paginator.page(1)
     if request.method == 'POST':
         form = CommForm(request.POST)
         if form.is_valid():
@@ -26,7 +44,7 @@ def d_tutor(request, post_id):
             return redirect('d_tutor', post_id=post_id)
     else:
         form = CommForm()
-    return render(request, 'tutor/d_tutor.html', {'post': post, 'comments': comments, 'form': form})
+    return render(request, 'tutor/d_tutor.html', {'post': post, 'page_obj': page_obj, 'post_id': post_id, 'form': form, 'comment_list': comment_list})
 
 @login_required(login_url='login')
 def add_tutor(request):

@@ -24,15 +24,66 @@
             </div>
         </div>
 
+
+        <nav class="pagination is-small" role="navigation" aria-label="pagination">
+            <ul class="pagination-list">
+                {% if page_obj.has_previous %}
+                    <li class="pagination-previous">
+                        <a href="{% url 'showtutor' %}?page={{ page_obj.previous_page_number }}" rel="prev">
+                            <span class="has-text-success">назад</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="pagination-previous is-disabled">
+                        <a href="#" rel="nofollow">
+                            <span class="has-text-success">назад</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% for page in page_obj.paginator.page_range %}
+                    {% if page == page_obj.number %}
+                        <li class="pagination-link is-current">
+                            <span>{{ page }}</span>
+                        </li>
+                    {% else %}
+                        <li class="pagination-link">
+                            <a href="{% url 'showtutor' %}?page={{ page }}" rel="nofollow">
+                                <span class="has-text-success">{{ page }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="pagination-next">
+                        <a href="{% url 'showtutor' %}?page={{ page_obj.next_page_number }}" rel="next">
+                            <span class="has-text-success">вперед</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="pagination-next is-disabled">
+                        <a href="#" rel="nofollow">
+                            <span class="has-text-success">вперед</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+
         <div class="block">
             <div class="filter is-flexbox">
                 {% for tut in all_tut %}
                     <div class="box mt-4 mr-4">
                         <article class="media">
                             <div class="media-left">
+                                {% if tut.author.myuser.ava %}
                                 <figure class="image is-64x64">
                                     <img src="{{ tut.author.myuser.ava.url }}" alt="Image" />
                                 </figure>
+                                {% else %}
+                                <figure class="image is-64x64"
+                                <img src="https://bulma.io/assets/images/placeholders/256x256.png" />
+                                </figure>
+                                {% endif %}
                             </div>
                             <div class="media-content">
                                 <div class="content">

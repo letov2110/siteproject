@@ -4,14 +4,25 @@ from django.views.generic import DetailView
 from django.views.decorators.cache import cache_page
 from rest_framework import generics
 from .serializers import NewsSerializer
+from django.core.paginator import Paginator
 
 def shownews(request):
     newsc = Cat_News.objects.all()
-    news = News.objects.order_by('-date')
     category_id = request.GET.get('category')
+    list = News.objects.all()
+    paginator = Paginator(list, 5)
+    page_number = request.GET.get('page')
+    if page_number and page_number.isdigit():
+        page_number = int(page_number)
+        page_obj = paginator.page(page_number)
+    else:
+        page_obj = paginator.page(1)
     if category_id:
-        news = news.filter(category=category_id)
-    return render(request, 'news/shownews.html', {'news': news, 'newsc': newsc})
+        news = News.objects.filter(category=category_id).order_by('-date')
+    else:
+        news = page_obj.object_list
+
+    return render(request, 'news/shownews.html', {'news': news, 'newsc': newsc, 'page_obj': page_obj})
 
 
 class NewsView(DetailView):

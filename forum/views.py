@@ -5,6 +5,8 @@ from .forms import QuestionForm, AnswerForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.http import HttpResponseForbidden,HttpResponseNotFound
+from django.core.paginator import Paginator
+
 
 
 def all_topics(request):
@@ -12,11 +14,21 @@ def all_topics(request):
     all_top_category = Cat_topics.objects.all()
     top_category_id = request.GET.get('category')
     search_query = request.GET.get('search')
+    list = Forum_Question.objects.all()
+    paginator = Paginator(list, 5)
+    page_number = request.GET.get('page')
+    if page_number and page_number.isdigit():
+        page_number = int(page_number)
+        page_obj = paginator.page(page_number)
+    else:
+        page_obj = paginator.page(1)
     if top_category_id:
         all_topic = all_topic.filter(cat_topic=top_category_id)
     if search_query:
         all_topic = all_topic.filter(title__icontains=search_query)
-    return render(request, "forum/all_topics.html", {'all_topic': all_topic, 'all_top_category': all_top_category})
+    else:
+        all_topic = page_obj.object_list
+    return render(request, "forum/all_topics.html", {'all_topic': all_topic, 'all_top_category': all_top_category,'page_obj':page_obj})
 
 
 @login_required(login_url='login')
@@ -40,10 +52,17 @@ def topic(request, post_id):
     top_question.save()
     answers = Forum_Answer.objects.filter(post_id=post_id).order_by('-pub_date')
     num_answers = answers.count()
-    num_answers = answers.count()
     cat_topics = Cat_topics.objects.filter(forum_question=top_question)
     ans_form = AnswerForm()
-    
+    list = Forum_Answer.objects.all()
+    paginator = Paginator(list, 5)
+    page_number = request.GET.get('page')
+    if page_number and page_number.isdigit():
+        page_number = int(page_number)
+        page_obj = paginator.page(page_number)
+    else:
+        page_obj = paginator.page(1)
+
     if request.method == "POST":
         if 'upvote' in request.POST and 'answer_id' in request.POST:
             answer_id = request.POST['answer_id']
@@ -81,11 +100,13 @@ def topic(request, post_id):
         else:
             ans_form = AnswerForm()
     return render(request, 'forum/topic.html', {
-        'answers': answers,
+        'answers': page_obj.object_list,
         'top_question': top_question,
         'ans_form': ans_form,
         'cat_topics': cat_topics,
         'num_answers': num_answers,
+        'page_obj': page_obj,
+        'post_id':post_id,
         
     })
 

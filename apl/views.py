@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_page
 from rest_framework import generics
 from .serializers import PostSerializer
+from django.core.paginator import Paginator
+
 ##
 def base(request):
     return render(request,'base.html')
@@ -22,11 +24,20 @@ def show(request):
     search_query = request.GET.get('search')
     teg1 = Category.objects.all()
     category_id = request.GET.get('category')
+    paginator=Paginator(teg, 10)
+    page_number = request.GET.get('page')
+    if page_number and page_number.isdigit():
+        page_number=int(page_number)
+        page_obj = paginator.page(page_number)
+    else:
+        page_obj = paginator.page(1)
     if category_id:
         teg = teg.filter(categories=category_id)
     if search_query:
-        teg= teg.filter(content__icontains=search_query)
-    return render(request, "apl/show.html", {"teg": teg, 'teg1': teg1})
+        teg= teg.filter(content__icontains=search_query) 
+    else:
+        teg = page_obj.object_list
+    return render(request, "apl/show.html", {"teg": teg, 'teg1': teg1,'page_obj':page_obj})
 ####
 @login_required(login_url='login')
 def create(request):

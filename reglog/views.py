@@ -10,6 +10,8 @@ from django.views.decorators.cache import cache_page
 from django.core.mail import send_mail
 from django.conf import settings
 import random, string
+from django.core.paginator import Paginator
+
 
 # @cache_page(60*10)
 def register(request):
@@ -122,4 +124,12 @@ def editprofile(request):
 def user_list(request):
     users = MyUser.objects.exclude(ava__isnull=True)
     user = request.user
-    return render(request, 'reglog/user_list.html', {'users': users,'user':user})
+    list = MyUser.objects.all()
+    paginator = Paginator(list, 10)
+    page_number = request.GET.get('page')
+    if page_number and page_number.isdigit():
+        page_number = int(page_number)
+        page_obj = paginator.page(page_number)
+    else:
+        page_obj = paginator.page(1)
+    return render(request, 'reglog/user_list.html', {'users': users,'user':user,'page_obj':page_obj})

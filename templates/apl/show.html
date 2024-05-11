@@ -26,32 +26,79 @@
             </div>
         </div>
 
-        <div class="filter is-flexbox mt-6">
-            <form method="GET" action="">
-                
-                {% for category in teg1 %}
-                    <button class="button is-hovered has-background-success mx-2 mt-2" type="submit" name="category"
-                        value="{{ category.id }}">
-                            <p class="has-text-dark">{{ category.name }}</p>
-                    </button>
-                {% endfor %}
-            </form>
+        <div class="block">
+            <div class="filter is-flexbox">
+                <form method="GET" action="">
+                    
+                    {% for category in teg1 %}
+                        <button class="button is-hovered has-background-success mx-2 mt-2" type="submit" name="category"
+                            value="{{ category.id }}">
+                                <p class="has-text-dark">{{ category.name }}</p>
+                        </button>
+                    {% endfor %}
+                </form>
+            </div>
         </div>
-    </div>
-</div>
-<div class="columns is-centered">
-    <div class="column is-two-fifths ml-2 mr-2">
-        <div class="command is-flexbox mt-3">    
-            <div class="block">
-                {% for inf in teg %}        
-                    <button  class="button is-hovered has-background-success mt-4"
-                            onclick="copy('{{ inf.title }}')">
-                            <p class="has-text-dark">{{ inf.title }}</p>
-                    </button>
-                        <div class="disc is-flexbox ">
-                            {{ inf.content }}
-                        </div>
-                {% endfor %}
+
+        <div class="block">
+            <nav class="pagination is-small" role="navigation" aria-label="pagination">
+                <ul class="pagination-list">
+                    {% if page_obj.has_previous %}
+                        <li class="pagination-previous">
+                            <a href="{% url 'show' %}?page={{ page_obj.previous_page_number }}" rel="prev">
+                                <span class="has-text-success">назад</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="pagination-previous is-disabled">
+                            <a href="#" rel="nofollow">
+                                <span class="has-text-success">назад</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% for page in page_obj.paginator.page_range %}
+                        {% if page == page_obj.number %}
+                            <li class="pagination-link is-current">
+                                <span>{{ page }}</span>
+                            </li>
+                        {% else %}
+                            <li class="pagination-link">
+                                <a href="{% url 'show' %}?page={{ page }}" rel="nofollow">
+                                    <span class="has-text-success">{{ page }}</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                        <li class="pagination-next">
+                            <a href="{% url 'show' %}?page={{ page_obj.next_page_number }}" rel="next">
+                                <span class="has-text-success">вперед</span>
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="pagination-next is-disabled">
+                            <a href="#" rel="nofollow">
+                                <span class="has-text-success">вперед</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+
+        <div  class="block">
+            <div class="command is-flexbox mt-3">    
+                <div class="block">
+                    {% for inf in teg %}        
+                        <button  class="button is-hovered has-background-success mt-4"
+                                onclick="copy('{{ inf.title }}')">
+                                <p class="has-text-dark">{{ inf.title }}</p>
+                        </button>
+                            <div class="disc is-flexbox ">
+                                {{ inf.content }}
+                            </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
