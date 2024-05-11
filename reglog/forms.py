@@ -19,3 +19,8 @@ class EditUser(ModelForm):
     class Meta:
         model = MyUser
         fields = ['nickname', 'email','first_name','last_name','birsday' ,'about', 'ava']
+        widgets = {
+            'first_name': forms.TextInput(attrs={'required': True}),
+            'last_name': forms.TextInput(attrs={'required': True}),
+            'nickname': forms.TextInput(attrs={'required': True}),
+        }

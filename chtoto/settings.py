@@ -2,6 +2,10 @@
 from pathlib import Path,os
 BASE_DIR = Path(__file__).resolve().parent.parent
 from .settings_pass import *
+import os
+from urllib.parse import urljoin
+from django.conf import settings
+from django.core.files.storage import FileSystemStorage
 
 SECRET_KEY = key
 
@@ -10,6 +14,8 @@ ALLOWED_HOSTS = ['127.0.0.1','localost','buksite.space']
 DEBUG = True
 
 INSTALLED_APPS = [
+    'grappelli',
+    'filebrowser',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -20,7 +26,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'reglog',
     'tutor',
-    'newart','django_ckeditor_5','forum',
+    'newart',
+    'tinymce',
+    'forum',
 ]
 
 CKEDITOR_UPLOAD_PATH="uploads/"
@@ -82,9 +90,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'chtoto.wsgi.application'
 
-
-from .settings_pass import databases_password,databases_name,databases_user
-from .settings_pass import databases_password,databases_name,databases_user
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -130,7 +135,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    BASE_DIR / "statics",
     BASE_DIR / "staticfiles",
 ]
 
@@ -166,78 +170,34 @@ customColorPalette = [
             'label': 'Blue'
         },
     ]
-
-import os
-from urllib.parse import urljoin
-
-from django.conf import settings
-from django.core.files.storage import FileSystemStorage
-
-
-class CustomStorage(FileSystemStorage):
-    """Custom storage for django_ckeditor_5 images."""
-
-    location = os.path.join(settings.MEDIA_ROOT, "django_ckeditor_5")
-    base_url = urljoin(settings.MEDIA_URL, "django_ckeditor_5/")
-CKEDITOR_5_CUSTOM_CSS = 'static.css' # optional
-CKEDITOR_UPLOAD_PATH = "static"
-
-
-
-# CKEDITOR_5_FILE_STORAGE = "static" # optionals
-CKEDITOR_5_CONFIGS = {
-    
-    'default': {
-        'blockToolbar': [
-            'paragraph', 'heading1', 'heading2', 'heading3',
-            '|',
-            'bulletedList', 'numberedList',
-            '|',
-            'blockQuote',
-        ],
-        'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
-        'code','subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
-                    'bulletedList', 'numberedList', 'todoList', '|',  'blockQuote', 'imageUpload', '|',
-                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
-                    'insertTable',],
-        'image': {
-            'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft',
-                        'imageStyle:alignRight', 'imageStyle:alignCenter', 'imageStyle:side',  '|'],
-            'styles': [
-                'full',
-                'side',
-                'alignLeft',
-                'alignRight',
-                'alignCenter',
-            ]
-
-        },
-        'table': {
-            'contentToolbar': [ 'tableColumn', 'tableRow', 'mergeTableCells',
-            'tableProperties', 'tableCellProperties' ],
-            'tableProperties': {
-                'borderColors': customColorPalette,
-                'backgroundColors': customColorPalette
-            },
-            'tableCellProperties': {
-                'borderColors': customColorPalette,
-                'backgroundColors': customColorPalette
-            }
-        },
-        'heading' : {
-            'options': [
-                { 'model': 'paragraph', 'title': 'Paragraph', 'class': 'ck-heading_paragraph' },
-                { 'model': 'heading1', 'view': 'h1', 'title': 'Heading 1', 'class': 'ck-heading_heading1' },
-                { 'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2' },
-                { 'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3' }
-            ]
-        }
-    },
-    'list': {
-        'properties': {
-            'styles': 'true',
-            'startIndex': 'true',
-            'reversed': 'true',
-        }
-    }
-}
+PROJECT_DIR = os.path.dirname(__file__)
+TINYMCE_SPELLCHECKER = True
+TINYMCE_JS_URL = os.path.join(STATIC_URL, "tinymce/tinymce.min.js")
+TINYMCE_JS_ROOT = os.path.join(STATIC_ROOT, "tinymce")
+FILEBROWSER_DIRECTORY = ''
+DIRECTORY = ''
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+TINYMCE_DEFAULT_CONFIG = {
+    "relative_urls": False,
+    "remove_script_host": False,
+    "convert_urls": True,
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 20,
+    'theme': 'silver',
+    'plugins': '''
+            textcolor save link image media preview codesample contextmenu
+            table code lists fullscreen  insertdatetime  nonbreaking
+            contextmenu directionality searchreplace wordcount visualblocks
+            visualchars code fullscreen autolink lists  charmap print  hr
+            anchor pagebreak
+            ''',
+    'toolbar1': '''
+            bold italic underline | fontselect,
+            fontsizeselect  | forecolor backcolor | alignleft alignright |
+            aligncenter alignjustify | indent outdent | bullist numlist table |
+            | link image media | codesample |
+            ''',
+    'contextmenu': 'formats | link image',
+    'menubar': True,
+    'statusbar': True,
+    "language": "en_US",}

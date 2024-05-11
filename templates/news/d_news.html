@@ -24,9 +24,16 @@
                </div>
                <div class="block">
                     <div class="card-image">
+                         {% if newss.image.url %}
                          <figure class="image is-4by3 mx-2">
                               <img src="{{ newss.image.url }}" alt="Placeholder image"/>
                          </figure>
+                         {% else %}
+                         <figure class="image is-4by3 mx-2">
+                              <img src="https://bulma.io/assets/images/placeholders/256x256.png" />
+                         </figure>
+                         {% endif %}
+
                     </div>
                </div>
                <div class="block">     

@@ -41,6 +41,7 @@ def add_tutor(request):
         form = TutorForm()
     return render(request, 'tutor/add_tutor.html', {'form': form})
 
+@login_required(login_url='login')
 def edit_comment(request, post_id, comment_id):
     post = Tutor.objects.get(id=post_id)
     comment = Comm_tut.objects.get(id=comment_id)
@@ -53,6 +54,7 @@ def edit_comment(request, post_id, comment_id):
         form = CommForm(instance=comment)
     return render(request, 'tutor/d_tutor.html', {'post': post, 'comment': comment, 'form': form})
 
+@login_required(login_url='login')
 def delete_comment(request, post_id, comment_id):
     post = Tutor.objects.get(id=post_id)
     comment = Comm_tut.objects.get(id=comment_id)

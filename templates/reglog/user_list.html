@@ -30,7 +30,11 @@
                     <div class="media-content">
                         <p class="title is-4">
                             <a href="{% url 'profile' user.myuser.id %}">
-                                {{ user.myuser.first_name }} {{ user.myuser.last_name }} {{ user.myuser.nickname }} 
+                                {% if user.myuser.first_name or user.myuser.last_name or user.myuser.nickname %}
+                                    {{ user.myuser.first_name }} {{ user.myuser.last_name }} {{ user.myuser.nickname }}
+                                    {% else %}
+                                    {{user.myuser.username}}
+                                    {% endif %}
                             </a>
                         </p>
                         <p class="subtitle is-6">почта:{{ user.myuser.email }}</p>

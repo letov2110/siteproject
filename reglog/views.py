@@ -21,13 +21,9 @@ def register(request):
             if len(user_form.cleaned_data['password']) < 8 or sum(c.isalpha() for c in user_form.cleaned_data['password']) < 2:
                 error = "Пароль должен быть не менее 8 символов, из которых 2 буквы"
                 return render(request, 'reglog/register.html', {'user_form': user_form, 'error': error})
-                error = "Пароль должен быть не менее 8 символов, из которых 2 буквы"
-                return render(request, 'reglog/register.html', {'user_form': user_form, 'error': error})
             
             username = user_form.cleaned_data['username']
             if User.objects.filter(username=username).exists():
-                error = "Пользователь с таким именем уже существует"
-                return render(request, 'reglog/register.html', {'user_form': user_form, 'error': error})
                 error = "Пользователь с таким именем уже существует"
                 return render(request, 'reglog/register.html', {'user_form': user_form, 'error': error})
             new_user = user_form.save(commit=False)
@@ -43,20 +39,9 @@ def register(request):
             
             new_user = authenticate(username=user_form.cleaned_data['username'], password=user_form.cleaned_data['password'])
             login(request, new_user)
-            return redirect('myprofile')
-
-            # Отправка письма на почту
-            subject = 'регистрация прошла успешно'
-            message = f'Привет, {user_form.cleaned_data["username"]}!\nСпасибо за регистрацию!\nданные для входа:\n\nлогин: {user_form.cleaned_data["username"]}\nпароль: {user_form.cleaned_data["password"]}'
-            email_from = settings.EMAIL_HOST_USER
-            recipient_list = [user_form.cleaned_data['email']]
-            send_mail(subject, message, email_from, recipient_list)
+            return redirect('editprofile')
             
-            new_user = authenticate(username=user_form.cleaned_data['username'], password=user_form.cleaned_data['password'])
-            login(request, new_user)
-            return redirect('myprofile')
         else:
-            error = user_form.errors
             error = user_form.errors
     else:
         user_form = UserReg()

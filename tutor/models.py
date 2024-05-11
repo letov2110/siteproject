@@ -1,11 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django_ckeditor_5.fields import CKEditor5Field
-
+from tinymce import models as tinymce_models
 
 class Tutor(models.Model):
     title = models.CharField(max_length=100)
-    text = CKEditor5Field('text', config_name='default')
+    text = tinymce_models.HTMLField()
     public_text = models.TextField(blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True,blank=True)

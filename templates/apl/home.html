@@ -8,9 +8,15 @@
             <h class="title is-3 has-text-success">all is easy breezy...</h>
             <h class="subtitle is-5 has-text-success">sometimes...</h>
         </div>
-            <figure class="image is-16by9" >
-                <image src="{{ image.get_image_url }}"><a>
+        {% if image.get_image_url%}
+            <figure class="image is-16by9" >        
+                <image src="{{ image.get_image_url }}">
             </figure>
+        {% else %}
+            <figure class="image  is-16by9">
+                <img src="https://bulma.io/assets/images/placeholders/256x256.png" />
+            </figure>
+        {% endif %}
     </div>
 </div>
 

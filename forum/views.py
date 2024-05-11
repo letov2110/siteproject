@@ -4,6 +4,8 @@ from .models import Forum_Question, Forum_Answer,Cat_topics,VotedComment
 from .forms import QuestionForm, AnswerForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
+from django.http import HttpResponseForbidden,HttpResponseNotFound
+
 
 def all_topics(request):
     all_topic = Forum_Question.objects.all().annotate(num_answers=Count('forum_answer'))
@@ -86,3 +88,31 @@ def topic(request, post_id):
         'num_answers': num_answers,
         
     })
+
+@login_required(login_url='login')
+def edit_answer(request, post_id, answer_id):
+    try:
+        answer = Forum_Answer.objects.get(id=answer_id)
+        if answer.author != request.user:
+            return HttpResponseForbidden()
+        if request.method == 'POST':
+            ans_form = AnswerForm(request.POST, instance=answer)
+            if ans_form.is_valid():
+                ans_form.save()
+                return redirect('topic', post_id=post_id)
+        else:
+            ans_form = AnswerForm(instance=answer)
+        return render(request, 'forum/topic.html', {'ans_form': ans_form, 'post_id': post_id, 'answer_id': answer_id})
+    except Forum_Answer.DoesNotExist:
+        return HttpResponseNotFound()
+
+@login_required(login_url='login')
+def delete_answer(request, post_id, answer_id):
+    try:
+        answer = Forum_Answer.objects.get(id=answer_id)
+        if answer.author != request.user:
+            return HttpResponseForbidden()
+        answer.delete()
+        return redirect('topic', post_id=post_id)
+    except Forum_Answer.DoesNotExist:
+        return HttpResponseNotFound()
