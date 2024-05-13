@@ -20,26 +20,25 @@ def about(request):
     return render(request,'apl/about.html')
 #######
 def show(request):
-    teg = Post.objects.all() 
-    search_query = request.GET.get('search')
+    teg = Post.objects.all()
     teg1 = Category.objects.all()
     category_id = request.GET.get('category')
-    paginator=Paginator(teg, 10)
+    search_query = request.GET.get('search')
+    if category_id:
+        teg = teg.filter(categories=category_id)
+    if search_query:
+        teg = teg.filter(content__icontains=search_query)
+    else:
+        teg = teg
+    paginator = Paginator(teg, 4)
     page_number = request.GET.get('page')
     if page_number and page_number.isdigit():
-        page_number=int(page_number)
+        page_number = int(page_number)
         page_obj = paginator.page(page_number)
     else:
         page_obj = paginator.page(1)
-    if category_id:
-        category_id = int(category_id)
-        teg = teg.filter(categories__id=category_id)
-    if search_query:
-        teg= teg.filter(content__icontains=search_query) 
-    else:
-        teg = page_obj.object_list
-    return render(request, "apl/show.html", {"teg": teg, 'teg1': teg1,'page_obj':page_obj})
-####
+    return render(request, "apl/show.html", {"teg": page_obj.object_list, 'teg1': teg1,'page_obj':page_obj})
+
 @login_required(login_url='login')
 def create(request):
     if request.method == 'POST':

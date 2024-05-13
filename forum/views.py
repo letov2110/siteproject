@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from .models import Forum_Question, Forum_Answer,Cat_topics,VotedComment
-from .models import Forum_Question, Forum_Answer,Cat_topics,VotedComment
 from .forms import QuestionForm, AnswerForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
@@ -15,7 +14,7 @@ def all_topics(request):
     top_category_id = request.GET.get('category')
     search_query = request.GET.get('search')
     list = Forum_Question.objects.all()
-    paginator = Paginator(list, 5)
+    paginator = Paginator(list, 2)
     page_number = request.GET.get('page')
     if page_number and page_number.isdigit():
         page_number = int(page_number)
