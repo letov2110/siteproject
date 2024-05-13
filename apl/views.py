@@ -32,7 +32,8 @@ def show(request):
     else:
         page_obj = paginator.page(1)
     if category_id:
-        teg = teg.filter(categories=category_id)
+        category_id = int(category_id)
+        teg = teg.filter(categories__id=category_id)
     if search_query:
         teg= teg.filter(content__icontains=search_query) 
     else:

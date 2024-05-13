@@ -28,7 +28,7 @@
 
         <div class="block">
             <div class="filter is-flexbox">
-                <form method="GET" action="">
+                <form method="GET" action="{% url 'show' %}"  name="category_form">
                     
                     {% for category in teg1 %}
                         <button class="button is-hovered has-background-success mx-2 mt-2" type="submit" name="category"

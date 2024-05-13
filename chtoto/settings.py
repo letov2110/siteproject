@@ -6,7 +6,7 @@ import os
 
 SECRET_KEY = key
 
-ALLOWED_HOSTS = ['127.0.0.1','localost','buksite.space']
+ALLOWED_HOSTS = ['127.0.0.1','localost','buksite.space','178.128.243.102']
 
 DEBUG = True
 
@@ -27,8 +27,6 @@ INSTALLED_APPS = [
     'tinymce',
     'forum',
 ]
-
-CKEDITOR_UPLOAD_PATH="uploads/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
