@@ -59,7 +59,8 @@
             <div class="cell mt-6 ">
                 <div class="block is-size-5 ">
                     {% if user.myuser.first_name or user.myuser.last_name or user.myuser.nickname %}
-                    {{ user.myuser.first_name }} {{ user.myuser.last_name }} {{ user.myuser.nickname }}
+                    {{ user.myuser.first_name }} {{ user.myuser.nickname }} {{ user.myuser.last_name }} <br>
+                    
                     {% else %}
                     {% endif %}
                 </div>
