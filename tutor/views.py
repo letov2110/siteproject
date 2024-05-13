@@ -26,8 +26,7 @@ def d_tutor(request, post_id):
     post.views += 1
     post.save()
     comment_list = Comm_tut.objects.filter(post=post).order_by('-pub_date')
-    list = Comm_tut.objects.all()
-    paginator = Paginator(list, 5)
+    paginator = Paginator(comment_list, 5)
     page_number = request.GET.get('page')
     if page_number and page_number.isdigit():
         page_number = int(page_number)

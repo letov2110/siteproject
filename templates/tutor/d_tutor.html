@@ -89,7 +89,7 @@
     
 
 
-      {% for comment in comment_list %}
+      {% for comment in page_obj.object_list %}
       {% if comment.post == post %}
       <div class="block">      
         <div class="card mr-3">
