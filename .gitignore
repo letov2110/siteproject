@@ -22,4 +22,10 @@ reglog/migrations
 tutor/__pycache__
 tutor/migrations
 
+test/__pycache__
+test/migrations
+
+widget/__pycache__
+widget/migrations
+
 static/static
