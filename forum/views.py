@@ -106,7 +106,8 @@ def topic(request, post_id):
         'num_answers': num_answers,
         'page_obj': page_obj,
         'post_id':post_id,
-        
+        'answers_with_votes': [(answer, answer.total_votes) for answer in answers]
+
     })
 
 @login_required(login_url='login')

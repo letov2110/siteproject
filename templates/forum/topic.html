@@ -99,7 +99,7 @@
 
 
       <div class="block">
-        {% for answer in answers %}
+        {% for answer, total_votes in answers_with_votes %}
         <div class="card">
           <div class="card-content">
             <div class="media">
@@ -126,6 +126,7 @@
                       </a>
                     {% endif %}
               </div>
+              <h class="mx-2"> Оценок: {{ total_votes }}</h>
               <form method="post"  action="{% url 'topic' post_id=top_question.pk %}">
                 {% csrf_token %}
                 <input type="hidden" name="answer_id" value="{{ answer.id }}">
@@ -133,9 +134,9 @@
                   <h class="has-text-success">+</h>
                 </button>
               </form>
-      
-                <span class="rating mx-4">{{ answer.rating }}</span>
-      
+              
+                <span class="rating mx-4">рейтинг ответа:{{ answer.rating }}</span>
+                
               <form method="post" action="{% url 'topic' post_id=top_question.pk %}">
                 {% csrf_token %}
                 <input type="hidden" name="answer_id" value="{{ answer.id }}">

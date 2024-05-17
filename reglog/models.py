@@ -4,6 +4,7 @@ from datetime import date
 from forum.models import Forum_Answer
 from django.db.models import Sum
 from tutor.models import Tutor
+from widget.models import Question
 
 class MyUser(User):
     nickname = models.CharField(max_length=50,blank=True)    
@@ -25,4 +26,3 @@ class MyUser(User):
         total_rating = (forum_rating if forum_rating else 0) + tutor_rating
         
         return total_rating
-    

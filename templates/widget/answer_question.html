@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %} answertest {% endblock %}
+{% block content %}
+
+<div class="columns is-centered">
+    <div class="column is-two-fifths ml-2 mr-2">
+        <form method="post">
+            {% csrf_token %}
+
+                <div class="block mt-6">
+                    {{ question.name}}        
+                </div>
+
+                <div class="block mt-6">
+                    {{ question.q_text |safe}}
+                </div>
+
+                    <div class="block mt-6">
+                        {% for answer in answers %}
+                            <label class="checkbox mb-2">
+                                <input type="checkbox" name="answer" value="{{ answer.pk }}">
+                                {{ answer.name }}
+                            </label><br>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="block ">
+                        <button class="button has-background-success mr-6" type="submit" name="add" value="добавить">
+                            <h class="has-text-dark">ответить</h>
+                        </button>
+                    </div>
+        </form>
+    </div>
+</div> 
+{% endblock content %}

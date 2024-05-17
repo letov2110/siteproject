@@ -1,5 +1,4 @@
 from django.db import models
-from django.db import models
 from django.utils.text import slugify
 
 class Category(models.Model):
@@ -19,9 +18,3 @@ class Img(models.Model):
     image = models.ImageField(upload_to='upload/apl')
     def get_image_url(self):
         return self.image.url
-
-
-
-
-    
-

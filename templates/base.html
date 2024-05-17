@@ -39,13 +39,13 @@
 
         <div class="navbar-menu" id="nav-links">
             <div class="navbar-end mr-6">
-                <div class="dropdown has-dropdown is-hoverable mb-2 ml-3 mt-3 ">
+                <div class="dropdown has-dropdown is-hoverable mb-2 mr-6 mt-3 ">
                     <div class="dropdown-trigger">
                         <button class="button"  aria-haspopup="true" aria-controls="dropdown-menu">
                             <span>
                                 <span aria-hidden="true">добавить</span>
                             </span>
-                                <span class="icon is-small">
+                                <span cla[ss="icon is-small">
                                     <i class="fas fa-angle-down" aria-hidden="true"></i>
                                 </span>
                         </button>
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                 </div>
-
+                <a class="navbar-item mr-6" href="{% url 'question_list' %}">Проверь себя</a>
                 <a class="navbar-item mr-6" href="{% url 'user_list' %}">Профили</a>
                 <a class="navbar-item mr-6" href={% url 'show' %}>Команды</a>
                 <a class="navbar-item mr-6" href={% url 'shownews' %}>Новости</a>
@@ -71,9 +71,10 @@
         </div>
     </nav>
     <script src="{% static 'burger.js' %}"></script>
+    
+        <div class="columns is-centered ">
 
-    <div class="columns  is-centered">
-        <div class="column">{% block content %} {% endblock %}</div>
+        <div class="column is-two-thirds">{% block content %} {% endblock %}</div>
     </div>
 
 </body>

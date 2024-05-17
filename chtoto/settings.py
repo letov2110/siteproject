@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'newart',
     'tinymce',
     'forum',
+    'widget',
 ]
 
 MIDDLEWARE = [

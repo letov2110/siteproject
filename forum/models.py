@@ -26,6 +26,9 @@ class Forum_Answer(models.Model):
     rating = models.IntegerField(default=0)
     def __str__(self): 
         return self.text
+    @property
+    def total_votes(self):
+        return VotedComment.objects.filter(answer=self).count()
     
 class VotedComment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

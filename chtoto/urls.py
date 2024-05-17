@@ -15,6 +15,8 @@ urlpatterns = [
     path("newart/", include("newart.urls")),
     path("tutor/", include("tutor.urls")),
     path("forum/", include("forum.urls")),
+    path("widget/", include("widget.urls")),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

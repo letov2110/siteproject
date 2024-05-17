@@ -12,7 +12,7 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path("base/", views.base, name="base"),
+    # path("base/", views.base, name="base"),
     path("", views.home, name="home"),
     path("about/", views.about, name="about"),   
     path("create/", views.create, name="create"),

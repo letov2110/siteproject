@@ -10,3 +10,4 @@ admin.site.register(Category)
 admin.site.register(Post,ComAdm)
 admin.site.register(Img)
 
+

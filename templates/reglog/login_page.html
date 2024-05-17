@@ -13,17 +13,17 @@
 
         <form method="post">
             {% csrf_token %}
-            <div class="block mx-2">
-                <div class="field mr-4">
-                    <p class="control has-icons-left has-icons-right">
-                        <input class="input" type="login" placeholder="login"{{login.username}}
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-envelope"></i>
-                                </span>
-                                <span class="icon is-small is-right">
-                            <i class="fas fa-check"></i>
-                        </span>
-                    </p>
+            <div class="block mx-2">    
+                <div class="field grp-margin-right-xs">
+                    <div class="control has-icons-left has-icons-right">
+                    <input class="input " type="text" placeholder="username" {{login.username}}
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                    <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    </div>
                 </div>
             </div>
 

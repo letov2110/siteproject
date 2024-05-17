@@ -38,7 +38,11 @@
                             </a>
                         </p>
                         <p class="subtitle is-6">почта:{{ user.myuser.email }}</p>
-                        <p class="subtitle is-6">рейтинг:{{ user.myuser.total_rating }}</p>
+                        {% if user.myuser.total_rating  %}
+                            <p class="mx-2">рейтинг:</p><br> {{ user.myuser.total_rating }}
+                        {% else %}
+                            <p class="mx-2">рейтинг:</p><br> 0
+                        {% endif %} 
                 </div>
             </div>
         {% endif %}
