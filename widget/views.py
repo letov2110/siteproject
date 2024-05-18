@@ -23,41 +23,17 @@ def question_list(request):
     
     return render(request, 'widget/question_list.html', {'questions': questions, 'page_obj': page_obj})
 
-# def answer_question(request, pk):
-#     question = get_object_or_404(Question, pk=pk)
-#     user = get_object_or_404(MyUser, pk=request.user.pk)
-#     if request.method == 'POST':
-#         answer_id = request.POST.get('answer')
-#         answer = get_object_or_404(Answer, pk=answer_id)
-#         if answer.is_correct:
-#             messages.success(request, 'Правильно')
-#             user.rating += question.cost_rating
-#         else:
-#             messages.error(request, 'Неправильно')
-#             user.rating -= question.cost_rating
-        
-#         user.save()  # Save the updated user rating
-        
-#         return HttpResponseRedirect(reverse('question_list'))
-#     else:
-#         answers = question.answer_set.all()
-#         return render(request, 'widget/answer_question.html', {'question': question, 'answers': answers})
-    
-
 @login_required(login_url='login')
 def answer_question(request, pk):
     question = get_object_or_404(Question, pk=pk)
     user = get_object_or_404(MyUser, pk=request.user.pk)
     user_answer = UserAnswer.objects.filter(user=user, question=question).first()
-    
     if request.method == 'POST':
         if user_answer and user_answer.is_correct:
             messages.info(request, 'Вы уже правильно ответили на этот вопрос.')
             return HttpResponseRedirect(reverse('question_list'))
-
         answer_id = request.POST.get('answer')
         answer = get_object_or_404(Answer, pk=answer_id)
-        
         if answer.is_correct:
             messages.success(request, 'Правильно')
             user.rating += question.cost_rating
@@ -66,8 +42,7 @@ def answer_question(request, pk):
             messages.error(request, 'Неправильно')
             user.rating -= question.cost_rating
             UserAnswer.objects.update_or_create(user=user, question=question, defaults={'answer': answer, 'is_correct': False})
-        
-        user.save()  # Save the updated user rating
+        user.save()
         return HttpResponseRedirect(reverse('question_list'))
     else:
         answers = question.answer_set.all()
