@@ -1,5 +1,6 @@
 from django.db import models
 from tinymce import models as tinymce_models
+from django.conf import settings
 
 
 class QuestionType(models.TextChoices):
@@ -23,3 +24,12 @@ class Answer(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name} ({self.question.name})"
+    
+class UserAnswer(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
+    is_correct = models.BooleanField()
+
+    class Meta:
+        unique_together = ('user', 'question')

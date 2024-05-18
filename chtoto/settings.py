@@ -1,4 +1,3 @@
-
 from pathlib import Path,os
 BASE_DIR = Path(__file__).resolve().parent.parent
 from .settings_pass import *

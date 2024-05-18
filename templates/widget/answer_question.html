@@ -16,6 +16,8 @@
                 </div>
 
                     <div class="block mt-6">
+                        {% if can_answer %}
+
                         {% for answer in answers %}
                             <label class="checkbox mb-2">
                                 <input type="checkbox" name="answer" value="{{ answer.pk }}">
@@ -30,6 +32,10 @@
                         </button>
                     </div>
         </form>
+        {% else %}
+    <p>Вы уже правильно ответили на этот вопрос.</p>
+{% endif %}
+
     </div>
 </div> 
 {% endblock content %}

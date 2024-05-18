@@ -23,6 +23,6 @@ class MyUser(User):
         forum_rating = Forum_Answer.objects.filter(author=self).aggregate(Sum('rating'))['rating__sum']
         tutor_rating = Tutor.objects.filter(author=self).count() * 5
         
-        total_rating = (forum_rating if forum_rating else 0) + tutor_rating
+        total_rating = self.rating + forum_rating + tutor_rating
         
         return total_rating
